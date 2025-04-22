@@ -1,0 +1,25 @@
+.navbar {
+    flex-wrap: wrap;
+    padding: 1rem;
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .nav-item {
+            a {
+                color: #333;
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+
+                &:hover {
+                    color: #722F2F;
+                }
+            }
+        }
+    }
+}
