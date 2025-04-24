@@ -1,0 +1,76 @@
+@use "../../styles/variables" as *;
+
+.matchCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 80rem;
+    max-width: 100%;
+    border-radius: 1rem;
+    background-color: $secondary-background-color;
+    padding: clamp(10px, 4vw, 4rem) clamp(20px, 5vw, 40px);
+    margin: 5rem;
+
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        justify-content: center;
+    }
+
+    .matchCardHeader {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        color: $quaternary-color;
+
+        .matchCardTitle {
+            font-size: $font-size-xlarge;
+            line-height: 36px;
+            font-weight: $font-weight-bold;
+        }
+
+        .matchCardContent {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .matchCardCalendar {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+
+                .calendarIcon {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+
+                .matchCardDate {
+                    font-size: $font-size-medium;
+                    line-height: 24px;
+                    font-weight: $font-weight-normal;
+                }
+            }
+
+            .matchCardTeams {
+                font-size: $font-size-large;
+                line-height: 24px;
+                font-weight: $font-weight-medium;
+            }
+        }
+
+        .matchCardFooter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            align-items: center;
+            text-align: center;
+        }
+    }
+}

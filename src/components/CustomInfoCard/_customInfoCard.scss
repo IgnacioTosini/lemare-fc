@@ -1,0 +1,37 @@
+@use "../../styles/variables" as *;
+
+.customInfoCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: clamp(300px, 100%, 400px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: .5rem;
+
+    .icon {
+        svg {
+            width: 3rem;
+            height: 3rem;
+            color: $secondary-color;
+        }
+    }
+
+    .title {
+        font-size: $font-size-large;
+        font-weight: $font-weight-bold;
+        color: $primary-color;
+        line-height: 28px;
+        min-height: clamp(30px, 100%, 40px);
+    }
+
+    .description {
+        font-size: $font-size-medium;
+        font-weight: $font-weight-normal;
+        color: $tertiary-color;
+        text-align: center;
+        line-height: 24px;
+    }
+}

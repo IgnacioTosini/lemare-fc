@@ -1,6 +1,20 @@
+@use "../../styles/variables" as *;
+
 .navbar {
+    position: relative;
     flex-wrap: wrap;
     padding: 1rem;
+
+    .menu-toggle {
+        position: absolute;
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        right: 1rem;
+        top: .5rem;
+    }
 
     .navbar-nav {
         display: flex;
@@ -15,9 +29,39 @@
                 text-decoration: none;
                 padding: 0.5rem 1rem;
                 border-radius: 4px;
+                font-weight: $font-weight-medium;
+                font-size: $font-size-medium;
 
                 &:hover {
                     color: #722F2F;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+
+        .navbar-nav {
+            display: none;
+            flex-direction: column;
+            background-color: white;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            &.open {
+                display: flex;
+            }
+
+            .nav-item {
+                a {
+                    padding: 1rem;
+                    text-align: center;
                 }
             }
         }

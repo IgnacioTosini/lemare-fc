@@ -1,12 +1,14 @@
 import { Banner } from "../../components/Banner/Banner"
-import { Header } from "../../components/Header/Header"
+import { InfoContainer } from "../../components/InfoContainer/InfoContainer"
+import { MatchCard } from "../../components/MatchCard/MatchCard"
 import './_home.scss'
 
 export const Home = () => {
     return (
         <div className="home">
-            <Header />
             <Banner />
+            <MatchCard />
+            <InfoContainer />
         </div>
     )
 }

@@ -1,0 +1,49 @@
+@use "../../styles/variables" as *;
+
+.banner-button,
+.secondary-button {
+    width: clamp(100px, 15vw, 250px);
+    min-height: fit-content;
+    height: clamp(60px, 5vw, 60px);
+    text-align: center;
+    margin: clamp(10px, 2vw, 20px);
+    padding: clamp(10px, 2vw, 20px);
+    background-color: $secondary-background-color;
+    color: $quaternary-color;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: $font-size-small;
+    font-weight: $font-weight-medium;
+    line-height: 20px;
+    text-decoration: none   ;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        min-height: 50px;
+        height: 50px;
+        font-size: $font-size-medium;
+    }
+}
+
+.banner-button:hover {
+    background-color: $hover-color;
+}
+
+.banner-button:focus,
+.secondary-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $hover-color;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.secondary-button {
+    background-color: $background-color;
+    color: $primary-color;
+    border: 1px outset $shadow-color;
+}
+
+.secondary-button:hover {
+    background-color: $secondary-hover-color;
+    color: $secondary-color;
+}

@@ -1,0 +1,15 @@
+@use '../../styles/variables' as *;
+
+.socialMediaIcon {
+    svg {
+        width: 24px;
+        height: 24px;
+        margin: 0 5px;
+        cursor: pointer;
+        color: $tertiary-color;
+    }
+
+    &:hover svg {
+        color: $secondary-hover-color;
+    }
+}

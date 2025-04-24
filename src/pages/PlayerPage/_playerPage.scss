@@ -1,0 +1,186 @@
+@use '../../styles/variables' as *;
+
+.playerPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+    padding: 2rem;
+    background-color: $background-color;
+
+    .backArrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        color: $primary-color;
+        font-size: $font-size-medium;
+        text-decoration: none;
+
+        &:hover {
+            color: $secondary-color;
+            text-decoration: underline;
+        }
+    }
+
+    .playerDetail {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        min-height: 100vh;
+        padding: 2rem;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        @media (max-width: 480px) {
+            grid-template-columns: 1fr;
+        }
+
+        .playerCardContainer {
+            display: flex;
+            justify-content: center;
+            grid-column: span 1;
+            width: 100%;
+
+            @media (max-width: 768px) {
+                grid-column: span 3;
+            }
+
+            @media (max-width: 480px) {
+                grid-column: span 1;
+            }
+        }
+
+        .playerInfo {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1rem;
+            grid-column: span 4;
+
+            @media (max-width: 1024px) {
+                grid-column: span 3;
+                margin-top: 1rem;
+            }
+
+            @media (max-width: 480px) {
+                grid-column: span 1;
+            }
+
+            .playerDescription,
+            .playerStats {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 1.5rem;
+                width: clamp(10rem, 100%, 75rem);
+                gap: 1rem;
+                border: 1px solid $secondary-hover-color;
+                border-radius: 1rem;
+
+                .description {
+                    font-size: $font-size-xlarge;
+                    color: $primary-color;
+                    font-weight: $font-weight-bold;
+                    line-height: 32px;
+                    text-align: center;
+                }
+            }
+
+            .playerDescription {
+                p {
+                    font-size: $font-size-medium;
+                    color: $tertiary-color;
+                    font-weight: $font-weight-normal;
+                    line-height: 26px;
+                    text-align: center;
+                }
+            }
+
+            .statsList {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                flex-wrap: wrap;
+                width: 100%;
+                gap: 1rem;
+                list-style: none;
+
+                .statItem {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    text-align: center;
+                    padding: 2.5rem 1rem;
+                    border-radius: 0.5rem;
+                    color: $primary-color;
+                    font-size: $font-size-medium;
+                    font-weight: $font-weight-normal;
+                    gap: 0.5rem;
+
+                    .statValue {
+                        font-size: $font-size-xlarge;
+                        font-weight: $font-weight-bold;
+                        color: $secondary-color;
+                    }
+
+                    p {
+                        font-size: $font-size-small;
+                        color: $tertiary-color;
+                        font-weight: $font-weight-normal;
+                        line-height: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .playerDetail {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        .playerCardContainer {
+            grid-column: span 1;
+        }
+
+        .playerInfo {
+            grid-column: span 2;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .playerDetail {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        .playerCardContainer {
+            grid-column: span 2;
+        }
+
+        .playerInfo {
+            grid-column: span 2;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .playerDetail {
+        grid-template-columns: 1fr;
+
+        .playerCardContainer {
+            grid-column: span 1;
+        }
+
+        .playerInfo {
+            grid-column: span 1;
+        }
+    }
+}

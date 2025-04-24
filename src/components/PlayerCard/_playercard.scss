@@ -1,0 +1,97 @@
+@use '../../styles/variables' as *;
+
+.playerCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: clamp(250px, 100%, 350px);
+    height: fit-content;
+    box-shadow: 0 4px 8px $shadow-color;
+    background-color: $background-color;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid $secondary-hover-color;
+    transition: all 0.3s ease-in-out;
+    list-style: none;
+    text-decoration: none;
+    color: $primary-color;
+
+    .playerImageContainer {
+        display: block;
+        width: 100%;
+        height: 75%;
+        min-height: 200px;
+        overflow: hidden;
+        position: relative;
+
+        .playerImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .playerNumber {
+            position: absolute;
+            bottom: 5px;
+            right: 0px;
+            background-color: $secondary-color;
+            color: white;
+            font-size: $font-size-large;
+            font-weight: $font-weight-bold;
+            padding: 0.5rem 1rem;
+            z-index: 1;
+        }
+    }
+
+    .playerInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        width: 100%;
+        padding: 1rem;
+        text-align: center;
+        margin-top: 1rem;
+
+        h2 {
+            font-size: $font-size-large;
+            font-weight: $font-weight-bold;
+            margin: 0;
+        }
+
+        p {
+            font-size: $font-size-small;
+            color: $tertiary-color;
+            margin: 0;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.349);
+        cursor: pointer;
+    }
+
+    .playerInfoExpanded {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 0.5rem;
+        padding: 1rem;
+
+        svg {
+            width: 24px;
+            height: 24px;
+
+            &:hover {
+                fill: $secondary-color;
+            }
+        }
+    }
+
+    &.expanded {
+        height: fit-content;
+    }
+}

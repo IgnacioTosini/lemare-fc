@@ -6,7 +6,7 @@ export const Header = () => {
         <div className="header">
             <div className="header-logo">
                 <img src="/assets/escudoDelLemareFC.png" alt="Lemare Fc" className="logo" />
-                <h1 className="header-title">Lemare FC</h1>
+                <h1 className="header-title">LEMARE FC</h1>
             </div>
             <Navbar />
         </div>

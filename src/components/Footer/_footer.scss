@@ -1,0 +1,119 @@
+@use '../../styles/variables' as *;
+
+.containerFooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: $secondary-background-color;
+    padding: 1rem;
+    gap: 2rem;
+    color: $quaternary-color;
+
+    .copyRight {
+        font-size: $font-size-small;
+        font-weight: $font-weight-normal;
+        text-align: center;
+        border-top: 1px solid $tertiary-color;
+        padding: 1rem 0rem;
+        width: 100%;
+        line-height: 20px;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+
+            .teamInfo {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .teamInfo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 1rem;
+            max-width: clamp(0rem, 100%, 25rem);
+
+            h1 {
+                font-size: $font-size-xlarge;
+                font-weight: $font-weight-bold;
+                color: $quaternary-color;
+            }
+
+            p {
+                font-size: $font-size-medium;
+                font-weight: $font-weight-normal;
+                color: $tertiary-color;
+                text-align: start;
+            }
+
+            @media screen and (max-width: 768px) {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .quickLinks {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+
+            p {
+                font-size: $font-size-large;
+                font-weight: $font-weight-bold;
+                color: $quaternary-color;
+            }
+
+            .links {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+
+                li {
+                    list-style: none;
+
+                    .link {
+                        font-size: $font-size-medium;
+                        font-weight: $font-weight-normal;
+                        color: $tertiary-color;
+                        text-align: center;
+                        text-decoration: none;
+                        padding: 0.5rem 1rem 1rem 0rem;
+                        border-radius: 0.5rem;
+                        transition: background-color 0.3s ease-in-out;
+
+                        &:hover {
+                            color: $quaternary-color;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        .socialIcons {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: $font-size-large;
+            color: $quaternary-color;
+            transition: color 0.3s ease-in-out;
+            list-style: none;
+            gap: 1rem;
+            padding: 0.5rem 1rem 1rem 0rem;
+        }
+    }
+}
