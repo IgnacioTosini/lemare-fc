@@ -16,7 +16,7 @@ export const MatchCard = () => {
                 </div>
             </div>
             <div className="matchCardFooter">
-                <CustomButton text='Ver Todos los Partidos' typeOfButton={false} />
+                <CustomButton text='Ver Todos los Partidos' typeOfButton={false} url='' />
             </div>
         </div>
     )

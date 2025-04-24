@@ -23,7 +23,7 @@ export const CustomInfoCard = ({ title, image, description, titleButton }: Custo
             <div className="icon">{imagePath}</div>
             <h2 className="title">{title}</h2>
             <p className="description">{description}</p>
-            <CustomButton text={titleButton} typeOfButton={false} />
+            <CustomButton text={titleButton} typeOfButton={false} url="" />
         </div>
     )
 }
