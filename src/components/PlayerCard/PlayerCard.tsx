@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router';
-import { Player } from '../../types/player';
+import { Player } from '../../types';
 import { MorePlayerInfo } from '../MorePlayerInfo/MorePlayerInfo';
 import { CustomListSocialMedia } from '../CustomListSocialMedia/CustomListSocialMedia';
 import './_playercard.scss';

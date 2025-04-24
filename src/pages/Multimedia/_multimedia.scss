@@ -1,0 +1,29 @@
+@use '../../styles/variables' as *;
+
+.multimediaPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .multimediaPageHeader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem;
+
+        h1 {
+            font-size: $font-size-xlarge;
+            font-weight: $font-weight-bold;
+            color: $secondary-color;
+            text-align: center;
+        }
+
+        p {
+            font-size: $font-size-large;
+            color: $primary-color;
+            text-align: center;
+        }
+    }
+}

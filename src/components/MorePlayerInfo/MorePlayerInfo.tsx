@@ -1,4 +1,4 @@
-import { Player } from '../../types/player'
+import { Player } from '../../types'
 import './_morePlayerInfo.scss'
 
 type MorePlayerInfoProps = {

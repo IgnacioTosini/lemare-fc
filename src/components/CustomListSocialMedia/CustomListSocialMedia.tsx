@@ -1,4 +1,4 @@
-import { SocialMedia } from "../../types/player";
+import { SocialMedia } from "../../types";
 import { CustomSocialMedia } from "../CustomSocialMedia/CustomSocialMedia";
 import './_customListSocialMedia.scss';
 
@@ -7,7 +7,6 @@ type CustomListSocialMediaProps = {
 };
 
 export const CustomListSocialMedia = ({ socialMedia }: CustomListSocialMediaProps) => {
-    console.log(socialMedia);
     return (
         <div className="customListSocialMedia">
             {socialMedia.map((media, index) => (

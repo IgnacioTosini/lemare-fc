@@ -22,3 +22,44 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Sistema operativo
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Archivos de configuración de entorno
+.env
+.env.*
+
+# Archivos de construcción
+build/
+
+# Archivos de pruebas
+coverage/
+*.lcov
+
+# Archivos de configuración específicos del sistema
+*.cache
+*.pid
+*.seed
+*.pid.lock
+
+# Archivos de configuración de herramientas
+.npmrc
+.yarnrc
+.pnpm-debug.log
+
+# Archivos de configuración de IDEs
+*.iml
+.idea/
+.vscode/
+
+# Archivos de configuración de TypeScript
+*.tsbuildinfo
+
+# Archivos de configuración de ESLint
+.eslintcache
+
+# Archivos de configuración de Prettier
+.prettiercache
