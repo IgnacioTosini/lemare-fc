@@ -1,5 +1,5 @@
-import { Link } from 'react-router'
-import { CustomListSocialMedia } from '../CustomListSocialMedia/CustomListSocialMedia'
+import { Link } from 'react-router';
+import { CustomListSocialMedia } from '../';
 import './_footer.scss'
 
 const socialMedia = [

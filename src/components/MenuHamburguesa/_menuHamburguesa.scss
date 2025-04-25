@@ -1,0 +1,42 @@
+@use '../../styles/variables' as *;
+
+.menuHamburguesa {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $background-color;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+
+    &.open {
+        display: flex;
+    }
+
+    .menuHamburguesaList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+
+        .menuHamburguesaItem {
+            margin: 1rem 0;
+
+            .menuHamburguesaLink {
+                text-decoration: none;
+                font-size: $font-size-large;
+                color: $primary-color;
+                transition: color 0.3s ease-in-out;
+
+                &:hover {
+                    color: $secondary-color;
+                }
+            }
+        }
+    }
+}

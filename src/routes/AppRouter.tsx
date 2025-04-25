@@ -1,18 +1,15 @@
 import { Route, Routes } from "react-router"
-import { Home } from "../pages/Home/Home"
-import { PlayersPage } from "../pages/PlayersPage/PlayersPage"
-import { PlayerPage } from "../pages/PlayerPage/[id]";
-import { MultimediaPage } from "../pages/Multimedia/MultimediaPage";
+import { HomePage, MultimediaPage, PartidosPage, PlayerPage, PlayersPage, QuienesSomosPage } from "../pages"
 
 export const AppRouter = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/jugadores" element={<PlayersPage />} />
             <Route path="/jugadores/:id" element={<PlayerPage />} />
-            <Route path="/partidos" element={<h1>Partidos</h1>} />
+            <Route path="/partidos" element={<PartidosPage />} />
             <Route path="/multimedia" element={<MultimediaPage />} />
-            <Route path="/contact" element={<h1>Contact</h1>} />
+            <Route path="/contacto" element={<QuienesSomosPage />} />
         </Routes>
     )
 }

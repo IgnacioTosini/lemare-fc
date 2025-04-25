@@ -1,4 +1,4 @@
-import { CustomInfoCard } from '../CustomInfoCard/CustomInfoCard'
+import { CustomInfoCard } from '../';
 import './_infoContainer.scss'
 
 export const InfoContainer = () => {

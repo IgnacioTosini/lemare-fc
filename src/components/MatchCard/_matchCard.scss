@@ -5,16 +5,17 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 80rem;
-    max-width: 100%;
+    width: 100%;
+    max-width: 80rem;
     border-radius: 1rem;
     background-color: $secondary-background-color;
     padding: clamp(10px, 4vw, 4rem) clamp(20px, 5vw, 40px);
     margin: 5rem;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 900px) {
         width: 90%;
         justify-content: center;
+        gap: 2rem;
     }
 
     .matchCardHeader {

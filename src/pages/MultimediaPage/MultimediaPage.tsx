@@ -1,5 +1,5 @@
-import { VideoGallery } from '../../components/VideoGallery/VideoGallery'
-import './_multimedia.scss'
+import { VideoGallery } from '../../components';
+import './_multimediaPage.scss'
 
 export const MultimediaPage = () => {
     return (

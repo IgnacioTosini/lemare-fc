@@ -1,0 +1,6 @@
+export * from './HomePage/HomePage'
+export * from './PlayersPage/PlayersPage'
+export * from './PlayerPage/[id]'
+export * from './MultimediaPage/MultimediaPage'
+export * from './PartidosPage/PartidosPage'
+export * from './QuienesSomosPage/QuienesSomosPage'
