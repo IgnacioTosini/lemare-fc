@@ -1,12 +1,15 @@
+import { Link } from "react-router"
 import { Navbar } from "../Navbar/Navbar"
 import './_header.scss'
 
 export const Header = () => {
     return (
         <div className="header">
-            <div className="header-logo">
-                <img src="/assets/escudoDelLemareFC.png" alt="Lemare Fc" className="logo" />
-                <h1 className="header-title">LEMARE FC</h1>
+            <div className="headerLogo">
+                <Link to="/" className="logoLink">
+                    <img src="/assets/escudoDelLemareFC.png" alt="Lemare Fc" className="logo" />
+                    <h1 className="headerTitle">LEMARE FC</h1>
+                </Link>
             </div>
             <Navbar />
         </div>

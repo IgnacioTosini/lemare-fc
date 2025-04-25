@@ -16,22 +16,28 @@
     z-index: 1000;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 
-    .header-logo {
+    .headerLogo {
         display: flex;
         align-items: center;
         justify-content: center;
 
-        .header-title {
-            font-size: $font-size-large;
-            line-height: 28px;
-            font-weight: $font-weight-bold;
-            color: $secondary-color;
-        }
+        .logoLink {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
 
-        .logo {
-            width: clamp(50px, 5vw, 100px);
-            height: auto;
-            border-radius: 5px;
+            .headerTitle {
+                font-size: $font-size-large;
+                line-height: 28px;
+                font-weight: $font-weight-bold;
+                color: $secondary-color;
+            }
+
+            .logo {
+                width: clamp(50px, 5vw, 100px);
+                height: auto;
+                border-radius: 5px;
+            }
         }
     }
 }

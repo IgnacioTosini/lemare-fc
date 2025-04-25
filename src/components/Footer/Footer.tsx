@@ -9,11 +9,11 @@ const socialMedia = [
     },
     {
         typeOfSocialMedia: 'youtube',
-        url: 'https://www.youtube.com/@lemarefc'
+        url: ['https://www.youtube.com/@santiagotosini', 'https://www.youtube.com/@lucaanivio']
     },
     {
         typeOfSocialMedia: 'tiktok',
-        url: 'https://www.tiktok.com/@lemarefc'
+        url: 'https://www.tiktok.com/@lucaysanti_'
     }
 ]
 
@@ -38,7 +38,7 @@ export const Footer = () => {
                     <CustomListSocialMedia socialMedia={socialMedia} />
                 </ul>
             </div>
-            <p className='copyRight'>© 2025 Lemare FC. Todos los derechos reservados.</p>
+            <p className='copyRight'>© {new Date().getFullYear()} Lemare FC. Todos los derechos reservados. Creado por Ignacio Tosini</p>
         </div>
     )
 }

@@ -23,7 +23,7 @@ export type Stats = {
 
 export type SocialMedia = {
     typeOfSocialMedia: string;
-    url: string;
+    url: string | string[];
 }
 
 export type Video = {

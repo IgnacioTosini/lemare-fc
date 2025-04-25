@@ -11,18 +11,22 @@ export const InfoContainer = () => {
                     image="player"
                     description="Conoce a los protagonistas que defienden nuestros colores en cada partido."
                     titleButton="Ver Jugadores"
+                    url="/jugadores"
                 />
                 <CustomInfoCard
-                    title="Estadísticas"
+                    title="Torneo"
                     image="cup"
-                    description="Explora las estadísticas detalladas de nuestro equipo y jugadores."
-                    titleButton="Ver Estadísticas"
+                    description="Explora el torneo, conoce a los equipos rivales y sigue el camino hacia la gloria."
+                    titleButton="Ver Torneo"
+                    url="/partidos"
+
                 />
                 <CustomInfoCard
                     title="Multimedia"
                     image="multimedia"
                     description="Disfruta de los mejores momentos, entrevistas y contenido exclusivo del equipo."
                     titleButton="Ver Multimedia"
+                    url="/multimedia"
                 />
             </div>
         </div>

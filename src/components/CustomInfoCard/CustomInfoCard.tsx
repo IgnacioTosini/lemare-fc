@@ -9,9 +9,10 @@ type CustomInfoCardProps = {
     image: 'player' | 'cup' | 'multimedia'
     description: string
     titleButton: string
+    url?: string
 }
 
-export const CustomInfoCard = ({ title, image, description, titleButton }: CustomInfoCardProps) => {
+export const CustomInfoCard = ({ title, image, description, titleButton, url }: CustomInfoCardProps) => {
     const imagePath = {
         player: <IoPeople />,
         cup: <TfiCup />,
@@ -23,7 +24,7 @@ export const CustomInfoCard = ({ title, image, description, titleButton }: Custo
             <div className="icon">{imagePath}</div>
             <h2 className="title">{title}</h2>
             <p className="description">{description}</p>
-            <CustomButton text={titleButton} typeOfButton={false} url="" />
+            <CustomButton text={titleButton} typeOfButton={false} url={url} />
         </div>
     )
 }
