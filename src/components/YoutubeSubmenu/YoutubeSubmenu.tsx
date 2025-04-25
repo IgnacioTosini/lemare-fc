@@ -9,11 +9,11 @@ export const YoutubeSubmenu = ({ urls, isVisible }: SubmenuProps & { isVisible: 
 
     const imageUrls = [
         {
-            image: '/assets/santiagoTosiniYT.jpg',
+            image: '/santiagoTosiniYT.jpg',
             alt: 'Santiago Tosini',
         },
         {
-            image: '/assets/lucaNivioYT.jpg',
+            image: '/lucaNivioYT.jpg',
             alt: 'Luca Nivio',
         },
     ];
