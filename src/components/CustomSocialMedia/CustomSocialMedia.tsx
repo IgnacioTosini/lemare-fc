@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
-import './_customSocialMedia.scss';
+import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
 import { YoutubeSubmenu } from "../YoutubeSubmenu/YoutubeSubmenu";
+import './_customSocialMedia.scss';
 
 type CustomSocialMediaProps = {
     typeOfSocialMedia: string;
@@ -16,6 +16,9 @@ export const CustomSocialMedia = ({ typeOfSocialMedia, url }: CustomSocialMediaP
         instagram: <FaInstagram />,
         youtube: <FaYoutube />,
         tiktok: <FaTiktok />,
+        facebook: <FaFacebook />,
+        linkedin: <FaLinkedin />,
+        twitter: <FaTwitter />,
     };
 
     const toggleSubmenu = () => {

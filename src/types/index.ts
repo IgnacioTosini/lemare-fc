@@ -9,7 +9,7 @@ export type Player = {
     height?: number;
     position?: string;
     description?: string;
-    stats: Stats;
+    stats?: Stats;
     socialMedia: SocialMedia[];
 };
 
