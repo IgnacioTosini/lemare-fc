@@ -27,11 +27,11 @@ export const PlayerPage = () => {
                 <section className='playerStats'>
                     <h1 className='description'>Estadísticas de la temporada</h1>
                     <ul className='statsList'>
-                        <li className='statItem'><p className='statValue'>{player.stats.goals}</p><p>Goles</p> </li>
-                        <li className='statItem'><p className='statValue'>{player.stats.assists}</p><p>Asistencias</p></li>
-                        <li className='statItem'><p className='statValue'>{player.stats.matches}</p><p>Partidos</p></li>
-                        <li className='statItem'><p className='statValue'>{player.stats.yellowCards}</p><p>Tarjetas amarillas</p></li>
-                        <li className='statItem'><p className='statValue'>{player.stats.redCards}</p><p>Tarjetas rojas</p></li>
+                        <li className='statItem'><p className='statValue'>{player.stats?.goals}</p><p>Goles</p> </li>
+                        <li className='statItem'><p className='statValue'>{player.stats?.assists}</p><p>Asistencias</p></li>
+                        <li className='statItem'><p className='statValue'>{player.stats?.matches}</p><p>Partidos</p></li>
+                        <li className='statItem'><p className='statValue'>{player.stats?.yellowCards}</p><p>Tarjetas amarillas</p></li>
+                        <li className='statItem'><p className='statValue'>{player.stats?.redCards}</p><p>Tarjetas rojas</p></li>
                     </ul>
                 </section>
             </section>
