@@ -30,11 +30,13 @@ export const VideoGallery = () => {
 
     return (
         <div className='videoGallery'>
-            {
+            {playlistVideos.length === 0 ? (
+                <div className='loading'>Cargando Videos...</div>
+            ) : (
                 playlistVideos.map((video) => (
                     <VideoModal key={video.id} video={video} />
                 ))
-            }
+            )}
         </div>
     );
 };

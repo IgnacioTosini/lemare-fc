@@ -5,6 +5,7 @@ import './_navbar.scss';
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const isDisabled = true;
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -12,24 +13,25 @@ export const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <button className="menu-toggle" onClick={toggleMenu}>
-                <GiHamburgerMenu className="hamburger-icon" />
+            <button className="menuToggle" onClick={toggleMenu}>
+                <GiHamburgerMenu className="hamburgerIcon" />
             </button>
-            <ul className={`navbar-nav ${isMenuOpen ? 'open' : ''}`}>
-                <li className="nav-item">
-                    <Link className="nav-link active" aria-current="page" to="/">Inicio</Link>
+            <ul className={`navbarNav ${isMenuOpen ? 'open' : ''}`}>
+                <li className="navItem">
+                    <Link className="navLink" aria-current="page" to="/">Inicio</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="/jugadores">Jugadores</Link>
+                <li className="navItem">
+                    <Link className="navLink" to="/jugadores">Jugadores</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="/partidos">Partidos</Link>
+                <li className={`navItem ${isDisabled ? 'disabled' : ''}`}>
+
+                    <Link className="navLink" to="/partidos">Partidos</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="/multimedia">Multimedia</Link>
+                <li className="navItem">
+                    <Link className="navLink" to="/multimedia">Multimedia</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link disabled" to="/contacto">Contacto</Link>
+                <li className="navItem">
+                    <Link className="navLink" to="/contacto">Contacto</Link>
                 </li>
             </ul>
         </nav>

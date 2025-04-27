@@ -11,6 +11,7 @@ export const MatchCard = () => {
                     <div className='matchCardCalendar'>
                         <FaRegCalendarAlt className='calendarIcon' />
                         <p className="matchCardDate">Fecha: 2023-10-01</p>
+                        <p className="matchCardTime">Horario: 18:00</p>
                     </div>
                     <p className="matchCardTeams">Lemare FC vs Team Balanza</p>
                 </div>
