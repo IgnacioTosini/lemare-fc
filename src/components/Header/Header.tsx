@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineClose } from "react-icons/md";
 import { Navbar, MenuHamburguesa } from '../index';
+import { NavLinks } from '../../types/navLinks';
 
 import './_header.scss';
 
@@ -11,11 +12,11 @@ export const Header = () => {
     const [isTabletOrMobile, setIsTabletOrMobile] = useState(false);
 
     const links = [
-        { label: 'Inicio', to: '/' },
-        { label: 'Partidos', to: '/partidos' },
-        { label: 'Jugadores', to: '/jugadores' },
-        { label: 'Multimedia', to: '/multimedia' },
-        { label: 'Quienes Somos', to: '/quienes-somos' },
+        { label: 'Inicio', to: NavLinks.INICIO },
+        { label: 'Plantel', to: NavLinks.PLANTEL },
+        { label: 'Partidos', to: NavLinks.PARTIDOS },
+        { label: 'Multimedia', to: NavLinks.MULTIMEDIA },
+        { label: 'Quienes Somos', to: NavLinks.QUIENES_SOMOS },
     ];
 
     useEffect(() => {
