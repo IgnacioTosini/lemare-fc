@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { NavLinks } from '../../types/navLinks';
 import './_navbar.scss';
 
 export const Navbar = () => {
@@ -18,22 +19,21 @@ export const Navbar = () => {
             </button>
             <ul className={`navbarNav ${isMenuOpen ? 'open' : ''}`}>
                 <li className="navItem">
-                    <Link className="navLink" aria-current="page" to="/">Inicio</Link>
+                    <Link className="navLink" aria-current="page" to="/">{NavLinks.INICIO}</Link>
                 </li>
                 <li className="navItem">
-                    <Link className="navLink" to="/jugadores">Jugadores</Link>
+                    <Link className="navLink" to="/plantel">{NavLinks.PLANTEL}</Link>
                 </li>
                 <li className={`navItem ${isDisabled ? 'disabled' : ''}`}>
-
-                    <Link className="navLink" to="/partidos">Partidos</Link>
+                    <Link className="navLink" to="/partidos">{NavLinks.PARTIDOS}</Link>
                 </li>
                 <li className="navItem">
-                    <Link className="navLink" to="/multimedia">Multimedia</Link>
+                    <Link className="navLink" to="/multimedia">{NavLinks.MULTIMEDIA}</Link>
                 </li>
                 <li className="navItem">
-                    <Link className="navLink" to="/contacto">Contacto</Link>
+                    <Link className="navLink" to="/quienes-somos">{NavLinks.QUIENES_SOMOS}</Link>
                 </li>
             </ul>
         </nav>
     );
-}
+};

@@ -5,8 +5,7 @@ type SubmenuProps = {
     urls: string[];
 };
 
-export const YoutubeSubmenu = ({ urls, isVisible }: SubmenuProps & { isVisible: boolean }) => {
-
+export const YoutubeSubmenu = ({ urls }: SubmenuProps) => {
     const imageUrls = [
         {
             image: '/santiagoTosiniYT.jpg',
@@ -19,7 +18,7 @@ export const YoutubeSubmenu = ({ urls, isVisible }: SubmenuProps & { isVisible: 
     ];
 
     return (
-        <div style={{ display: isVisible ? 'block' : 'none' }} className="youtubeSubmenuWrapper">
+        <div className="youtubeSubmenuWrapper">
             <div className="youtubeSubmenu">
                 {imageUrls.map((imageUrl, index) => (
                     <Link key={index} to={urls[index]} target="_blank" className="submenuItem">

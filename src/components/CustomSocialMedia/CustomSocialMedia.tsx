@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
 import { YoutubeSubmenu } from "../YoutubeSubmenu/YoutubeSubmenu";
 import './_customSocialMedia.scss';
@@ -32,12 +31,12 @@ export const CustomSocialMedia = ({ typeOfSocialMedia, url }: CustomSocialMediaP
                     <div className="socialMediaIcon" onClick={toggleSubmenu}>
                         {socialMediaIcons.youtube}
                     </div>
-                    {isSubmenuVisible && <YoutubeSubmenu urls={url} isVisible={isSubmenuVisible} />}
+                    {isSubmenuVisible && <YoutubeSubmenu urls={url} />}
                 </>
             ) : (
-                <Link to={`${url}`} target="_blank" className="socialMediaIcon">
+                <a href={`${url}`} target="_blank" className="socialMediaIcon">
                     {socialMediaIcons[typeOfSocialMedia as keyof typeof socialMediaIcons] || null}
-                </Link>
+                </a>
             )}
         </div>
     );

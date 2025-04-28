@@ -4,6 +4,45 @@ export const players: Player[] = [
     {
         id: 1,
         name: 'John Doe',
+        description: 'Head Coach',
+        image: 'https://placehold.co/400x500',
+        position: 'Cuerpo Tecnico',
+        socialMedia: [
+            {
+                typeOfSocialMedia: 'instagram',
+                url: 'https://www.youtube.com/@santiagotosini'
+            }
+        ],
+    },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        description: 'Assistant Coach',
+        image: 'https://placehold.co/400x500',
+        position: 'Cuerpo Tecnico',
+        socialMedia: [
+            {
+                typeOfSocialMedia: 'facebook',
+                url: 'https://www.facebook.com/janesmith'
+            }
+        ],
+    },
+    {
+        id: 3,
+        name: 'Alice Brown',
+        description: 'Fitness Coach',
+        image: 'https://placehold.co/400x500',
+        position: 'Cuerpo Tecnico',
+        socialMedia: [
+            {
+                typeOfSocialMedia: 'linkedin',
+                url: 'https://www.linkedin.com/in/alicebrown/'
+            }
+        ],
+    },
+    {
+        id: 4,
+        name: 'John Doe',
         image: 'https://placehold.co/400x500',
         number: 10,
         year: 2002,
@@ -22,7 +61,7 @@ export const players: Player[] = [
         socialMedia: [
             {
                 typeOfSocialMedia: 'instagram',
-                url: 'https://www.instagram.com/lemarefc/'
+                url: 'https://www.youtube.com/@santiagotosini'
             },
             {
                 typeOfSocialMedia: 'youtube',
@@ -35,7 +74,7 @@ export const players: Player[] = [
         ],
     },
     {
-        id: 2,
+        id: 5,
         name: 'Jane Smith',
         image: 'https://placehold.co/400x500',
         number: 8,
@@ -55,7 +94,7 @@ export const players: Player[] = [
         socialMedia: [
             {
                 typeOfSocialMedia: 'instagram',
-                url: 'https://www.instagram.com/lemarefc/'
+                url: 'https://www.youtube.com/@santiagotosini'
             },
             {
                 typeOfSocialMedia: 'youtube',
@@ -68,7 +107,7 @@ export const players: Player[] = [
         ],
     },
     {
-        id: 2,
+        id: 6,
         name: 'Jane Smith',
         image: 'https://placehold.co/400x500',
         number: 8,
@@ -88,7 +127,7 @@ export const players: Player[] = [
         socialMedia: [
             {
                 typeOfSocialMedia: 'instagram',
-                url: 'https://www.instagram.com/lemarefc/'
+                url: 'https://www.youtube.com/@santiagotosini'
             },
             {
                 typeOfSocialMedia: 'youtube',
@@ -101,7 +140,7 @@ export const players: Player[] = [
         ],
     },
     {
-        id: 3,
+        id: 7,
         name: 'Alice Brown',
         image: 'https://placehold.co/400x500',
         number: 5,
@@ -121,7 +160,7 @@ export const players: Player[] = [
         socialMedia: [
             {
                 typeOfSocialMedia: 'instagram',
-                url: 'https://www.instagram.com/lemarefc/'
+                url: 'https://www.youtube.com/@santiagotosini'
             },
             {
                 typeOfSocialMedia: 'youtube',
@@ -134,7 +173,7 @@ export const players: Player[] = [
         ],
     },
     {
-        id: 4,
+        id: 8,
         name: 'Bob White',
         image: 'https://placehold.co/400x500',
         number: 9,
@@ -154,7 +193,7 @@ export const players: Player[] = [
         socialMedia: [
             {
                 typeOfSocialMedia: 'instagram',
-                url: 'https://www.instagram.com/lemarefc/'
+                url: 'https://www.youtube.com/@santiagotosini'
             },
             {
                 typeOfSocialMedia: 'youtube',

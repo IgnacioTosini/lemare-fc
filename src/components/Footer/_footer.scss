@@ -117,3 +117,18 @@
         }
     }
 }
+
+.creatorHighlight {
+    animation: glow 1.5s infinite alternate;
+    color: $primary-color;
+    font-weight: $font-weight-bold;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px $quaternary-color, 0 0 10px $quaternary-color, 0 0 20px $quaternary-color;
+    }
+    to {
+        text-shadow: 0 0 10px $quaternary-color, 0 0 20px $quaternary-color, 0 0 30px $quaternary-color;
+    }
+}

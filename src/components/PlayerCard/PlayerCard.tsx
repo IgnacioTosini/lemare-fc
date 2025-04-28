@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router';
 import { Player } from '../../types';
 import { MorePlayerInfo } from '../MorePlayerInfo/MorePlayerInfo';
 import { CustomListSocialMedia } from '../CustomListSocialMedia/CustomListSocialMedia';
+import { NavLinks } from '../../types/navLinks';
 import './_playercard.scss';
 
 type PlayerCardProps = {
@@ -10,28 +11,48 @@ type PlayerCardProps = {
 
 export const PlayerCard = ({ player }: PlayerCardProps) => {
     const location = useLocation();
-    const showMorePlayerInfo = location.pathname.includes(`/jugadores/${player.id}`);
+    const showMorePlayerInfo = location.pathname.includes(`/${NavLinks.PLANTEL.toLocaleLowerCase()}/${player.id}`);
 
-    return (
-        <Link to={`/jugadores/${player.id}`} className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
+    const cardContent = (
+        <>
             <div className='playerImageContainer'>
                 <img src={player.image} alt={player.name} className='playerImage' />
-                <div className='playerNumber'>
-                    {player.number}
-                </div>
+                {player.position !== 'Cuerpo Tecnico' && (
+                    <div className='playerNumber'>
+                        {player.number}
+                    </div>
+                )}
             </div>
             <div className='playerInfo'>
                 <h2>{player.name}</h2>
                 <p>{player.position}</p>
             </div>
-            {showMorePlayerInfo &&
-                (
-                    <section className='playerInfoExpanded'>
-                        <MorePlayerInfo player={player} />
-                        <CustomListSocialMedia socialMedia={player.socialMedia} />
-                    </section>
-                )
-            }
-        </Link>
+            {showMorePlayerInfo && (
+                <section className='playerInfoExpanded'>
+                    <MorePlayerInfo player={player} />
+                    <CustomListSocialMedia socialMedia={player.socialMedia} />
+                </section>
+            )}
+        </>
+    );
+
+    if (player.position === 'Cuerpo Tecnico') {
+        return (
+            <div className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
+                {cardContent}
+            </div>
+        );
+    }
+
+    return (
+        showMorePlayerInfo ? (
+            <div className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
+                {cardContent}
+            </div>
+        ) : (
+            <Link to={`/plantel/${player.id}`} className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
+                {cardContent}
+            </Link>
+        )
     );
 };

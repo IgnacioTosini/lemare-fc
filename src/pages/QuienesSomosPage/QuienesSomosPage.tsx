@@ -1,5 +1,5 @@
 import { StaffCard } from '../../components/StaffCard/StaffCard'
-import { staff } from '../../utils/staff'
+import { players } from '../../utils/players'
 import './_quienesSomosPage.scss'
 
 export const QuienesSomosPage = () => {
@@ -7,8 +7,10 @@ export const QuienesSomosPage = () => {
     <div className="quienesSomosPage">
       <h1>Staff Tecnico</h1>
       <section className='staffSection'>
-        {staff.map((member) => (
-          <StaffCard key={member.id} staff={member} />
+        {players.map((member) => (
+          member.position === 'Cuerpo Tecnico' && (
+            <StaffCard key={member.id} staff={member} />
+          )
         ))}
       </section>
       <div className='historyContainer'>

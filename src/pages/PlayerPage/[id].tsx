@@ -14,7 +14,7 @@ export const PlayerPage = () => {
 
     return (
         <section className='playerPage'>
-            <Link to={`/jugadores`} className='backArrow'><FaLongArrowAltLeft /> <p>Volver a jugadores</p></Link>
+            <Link to={`/plantel`} className='backArrow'><FaLongArrowAltLeft /> <p>Volver a jugadores</p></Link>
         <div className="playerDetail">
             <div className='playerCardContainer'>
                 <PlayerCard player={player} />

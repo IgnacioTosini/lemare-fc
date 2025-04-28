@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { CustomListSocialMedia } from '../';
+import { NavLinks } from '../../types/navLinks';
 import './_footer.scss'
 
 const socialMedia = [
@@ -28,17 +29,17 @@ export const Footer = () => {
                 <div className='quickLinks'>
                     <p>Enlaces rápidos</p>
                     <ul className='links'>
-                        <li><Link to="/jugadores" className='link'>Jugadores</Link></li>
-                        <li><Link to="/partidos" className='link'>Partidos</Link></li>
-                        <li><Link to="/multimedia" className='link'>Multimedia</Link></li>
-                        <li><Link to="/contacto" className='link'>Contacto</Link></li>
+                        <li><Link to="/plantel" className='link'>{NavLinks.PLANTEL}</Link></li>
+                        <li><Link to="/partidos" className='link'>{NavLinks.PARTIDOS}</Link></li>
+                        <li><Link to="/multimedia" className='link'>{NavLinks.MULTIMEDIA}</Link></li>
+                        <li><Link to="/quienes-somos" className='link'>{NavLinks.QUIENES_SOMOS}</Link></li>
                     </ul>
                 </div>
                 <ul className='socialIcons'>
                     <CustomListSocialMedia socialMedia={socialMedia} />
                 </ul>
             </div>
-            <p className='copyRight'>© {new Date().getFullYear()} Lemare FC. Todos los derechos reservados. Creado por Ignacio Tosini</p>
+            <p className='copyRight'>© {new Date().getFullYear()} Lemare FC. Todos los derechos reservados. <span className='creatorHighlight'>Creado por Ignacio Tosini</span></p>
         </div>
-    )
-}
+    );
+};
