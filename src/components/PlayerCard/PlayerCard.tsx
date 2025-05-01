@@ -4,6 +4,7 @@ import { MorePlayerInfo } from '../MorePlayerInfo/MorePlayerInfo';
 import { CustomListSocialMedia } from '../CustomListSocialMedia/CustomListSocialMedia';
 import { NavLinks } from '../../types/navLinks';
 import './_playercard.scss';
+import { Position } from '../../types/positions';
 
 type PlayerCardProps = {
     player: Player;
@@ -17,7 +18,7 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
         <>
             <div className='playerImageContainer'>
                 <img src={player.image} alt={player.name} className='playerImage' />
-                {player.position !== 'Cuerpo Tecnico' && (
+                {player.position !== Position.CUERPO_TECNICO && (
                     <div className='playerNumber'>
                         {player.number}
                     </div>
@@ -36,7 +37,7 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
         </>
     );
 
-    if (player.position === 'Cuerpo Tecnico') {
+    if (player.position === Position.CUERPO_TECNICO) {
         return (
             <div className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
                 {cardContent}
