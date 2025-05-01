@@ -2,21 +2,23 @@ import { Link } from 'react-router';
 import { CustomListSocialMedia } from '../';
 import { NavLinks } from '../../types/navLinks';
 import './_footer.scss'
+import { SocialMedia } from '../../types';
+import { SocialMediaType } from '../../types/socialMedia';
 
-const socialMedia = [
+const socialMedia: SocialMedia[] = [
     {
-        typeOfSocialMedia: 'instagram',
+        typeOfSocialMedia: SocialMediaType.INSTAGRAM,
         url: 'https://www.instagram.com/lemarefc/'
     },
     {
-        typeOfSocialMedia: 'youtube',
+        typeOfSocialMedia: SocialMediaType.YOUTUBE,
         url: ['https://www.youtube.com/@santiagotosini', 'https://www.youtube.com/@lucaanivio']
     },
     {
-        typeOfSocialMedia: 'tiktok',
+        typeOfSocialMedia: SocialMediaType.TIKTOK,
         url: 'https://www.tiktok.com/@lucaysanti_'
     }
-]
+];
 
 export const Footer = () => {
     return (
