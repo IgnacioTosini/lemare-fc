@@ -1,0 +1,16 @@
+@use '../../styles/variables' as *;
+
+select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: .5rem;
+    background-color: $secondary-hover-color;
+    color: $primary-color;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: $quaternary-color;
+    }
+}

@@ -1,0 +1,19 @@
+@use '../../styles/variables' as *;
+
+.abmPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    min-height: 100vh;
+    width: 100%;
+
+    .abmPageContainer {
+        .title {
+            font-size: $font-size-xlarge;
+            font-weight: $font-weight-bold;
+            color: $secondary-color;
+        }
+    }
+}

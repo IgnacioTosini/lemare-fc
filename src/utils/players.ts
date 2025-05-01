@@ -1,4 +1,6 @@
 import { Player } from "../types";
+import { Position } from "../types/positions";
+import { SocialMediaType } from "../types/socialMedia";
 
 export const players: Player[] = [
     {
@@ -6,10 +8,12 @@ export const players: Player[] = [
         name: 'John Doe',
         description: 'Head Coach',
         image: 'https://placehold.co/400x500',
-        position: 'Cuerpo Tecnico',
+        position: Position.CUERPO_TECNICO,
+        country: 'Argentina',
+        age: 35,
         socialMedia: [
             {
-                typeOfSocialMedia: 'instagram',
+                typeOfSocialMedia: SocialMediaType.INSTAGRAM,
                 url: 'https://www.youtube.com/@santiagotosini'
             }
         ],
@@ -19,10 +23,12 @@ export const players: Player[] = [
         name: 'Jane Smith',
         description: 'Assistant Coach',
         image: 'https://placehold.co/400x500',
-        position: 'Cuerpo Tecnico',
+        position: Position.CUERPO_TECNICO,
+        country: 'Argentina',
+        age: 35,
         socialMedia: [
             {
-                typeOfSocialMedia: 'facebook',
+                typeOfSocialMedia: SocialMediaType.FACEBOOK,
                 url: 'https://www.facebook.com/janesmith'
             }
         ],
@@ -32,10 +38,12 @@ export const players: Player[] = [
         name: 'Alice Brown',
         description: 'Fitness Coach',
         image: 'https://placehold.co/400x500',
-        position: 'Cuerpo Tecnico',
+        position: Position.CUERPO_TECNICO,
+        country: 'Argentina',
+        age: 35,
         socialMedia: [
             {
-                typeOfSocialMedia: 'linkedin',
+                typeOfSocialMedia: SocialMediaType.LINKEDIN,
                 url: 'https://www.linkedin.com/in/alicebrown/'
             }
         ],
@@ -50,7 +58,7 @@ export const players: Player[] = [
         height: 1.85,
         country: 'Argentina',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        position: 'Arquero',
+        position: Position.ARQUERO,
         stats: {
             goals: 5,
             assists: 3,
@@ -60,15 +68,15 @@ export const players: Player[] = [
         },
         socialMedia: [
             {
-                typeOfSocialMedia: 'instagram',
+                typeOfSocialMedia: SocialMediaType.INSTAGRAM,
                 url: 'https://www.youtube.com/@santiagotosini'
             },
             {
-                typeOfSocialMedia: 'youtube',
+                typeOfSocialMedia: SocialMediaType.YOUTUBE,
                 url: 'https://www.youtube.com/@lemarefc'
             },
             {
-                typeOfSocialMedia: 'tiktok',
+                typeOfSocialMedia: SocialMediaType.TIKTOK,
                 url: 'https://www.tiktok.com/@lemarefc'
             }
         ],
@@ -83,7 +91,7 @@ export const players: Player[] = [
         height: 1.85,
         country: 'Argentina',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        position: 'Central',
+        position: Position.DEFENSOR,
         stats: {
             goals: 2,
             assists: 7,
@@ -93,15 +101,15 @@ export const players: Player[] = [
         },
         socialMedia: [
             {
-                typeOfSocialMedia: 'instagram',
+                typeOfSocialMedia: SocialMediaType.INSTAGRAM,
                 url: 'https://www.youtube.com/@santiagotosini'
             },
             {
-                typeOfSocialMedia: 'youtube',
+                typeOfSocialMedia: SocialMediaType.YOUTUBE,
                 url: 'https://www.youtube.com/@lemarefc'
             },
             {
-                typeOfSocialMedia: 'tiktok',
+                typeOfSocialMedia: SocialMediaType.TIKTOK,
                 url: 'https://www.tiktok.com/@lemarefc'
             }
         ],
@@ -116,7 +124,7 @@ export const players: Player[] = [
         height: 1.85,
         country: 'Argentina',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        position: 'Central',
+        position: Position.DEFENSOR,
         stats: {
             goals: 2,
             assists: 7,
@@ -126,15 +134,15 @@ export const players: Player[] = [
         },
         socialMedia: [
             {
-                typeOfSocialMedia: 'instagram',
+                typeOfSocialMedia: SocialMediaType.INSTAGRAM,
                 url: 'https://www.youtube.com/@santiagotosini'
             },
             {
-                typeOfSocialMedia: 'youtube',
+                typeOfSocialMedia: SocialMediaType.YOUTUBE,
                 url: 'https://www.youtube.com/@lemarefc'
             },
             {
-                typeOfSocialMedia: 'tiktok',
+                typeOfSocialMedia: SocialMediaType.TIKTOK,
                 url: 'https://www.tiktok.com/@lemarefc'
             }
         ],
@@ -149,7 +157,7 @@ export const players: Player[] = [
         height: 1.85,
         country: 'Argentina',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        position: 'Mediocampista',
+        position: Position.MEDIOCAMPISTA,
         stats: {
             goals: 2,
             assists: 7,
@@ -159,15 +167,15 @@ export const players: Player[] = [
         },
         socialMedia: [
             {
-                typeOfSocialMedia: 'instagram',
+                typeOfSocialMedia: SocialMediaType.INSTAGRAM,
                 url: 'https://www.youtube.com/@santiagotosini'
             },
             {
-                typeOfSocialMedia: 'youtube',
+                typeOfSocialMedia: SocialMediaType.YOUTUBE,
                 url: 'https://www.youtube.com/@lemarefc'
             },
             {
-                typeOfSocialMedia: 'tiktok',
+                typeOfSocialMedia: SocialMediaType.TIKTOK,
                 url: 'https://www.tiktok.com/@lemarefc'
             }
         ],
@@ -182,7 +190,7 @@ export const players: Player[] = [
         height: 1.85,
         country: 'Argentina',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        position: 'Delantero',
+        position: Position.DELANTERO,
         stats: {
             goals: 2,
             assists: 7,
@@ -192,15 +200,15 @@ export const players: Player[] = [
         },
         socialMedia: [
             {
-                typeOfSocialMedia: 'instagram',
+                typeOfSocialMedia: SocialMediaType.INSTAGRAM,
                 url: 'https://www.youtube.com/@santiagotosini'
             },
             {
-                typeOfSocialMedia: 'youtube',
+                typeOfSocialMedia: SocialMediaType.YOUTUBE,
                 url: 'https://www.youtube.com/@lemarefc'
             },
             {
-                typeOfSocialMedia: 'tiktok',
+                typeOfSocialMedia: SocialMediaType.TIKTOK,
                 url: 'https://www.tiktok.com/@lemarefc'
             }
         ],

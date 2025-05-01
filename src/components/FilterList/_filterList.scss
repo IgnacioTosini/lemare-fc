@@ -1,0 +1,78 @@
+@use '../../styles/variables' as *;
+
+.filterList {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+
+    .searchContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+
+        .searchIcon {
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .searchInput {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #fff;
+            transition: all 0.3s ease-in-out;
+
+            &:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+        }
+    }
+
+    .filterContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .addPlayer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: .2rem 1rem;
+            border-radius: 0.5rem;
+            background-color: $secondary-color;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: $font-weight-bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            white-space: nowrap;
+
+            .plusIcon {
+                margin-right: 0.5rem;
+                width: 2rem;
+                height: 2rem;
+            }
+
+            p {
+                width: 100%;
+            }
+
+            &:hover {
+                background-color: $hover-color;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                transform: scale(1.05);
+            }
+        }
+    }
+}

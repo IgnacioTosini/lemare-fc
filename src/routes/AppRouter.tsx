@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import { HomePage, MultimediaPage, PartidosPage, PlayerPage, PlayersPage, QuienesSomosPage } from "../pages";
 import { NavLinks } from '../types/navLinks';
+import { ABMPage } from "../pages/ABMPage/ABMPage";
 
 const routes = [
     { path: '/', element: <HomePage />, name: NavLinks.INICIO },
@@ -9,6 +10,7 @@ const routes = [
     { path: '/partidos', element: <PartidosPage />, name: NavLinks.PARTIDOS },
     { path: '/multimedia', element: <MultimediaPage />, name: NavLinks.MULTIMEDIA },
     { path: '/quienes-somos', element: <QuienesSomosPage />, name: NavLinks.QUIENES_SOMOS },
+    { path: '/admin', element: <ABMPage />, name: 'admin' },
 ];
 
 export const AppRouter = () => {

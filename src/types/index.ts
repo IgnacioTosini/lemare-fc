@@ -1,3 +1,6 @@
+import { Position } from "./positions";
+import { SocialMediaType } from "./socialMedia";
+
 export type Player = {
     id: number;
     name: string;
@@ -7,7 +10,7 @@ export type Player = {
     age?: number;
     country?: string;
     height?: number;
-    position?: string;
+    position?: Position;
     description?: string;
     stats?: Stats;
     socialMedia: SocialMedia[];
@@ -22,7 +25,7 @@ export type Stats = {
 }
 
 export type SocialMedia = {
-    typeOfSocialMedia: string;
+    typeOfSocialMedia: SocialMediaType;
     url: string | string[];
 }
 
