@@ -16,7 +16,7 @@ export const StaffCard = ({ staff }: StaffCardProps) => {
                 <h3 className="staffCardName">{staff.name}</h3>
                 <p className="staffCardDescription">{staff.description}</p>
                 <div className="staffCardSocialMedia">
-                    <CustomListSocialMedia socialMedia={staff.socialMedia} />
+                    <CustomListSocialMedia socialMedia={staff.socialMedia || []} />
                 </div>
             </div>
         </div>
