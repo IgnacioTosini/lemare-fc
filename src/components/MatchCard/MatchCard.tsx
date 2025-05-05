@@ -17,8 +17,8 @@ export const MatchCard = () => {
                     <p className="matchCardTeams">Lemare FC vs Team Balanza</p>
                 </div>
             </div>
-            <div className="matchCardFooter">
-                {/* <CustomButton text='Ver Todos los Partidos' typeOfButton={false} url={NavLinks.PARTIDOS.toLocaleLowerCase()} /> */}
+            <div className="matchCardFooter disabled">
+                <CustomButton text='Ver Todos los Partidos' typeOfButton={false} url={NavLinks.PARTIDOS.toLocaleLowerCase()} />
             </div>
         </div>
     )
