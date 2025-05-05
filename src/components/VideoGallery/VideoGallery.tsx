@@ -33,7 +33,7 @@ export const VideoGallery = () => {
 
     return (
         <div className='videoGallery'>
-            {isLoading ? (
+            {(isLoading || playlistVideos.length === 0) ? (
                 Array.from({ length: 3 }).map((_, index) => (
                     <VideoModalSkeleton key={index} />
                 ))

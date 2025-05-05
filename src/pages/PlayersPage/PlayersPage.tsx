@@ -23,7 +23,7 @@ export const PlayersPage = () => {
                 <h1>Nuestros Jugadores</h1>
                 <p>Conoce a los protagonistas que defienden los colores de Lemare FC en cada partido. Un equipo unido por la pasión y el compromiso.</p>
             </div>
-            {isLoading && (
+            {(isLoading || originalPlayers.length === 0) && (
                 <div className='playerList'>
                     {Array.from({ length: 5 }).map((_, index) => (
                         <PlayerCardSkeleton key={index} />

@@ -10,7 +10,7 @@ export const QuienesSomosPage = () => {
   return (
     <div className="quienesSomosPage">
       <h1>Staff Tecnico</h1>
-      {isLoading && (
+      {(isLoading || originalPlayers.length === 0) && (
         <section className='staffSection'>
           {Array.from({ length: 3 }).map((_, index) => (
             <PlayerCardSkeleton key={index} />
