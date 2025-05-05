@@ -9,7 +9,7 @@ export const Banner = () => {
             <h1 className='title'>LEMARE FC</h1>
             <p>Pasión, tradición y excelencia en cada partido. Somos más que un equipo, somos una familia unida por el amor al fútbol.</p>
             <div className='banner-buttons'>
-                <CustomButton text="Próximos Partidos" typeOfButton={true} url={NavLinks.PARTIDOS.toLocaleLowerCase()} />
+                {/* <CustomButton text="Próximos Partidos" typeOfButton={true} url={NavLinks.PARTIDOS.toLocaleLowerCase()} /> */}
                 <CustomButton text="Conoce al equipo" typeOfButton={false} url={NavLinks.PLANTEL.toLocaleLowerCase()} />
             </div>
         </div>

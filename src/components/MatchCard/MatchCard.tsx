@@ -1,7 +1,7 @@
 import { CustomButton } from '../CustomButton/CustomButton'
 import { FaRegCalendarAlt } from "react-icons/fa";
-import './_matchCard.scss'
 import { NavLinks } from '../../types/navLinks';
+import './_matchCard.scss'
 
 export const MatchCard = () => {
     return (
@@ -18,7 +18,7 @@ export const MatchCard = () => {
                 </div>
             </div>
             <div className="matchCardFooter">
-                <CustomButton text='Ver Todos los Partidos' typeOfButton={false} url={NavLinks.PARTIDOS.toLocaleLowerCase()} />
+                {/* <CustomButton text='Ver Todos los Partidos' typeOfButton={false} url={NavLinks.PARTIDOS.toLocaleLowerCase()} /> */}
             </div>
         </div>
     )

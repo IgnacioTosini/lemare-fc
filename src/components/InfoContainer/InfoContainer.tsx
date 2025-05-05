@@ -14,14 +14,13 @@ export const InfoContainer = () => {
                     titleButton="Ver Jugadores"
                     url={`${NavLinks.PLANTEL.toLocaleLowerCase()}`}
                 />
-                <CustomInfoCard
+{/*                 <CustomInfoCard
                     title="Torneo"
                     image="cup"
                     description="Explora el torneo, conoce a los equipos rivales y sigue el camino hacia la gloria."
                     titleButton="Ver Torneo"
                     url={`${NavLinks.PARTIDOS.toLocaleLowerCase()}`}
-
-                />
+                /> */}
                 <CustomInfoCard
                     title="Multimedia"
                     image="multimedia"
