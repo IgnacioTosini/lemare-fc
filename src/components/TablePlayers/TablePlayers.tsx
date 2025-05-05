@@ -11,8 +11,8 @@ export const TablePlayers = () => {
         editingPlayer,
         openMenuId,
         filteredPlayers,
-        handleToggleMenu,
         handleFilter,
+        handleEdit,
     } = usePlayerContext();
 
     return (
@@ -52,7 +52,7 @@ export const TablePlayers = () => {
             {editingPlayer && (
                 <ModalForm
                     player={editingPlayer}
-                    onClose={() => handleToggleMenu(editingPlayer.id)}
+                    onClose={() => handleEdit(null)}
                 />
             )}
         </div>

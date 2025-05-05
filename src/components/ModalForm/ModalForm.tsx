@@ -16,11 +16,24 @@ type ModalFormProps = {
     onClose: () => void;
 };
 
+type StatsChangeEvent = {
+    target: {
+        name: string;
+        value: {
+            goals: number;
+            assists: number;
+            matches: number;
+            yellowCards: number;
+            redCards: number;
+        };
+    };
+};
+
 export const ModalForm = ({ player, onClose }: ModalFormProps) => {
     const { handleAddPlayer, handleSave, players, isLoading } = usePlayerContext();
     const [formData, setFormData] = useState<Player>(player || { ...{} as Player, stats: { goals: 0, assists: 0, matches: 0, yellowCards: 0, redCards: 0 }, socialMedia: [], description: '', name: '' });
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null); // Mejora: manejo de errores específico
+    const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -29,6 +42,24 @@ export const ModalForm = ({ player, onClose }: ModalFormProps) => {
         const convertedValue = ['number', 'age', 'year', 'height'].includes(name) ? Number(value) : value;
 
         setFormData({ ...formData, [name]: convertedValue });
+    };
+
+    const handleStatsChange = (e: ChangeEvent<HTMLInputElement> | StatsChangeEvent) => {
+        if ('value' in e.target && typeof e.target.value === 'object') {
+            // Caso StatsChangeEvent
+            const { value } = e.target;
+            setFormData({ ...formData, stats: value });
+        } else {
+            // Caso ChangeEvent<HTMLInputElement>
+            const { name, value } = e.target;
+            setFormData({
+                ...formData,
+                stats: {
+                    ...formData.stats,
+                    [name]: Number(value),
+                },
+            });
+        }
     };
 
     useEffect(() => {
@@ -90,7 +121,7 @@ export const ModalForm = ({ player, onClose }: ModalFormProps) => {
                 <form onSubmit={handleSubmit}>
                     <PlayerInfoForm formData={formData} handleChange={handleChange} setFormData={setFormData} />
                     <h2>Estadísticas</h2>
-                    <StatsForm formData={formData} handleChange={handleChange} />
+                    <StatsForm formData={formData} handleChange={handleStatsChange} />
                     <h2>Redes Sociales</h2>
                     <SocialMediaForm formData={formData} setFormData={setFormData} />
                     {error && <p className="errorMessage">{error}</p>} {/* Mejora: mostrar mensaje de error */}
