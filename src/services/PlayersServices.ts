@@ -8,7 +8,7 @@ export const PlayersService = {
             const result = playerSchema.safeParse(player);
             if (result.success) {
                 const response = await axios.post(`${import.meta.env.VITE_LOCAL_BASE_URL}/jugadores`, player);
-                return response.data.data; // Retorna la respuesta de la API si es exitosa
+                return response.data.data;
             } else {
                 console.error('Validation error details:', result.error.errors);
                 throw new Error('Validation error');
@@ -19,7 +19,7 @@ export const PlayersService = {
             } else {
                 console.error('Error adding player:', error);
             }
-            throw error; // Lanza el error para manejarlo en el nivel superior
+            throw error;
         }
     },
 
