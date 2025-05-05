@@ -1,28 +1,19 @@
-import { useState } from 'react';
-import { players } from '../../utils/players';
 import { RowPlayerCard } from '../RowPlayerCard/RowPlayerCard';
 import { ModalForm } from '../ModalForm/ModalForm';
-import { Player } from '../../types';
 import { FilterList } from '../FilterList/FilterList';
+import { usePlayerContext } from '../../context/playerStore';
 import './_tablePlayers.scss';
 
 export const TablePlayers = () => {
-    const [editingPlayer, setEditingPlayer] = useState<Player | null>(null);
-    const [openMenuId, setOpenMenuId] = useState<number | null>(null);
-    const [filteredPlayers, setFilteredPlayers] = useState<Player[]>(players);
-
-    const handleEdit = (player: Player) => {
-        setEditingPlayer(player);
-    };
-
-    const handleSave = (updatedPlayer: Player) => {
-        console.log('Updated player:', updatedPlayer);
-        setEditingPlayer(null);
-    };
-
-    const handleToggleMenu = (playerId: number) => {
-        setOpenMenuId((prevId) => (prevId === playerId ? null : playerId));
-    };
+    const {
+        players,
+        error,
+        editingPlayer,
+        openMenuId,
+        filteredPlayers,
+        handleToggleMenu,
+        handleFilter,
+    } = usePlayerContext();
 
     return (
         <div className='tablePlayers'>
@@ -30,7 +21,8 @@ export const TablePlayers = () => {
                 <h1 className='title'>Gestión de Jugadores y Staff</h1>
                 <p>Añade, edita o elimina jugadores y miembros del staff técnico.</p>
             </section>
-            <FilterList team={players} onFilter={setFilteredPlayers} />
+            {error && <p className='error'>{error}</p>}
+            <FilterList team={players} onFilter={handleFilter} />
             <table className='table'>
                 <thead>
                     <tr>
@@ -52,9 +44,7 @@ export const TablePlayers = () => {
                         <RowPlayerCard
                             key={player.id}
                             player={player}
-                            onEdit={handleEdit}
                             isMenuOpen={openMenuId === player.id}
-                            onToggleMenu={handleToggleMenu}
                         />
                     ))}
                 </tbody>
@@ -62,8 +52,7 @@ export const TablePlayers = () => {
             {editingPlayer && (
                 <ModalForm
                     player={editingPlayer}
-                    onClose={() => setEditingPlayer(null)}
-                    onSave={handleSave}
+                    onClose={() => handleToggleMenu(editingPlayer.id)}
                 />
             )}
         </div>

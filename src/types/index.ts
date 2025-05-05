@@ -4,16 +4,16 @@ import { SocialMediaType } from "./socialMedia";
 export type Player = {
     id: number;
     name: string;
-    image?: string;
+    image: string;
     number?: number;
-    year?: number;
-    age?: number;
-    country?: string;
-    height?: number;
-    position?: Position;
-    description?: string;
+    year: number;
+    age: number;
+    country: string;
+    height: number;
+    position: Position;
+    description: string;
     stats?: Stats;
-    socialMedia: SocialMedia[];
+    socialMedia?: SocialMedia[];
 };
 
 export type Stats = {

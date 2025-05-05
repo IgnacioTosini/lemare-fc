@@ -1,14 +1,24 @@
 import { StaffCard } from '../../components/StaffCard/StaffCard'
 import { Position } from '../../types/positions'
-import { players } from '../../utils/players'
+import { usePlayerContext } from '../../context/playerStore';
+import { PlayerCardSkeleton } from '../../components/PlayerCardSkeleton/PlayerCardSkeleton';
 import './_quienesSomosPage.scss'
 
 export const QuienesSomosPage = () => {
+  const { players: originalPlayers, isLoading } = usePlayerContext();
+
   return (
     <div className="quienesSomosPage">
       <h1>Staff Tecnico</h1>
+      {isLoading && (
+        <section className='staffSection'>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <PlayerCardSkeleton key={index} />
+          ))}
+        </section>
+      )}
       <section className='staffSection'>
-        {players.map((member) => (
+        {originalPlayers.map((member) => (
           member.position === Position.CUERPO_TECNICO && (
             <StaffCard key={member.id} staff={member} />
           )

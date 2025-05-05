@@ -2,6 +2,7 @@
 
 tr {
     transition: background-color 0.3s ease-in-out;
+    overflow: visible; // Asegura que el submenú no sea recortado
 
     &:hover {
         background-color: $quaternary-color;

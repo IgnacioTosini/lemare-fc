@@ -1,9 +1,9 @@
 import { Link } from 'react-router';
 import { CustomListSocialMedia } from '../';
-import { NavLinks } from '../../types/navLinks';
-import './_footer.scss'
+import { navLinks } from '../../types/navLinks';
 import { SocialMedia } from '../../types';
 import { SocialMediaType } from '../../types/socialMedia';
+import './_footer.scss'
 
 const socialMedia: SocialMedia[] = [
     {
@@ -31,10 +31,11 @@ export const Footer = () => {
                 <div className='quickLinks'>
                     <p>Enlaces rápidos</p>
                     <ul className='links'>
-                        <li><Link to="/plantel" className='link'>{NavLinks.PLANTEL}</Link></li>
-                        <li><Link to="/partidos" className='link'>{NavLinks.PARTIDOS}</Link></li>
-                        <li><Link to="/multimedia" className='link'>{NavLinks.MULTIMEDIA}</Link></li>
-                        <li><Link to="/quienes-somos" className='link'>{NavLinks.QUIENES_SOMOS}</Link></li>
+                        {navLinks.map((link) => (
+                            <li key={link.label}>
+                                <Link to={link.to} className='link'>{link.label}</Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 <ul className='socialIcons'>

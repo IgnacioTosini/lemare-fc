@@ -1,0 +1,20 @@
+@use '../../styles/variables' as *;
+
+.skeleton {
+    .detailSkeleton {
+        background-color: $skeleton-element-color;
+        border-radius: 0.5rem;
+        animation: pulse 1.5s infinite;
+    }
+
+    .infoSkeleton {
+        background-color: $skeleton-element-color;
+        border-radius: 0.5rem;
+        animation: pulse 1.5s infinite;
+    }
+    .playerStatsSkeleton {
+        background-color: $skeleton-element-color;
+        border-radius: 0.5rem;
+        animation: pulse 1.5s infinite;
+    }
+}

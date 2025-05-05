@@ -29,10 +29,6 @@ export const FilterList = ({ team, onFilter }: FilterListProps) => {
         applyFilters(searchValue, value);
     };
 
-    const handleAddPlayer = () => {
-        setIsModalOpen(true);
-    };
-
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
@@ -40,7 +36,7 @@ export const FilterList = ({ team, onFilter }: FilterListProps) => {
     const applyFilters = (search: string, position: string) => {
         const filteredTeam = team.filter(player => {
             const matchesSearch = player.name.toLowerCase().includes(search);
-            const matchesPosition = position ? player.position === position : true;
+            const matchesPosition = position === '' || player.position === position;
             return matchesSearch && matchesPosition;
         });
         onFilter(filteredTeam);
@@ -67,11 +63,11 @@ export const FilterList = ({ team, onFilter }: FilterListProps) => {
                     name="position"
                 />
 
-                <button className='addPlayer' aria-label='Add Player' onClick={handleAddPlayer}><GoPlus className='plusIcon' /><p>Añadir Jugador</p></button>
+                <button className='addPlayer' aria-label='Add Player' onClick={() => setIsModalOpen(true)}><GoPlus className='plusIcon' /><p>Añadir Jugador</p></button>
             </section>
 
             {isModalOpen && (
-                <ModalForm onClose={handleCloseModal} onSave={(player) => console.log('Player saved:', player)} />
+                <ModalForm onClose={handleCloseModal} />
             )}
         </div>
     );

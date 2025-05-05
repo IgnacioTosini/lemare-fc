@@ -3,8 +3,8 @@ import { Player } from '../../types';
 import { MorePlayerInfo } from '../MorePlayerInfo/MorePlayerInfo';
 import { CustomListSocialMedia } from '../CustomListSocialMedia/CustomListSocialMedia';
 import { NavLinks } from '../../types/navLinks';
-import './_playercard.scss';
 import { Position } from '../../types/positions';
+import './_playercard.scss';
 
 type PlayerCardProps = {
     player: Player;
@@ -25,13 +25,13 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
                 )}
             </div>
             <div className='playerInfo'>
-                <h2>{player.name}</h2>
+                <h2>{player.name.toUpperCase()}</h2>
                 <p>{player.position}</p>
             </div>
             {showMorePlayerInfo && (
                 <section className='playerInfoExpanded'>
                     <MorePlayerInfo player={player} />
-                    <CustomListSocialMedia socialMedia={player.socialMedia} />
+                    <CustomListSocialMedia socialMedia={player.socialMedia || []} />
                 </section>
             )}
         </>
@@ -47,7 +47,7 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
 
     return (
         showMorePlayerInfo ? (
-            <div className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
+            <div className={`playerCard ${showMorePlayerInfo ? 'expanded individualCard' : 'playerCard'}`}>
                 {cardContent}
             </div>
         ) : (
@@ -57,3 +57,5 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
         )
     );
 };
+
+

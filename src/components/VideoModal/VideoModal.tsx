@@ -1,8 +1,6 @@
 import { FaRegClock } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
-
 import { Video } from '../../types';
-
 import './_videoModal.scss'
 
 type VideoModalProps = {

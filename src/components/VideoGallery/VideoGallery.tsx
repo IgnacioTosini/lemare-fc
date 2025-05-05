@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { Video } from '../../types';
 import { fetchPlaylistVideos } from '../../utils/videos';
 import { VideoModal } from '../VideoModal/VideoModal';
+import { usePlayerContext } from '../../context/playerStore';
 import './_videoGallery.scss';
+import { VideoModalSkeleton } from '../VideoModalSkeleton/VideoModalSkeleton';
 
 export const VideoGallery = () => {
     const [playlistVideos, setPlaylistVideos] = useState<Video[]>([]);
+    const { isLoading } = usePlayerContext();
 
     useEffect(() => {
         const fetchVideos = async () => {
@@ -30,8 +33,10 @@ export const VideoGallery = () => {
 
     return (
         <div className='videoGallery'>
-            {playlistVideos.length === 0 ? (
-                <div className='loading'>Cargando Videos...</div>
+            {isLoading ? (
+                Array.from({ length: 3 }).map((_, index) => (
+                    <VideoModalSkeleton key={index} />
+                ))
             ) : (
                 playlistVideos.map((video) => (
                     <VideoModal key={video.id} video={video} />

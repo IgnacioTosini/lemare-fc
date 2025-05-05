@@ -1,16 +1,18 @@
 import { IoIosMore } from 'react-icons/io';
 import { Player } from '../../types';
+import { Position } from '../../types/positions';
 import './_rowPlayerCard.scss';
+import { usePlayerContext } from '../../context/playerStore';
+import 'react-toastify/dist/ReactToastify.css';
 
 type RowPlayerCardProps = {
     player: Player;
-    onEdit: (player: Player) => void;
     isMenuOpen: boolean;
-    onToggleMenu: (playerId: number) => void;
 };
 
-export const RowPlayerCard = ({ player, onEdit, isMenuOpen, onToggleMenu }: RowPlayerCardProps) => {
-    const getPositionColor = (position?: string) => {
+export const RowPlayerCard = ({ player, isMenuOpen }: RowPlayerCardProps) => {
+    const { handleEdit, handleDelete, handleToggleMenu, isLoading } = usePlayerContext();
+    const getPositionColor = (position?: Position) => {
         const normalizedPosition = position?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         switch (normalizedPosition) {
             case "arquero":
@@ -28,16 +30,6 @@ export const RowPlayerCard = ({ player, onEdit, isMenuOpen, onToggleMenu }: RowP
         }
     };
 
-    const handleEdit = () => {
-        onEdit(player);
-        onToggleMenu(player.id);
-    };
-
-    const handleDelete = () => {
-        console.log(`Deleting player with ID: ${player.id}`);
-        onToggleMenu(player.id);
-    };
-
     return (
         <tr>
             <td>{player.id}</td>
@@ -49,11 +41,14 @@ export const RowPlayerCard = ({ player, onEdit, isMenuOpen, onToggleMenu }: RowP
             <td>{player.age}</td>
             <td>
                 <div className='menuContainer'>
-                    <button className='btn' onClick={() => onToggleMenu(player.id)}><IoIosMore /></button>
+                    <button className='btn' onClick={() => handleToggleMenu(player.id)}><IoIosMore /></button>
                     {isMenuOpen && (
                         <div className='submenu'>
-                            <button onClick={handleEdit}>Editar</button>
-                            <button onClick={handleDelete}>Eliminar</button>
+                            <button onClick={() => handleEdit(player)}>Editar</button>
+                            <button onClick={async () => {
+                                await handleDelete(player.id);
+                                handleToggleMenu(null);
+                            }}>{isLoading ? 'Eliminando...' : 'Eliminar'}</button>
                         </div>
                     )}
                 </div>

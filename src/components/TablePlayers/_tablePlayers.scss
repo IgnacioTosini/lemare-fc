@@ -34,7 +34,7 @@
     .table {
         width: 100%;
         border-spacing: 0;
-        overflow: hidden;
+        overflow: visible; // Permite que el submenú sobresalga correctamente
         transition: all 0.3s ease-in-out;
         max-width: 100%;
         border-radius: 0.5rem;

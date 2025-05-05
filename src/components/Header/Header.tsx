@@ -3,21 +3,12 @@ import { Link } from "react-router";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineClose } from "react-icons/md";
 import { Navbar, MenuHamburguesa } from '../index';
-import { NavLinks } from '../../types/navLinks';
 
 import './_header.scss';
 
 export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isTabletOrMobile, setIsTabletOrMobile] = useState(false);
-
-    const links = [
-        { label: 'Inicio', to: NavLinks.INICIO },
-        { label: 'Plantel', to: NavLinks.PLANTEL },
-        { label: 'Partidos', to: NavLinks.PARTIDOS },
-        { label: 'Multimedia', to: NavLinks.MULTIMEDIA },
-        { label: 'Quienes Somos', to: NavLinks.QUIENES_SOMOS },
-    ];
 
     useEffect(() => {
         const handleResize = () => {
@@ -45,7 +36,7 @@ export const Header = () => {
                     <button className="menuToggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                         {isMenuOpen ? <MdOutlineClose /> : <GiHamburgerMenu />}
                     </button>
-                    <MenuHamburguesa links={links} isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+                    <MenuHamburguesa isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
                 </>
             ) : (
                 <Navbar />
