@@ -37,18 +37,18 @@
             flex-wrap: wrap;
             gap: 1rem;
             width: 100%;
-            max-width: 400px;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease-in-out;
 
             img {
                 width: 100%;
+                max-width: 400px;
                 height: auto;
                 border-radius: 10px;
                 transition: all 0.3s ease-in-out;
                 cursor: pointer;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
                 &:hover {
                     transform: scale(1.05);
