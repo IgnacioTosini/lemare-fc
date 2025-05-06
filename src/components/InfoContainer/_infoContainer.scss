@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
+    width: 100%;
     gap: 1.5rem;
     padding: 2rem;
 
@@ -18,5 +19,41 @@
     @media screen and (max-width: 768px) {
         align-items: center;
         text-align: center;
+    }
+
+    .infoT-shirtContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+        margin-top: 2rem;
+
+        .infoT-shirt {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+        }
     }
 }

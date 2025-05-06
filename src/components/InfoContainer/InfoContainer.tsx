@@ -29,6 +29,15 @@ export const InfoContainer = () => {
                     url={`${NavLinks.MULTIMEDIA.toLocaleLowerCase()}`}
                 />
             </div>
+
+            <div className='infoT-shirtContainer'>
+                <h2>¡Viste la camiseta del LEMARE FC!</h2>
+                <div className='infoT-shirt'>
+                    <img src="/conjuntoLocalLemare.jpeg" alt="Conjunto de Local del Lemare Fc" />
+                    <img src="/conjuntoVisitanteLemare.jpeg" alt="Conjunto de Visitante del Lemare Fc" />
+                </div>
+
+            </div>
         </div>
     )
 }
