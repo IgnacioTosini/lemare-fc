@@ -2,6 +2,9 @@
 
 .banner-button,
 .secondary-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: clamp(100px, 15vw, 250px);
     min-height: fit-content;
     height: clamp(60px, 5vw, 60px);

@@ -1,4 +1,4 @@
-import { CustomInfoCard } from '../';
+import { CustomButton, CustomInfoCard } from '../';
 import { NavLinks } from '../../types/navLinks';
 import './_infoContainer.scss'
 
@@ -36,7 +36,12 @@ export const InfoContainer = () => {
                     <img src="/conjuntoLocalLemare.jpeg" alt="Conjunto de Local del Lemare Fc" />
                     <img src="/conjuntoVisitanteLemare.jpeg" alt="Conjunto de Visitante del Lemare Fc" />
                 </div>
-
+                <CustomButton
+                    text="Visitar la tienda Drop"
+                    typeOfButton={true}
+                    url="https://www.instagram.com/drop.extra/"
+                    blank={true}
+                />
             </div>
         </div>
     )
