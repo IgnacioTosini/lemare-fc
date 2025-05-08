@@ -33,8 +33,8 @@ export const InfoContainer = () => {
             <div className='infoT-shirtContainer'>
                 <h2>¡Viste la camiseta del LEMARE FC!</h2>
                 <div className='infoT-shirt'>
-                    <img src="/conjuntoLocalLemare.jpeg" alt="Conjunto de Local del Lemare Fc" />
-                    <img src="/conjuntoVisitanteLemare.jpeg" alt="Conjunto de Visitante del Lemare Fc" />
+                    <img src="/conjuntoLocalLemare.webp" alt="Uniforme local del Lemare FC" width="400" height="400" />
+                    <img src="/conjuntoVisitanteLemare.webp" alt="Uniforme visitante del Lemare FC" width="400" height="400" />
                 </div>
                 <CustomButton
                     text="Visitar la tienda Drop"

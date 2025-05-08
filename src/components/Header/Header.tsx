@@ -27,7 +27,7 @@ export const Header = () => {
         <div className="header">
             <div className="headerLogo">
                 <Link to="/" className="logoLink">
-                    <img src="/escudoDelLemareFC.png" alt="Lemare Fc" className="logo" />
+                    <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className="logo" />
                     <h1 className="headerTitle">LEMARE FC</h1>
                 </Link>
             </div>

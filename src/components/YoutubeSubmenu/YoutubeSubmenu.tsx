@@ -8,11 +8,11 @@ type SubmenuProps = {
 export const YoutubeSubmenu = ({ urls }: SubmenuProps) => {
     const imageUrls = [
         {
-            image: '/santiagoTosiniYT.jpg',
+            image: '/santiagoTosiniYT.webp',
             alt: 'Santiago Tosini',
         },
         {
-            image: '/lucaNivioYT.jpg',
+            image: '/lucaNivioYT.webp',
             alt: 'Luca Nivio',
         },
     ];

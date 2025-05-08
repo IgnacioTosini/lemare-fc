@@ -52,7 +52,7 @@
             gap: 1rem;
 
             .positionHeader {
-                width: 100%;
+                width: fit-content;
                 font-size: $font-size-xlarge;
                 color: $primary-color;
                 font-weight: $font-weight-bold;
@@ -65,6 +65,10 @@
                 align-items: flex-start;
                 flex-wrap: wrap;
                 gap: 1rem;
+            }
+
+            @media screen and (max-width: 500px) {
+                align-items: center;
             }
         }
     }

@@ -8,10 +8,13 @@
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
-    background: url('/bannerOlas.png') no-repeat center center/cover;
+    background: url('/bannerOlas.webp') no-repeat center center/cover;
+    background-attachment: fixed;
 
     .banner-logo {
         max-width: clamp(200px, 20vw, 300px);
+        width: 300px;
+        height: auto;
     }
 
     .title {

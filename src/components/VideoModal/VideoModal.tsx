@@ -11,9 +11,9 @@ export const VideoModal = ({ video }: VideoModalProps) => {
     return (
         <div className="videoItem">
             <a href={video.url} target='_blank' rel='noopener noreferrer' className='videoThumbnail'>
-                <img src={video.thumbnail} alt={video.title} />
+                <img src={video.thumbnail} alt={video.title} width="480" height="360" />
                 <div className='videoInfo'>
-                    <h3>{video.title}</h3>
+                    <h2>{video.title}</h2>
                     <section className="videoDetails">
                         <section className="aditionalInfo">
                             <FaCalendarAlt className='calendarIcon' />

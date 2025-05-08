@@ -39,7 +39,11 @@ export const Footer = () => {
                     </ul>
                 </div>
                 <ul className='socialIcons'>
-                    <CustomListSocialMedia socialMedia={socialMedia} />
+                    {socialMedia.map((media, index) => (
+                        <li key={index}>
+                            <CustomListSocialMedia socialMedia={[media]} />
+                        </li>
+                    ))}
                 </ul>
             </div>
             <p className='copyRight'>© {new Date().getFullYear()} Lemare FC. Todos los derechos reservados. <span className='creatorHighlight'>Creado por Ignacio Tosini</span></p>

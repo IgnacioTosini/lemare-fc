@@ -8,10 +8,12 @@ type CustomListSocialMediaProps = {
 
 export const CustomListSocialMedia = ({ socialMedia }: CustomListSocialMediaProps) => {
     return (
-        <div className="customListSocialMedia">
+        <ul className="customListSocialMedia">
             {socialMedia.map((media, index) => (
-                <CustomSocialMedia key={index} typeOfSocialMedia={media.typeOfSocialMedia} url={media.url} />
+                <li key={index}>
+                    <CustomSocialMedia typeOfSocialMedia={media.typeOfSocialMedia} url={media.url} />
+                </li>
             ))}
-        </div>
+        </ul>
     );
 };

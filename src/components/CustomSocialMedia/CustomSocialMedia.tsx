@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
 import { YoutubeSubmenu } from "../YoutubeSubmenu/YoutubeSubmenu";
-import './_customSocialMedia.scss';
 import { SocialMediaType } from "../../types/socialMedia";
+import './_customSocialMedia.scss';
 
 type CustomSocialMediaProps = {
     typeOfSocialMedia: string;
@@ -32,10 +32,10 @@ export const CustomSocialMedia = ({ typeOfSocialMedia, url }: CustomSocialMediaP
                     <div
                         className="socialMediaIcon"
                         onClick={toggleSubmenu}
-                        onBlur={() => setIsSubmenuVisible(false)}
                         tabIndex={0}
                         aria-expanded={isSubmenuVisible}
                         role="button"
+                        aria-label="Abrir submenú de YouTube"
                     >
                         {socialMediaIcons[SocialMediaType.YOUTUBE.toLocaleLowerCase()] || null}
                     </div>

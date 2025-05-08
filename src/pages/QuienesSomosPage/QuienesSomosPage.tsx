@@ -6,11 +6,12 @@ import './_quienesSomosPage.scss'
 
 export const QuienesSomosPage = () => {
   const { players: originalPlayers, isLoading } = usePlayerContext();
+  const staffMembers = originalPlayers.filter((member) => member.position === Position.CUERPO_TECNICO);
 
   return (
     <div className="quienesSomosPage">
       <h1>Staff Tecnico</h1>
-      {(isLoading || originalPlayers.length === 0) && (
+      {(isLoading || staffMembers.length === 0) && (
         <section className='staffSection'>
           {Array.from({ length: 3 }).map((_, index) => (
             <PlayerCardSkeleton key={index} />
@@ -18,10 +19,8 @@ export const QuienesSomosPage = () => {
         </section>
       )}
       <section className='staffSection'>
-        {originalPlayers.map((member) => (
-          member.position === Position.CUERPO_TECNICO && (
-            <StaffCard key={member.id} staff={member} />
-          )
+        {staffMembers.map((member) => (
+          <StaffCard key={member.id} staff={member} />
         ))}
       </section>
       <div className='historyContainer'>
@@ -33,7 +32,7 @@ export const QuienesSomosPage = () => {
           <p className='historyDescription'>En 2010, tras años de trabajo constante y desarrollo de talento local, Lemare FC consiguió el ascenso a la segunda división. Solo cinco años después, en 2015, el sueño se hizo realidad con el histórico ascenso a la máxima categoría del fútbol nacional, donde compite actualmente.</p>
           <p className='historyDescription'>Los últimos años han sido los más exitosos en la historia del club, con la consecución del primer título de liga en 2022 y la clasificación para competiciones europeas. Hoy, Lemare FC representa un modelo de gestión deportiva sostenible y un orgullo para toda la comunidad.</p>
         </section>
-        <img src="/escudoDelLemareFC.png" alt="Lemare FC" className='shieldImage' />
+        <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className='shieldImage' />
       </div>
 
       <div className='valuesAndPhilosophyContainer'>
