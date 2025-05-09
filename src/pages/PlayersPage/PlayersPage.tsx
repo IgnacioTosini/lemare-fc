@@ -18,30 +18,30 @@ export const PlayersPage = () => {
     }, {});
 
     return (
-        <div className='playersPage'>
-            <div className='playersPageHeader'>
+        <section className='playersPage'>
+            <header className='playersPageHeader'>
                 <h1>Nuestros Jugadores</h1>
                 <p>Conoce a los protagonistas que defienden los colores de Lemare FC en cada partido. Un equipo unido por la pasión y el compromiso.</p>
-            </div>
+            </header>
             {(isLoading || originalPlayers.length === 0) && (
-                <div className='playerList'>
+                <section className='playerList'>
                     {Array.from({ length: 5 }).map((_, index) => (
                         <PlayerCardSkeleton key={index} />
                     ))}
-                </div>
+                </section>
             )}
-            <div className='playerList'>
+            <section className='playerList'>
                 {Object.entries(groupedPlayers).map(([position, players]) => (
-                    <div key={position} className='playerGroup'>
+                    <article key={position} className='playerGroup'>
                         <h2 className='positionHeader'>{`${position}/s`}</h2>
                         <div className='playerCards'>
                             {players.map(player => (
                                 <PlayerCard key={player.id} player={player} />
                             ))}
                         </div>
-                    </div>
+                    </article>
                 ))}
-            </div>
-        </div>
+            </section>
+        </section>
     );
 };

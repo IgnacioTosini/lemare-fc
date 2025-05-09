@@ -3,9 +3,13 @@ import './_abmPage.scss'
 
 export const ABMPage = () => {
     return (
-        <div className='abmPage'>
-            <h1 className='title'>Administración de Jugadores/Staff</h1>
-            <TablePlayers />
-        </div>
+        <section className='abmPage'>
+            <header className='abmPageContainer'>
+                <h1 className='title'>Administración de Jugadores/Staff</h1>
+            </header>
+            <section>
+                <TablePlayers />
+            </section>
+        </section>
     )
 }
