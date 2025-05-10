@@ -1,7 +1,6 @@
-@use './styles/variables' as *;
-
 body.dark {
-  @include theme(dark);
+    color: #EAEAEA;
+    background-color: #1A1A1A;
 }
 
 * {
