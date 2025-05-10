@@ -1,5 +1,21 @@
 @use '../../styles/variables' as *;
 
+body.dark .staffCard {
+    background-color: $background-color-dark;
+    border: 1px solid $secondary-hover-color-dark;
+    color: $primary-color-dark;
+
+    .staffCardInfo {
+        .staffCardName {
+            color: $primary-color-dark;
+        }
+
+        .staffCardDescription {
+            color: $tertiary-color-dark;
+        }
+    }
+}
+
 .staffCard {
     position: relative;
     display: flex;
