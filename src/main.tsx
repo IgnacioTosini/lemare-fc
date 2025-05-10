@@ -7,7 +7,7 @@ import { PlayerProvider } from './context/playerStore';
 import { ThemeProvider } from './context/themeContext';
 import 'react-toastify/dist/ReactToastify.css';
 
-import './index.scss'
+import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
