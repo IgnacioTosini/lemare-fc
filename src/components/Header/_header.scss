@@ -2,6 +2,19 @@
 
 body.dark .header {
     @include theme(dark);
+
+    .headerLogo {
+        .logoLink {
+            .headerTitle {
+                color: $secondary-color-dark;
+            }
+        }
+    }
+
+    .menuToggle,
+    .themeToggle {
+        color: $secondary-color-dark;
+    }
 }
 
 body.light .header {

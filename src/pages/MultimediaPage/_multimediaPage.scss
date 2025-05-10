@@ -4,6 +4,10 @@ body.dark .multimediaPage {
     @include theme(dark);
 
     .multimediaPageHeader {
+        h1 {
+            color: $secondary-color-dark;
+        }
+
         p {
             color: $tertiary-color-dark;
         }

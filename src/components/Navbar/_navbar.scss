@@ -2,6 +2,16 @@
 
 body.dark .navbar {
     color: $primary-color-dark;
+
+    .navbarNav {
+        .navItem {
+            a {
+                &:hover {
+                    color: $secondary-color-dark;
+                }
+            }
+        }
+    }
 }
 
 body.light .navbar {

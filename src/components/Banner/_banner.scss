@@ -1,5 +1,18 @@
 @use "../../styles/variables" as *;
 
+body.dark .banner {
+    @include theme(dark);
+    background: none;
+
+    .title {
+        color: $secondary-color-dark;
+    }
+
+    p {
+        color: $primary-color-dark;
+    }
+}
+
 .banner {
     position: relative;
     display: flex;

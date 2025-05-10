@@ -1,5 +1,20 @@
 @use "../../styles/variables" as *;
 
+body.dark .customInfoCard {
+    @include theme(dark);
+    box-shadow: 0 4px 10px $shadow-color-dark;
+
+    .icon {
+        svg {
+            color: $secondary-color-dark;
+        }
+    }
+
+    .description {
+        color: $tertiary-color-dark;
+    }
+}
+
 .customInfoCard {
     display: flex;
     flex-direction: column;
