@@ -3,7 +3,8 @@
 body.dark .quienesSomosPage {
     @include theme(dark);
 
-    .historyContainer, .valuesAndPhilosophyContainer {
+    .historyContainer,
+    .valuesAndPhilosophyContainer {
         border: 1px solid $shadow-color-dark;
 
         .historySection {
@@ -18,6 +19,18 @@ body.dark .quienesSomosPage {
 
         .valuesAndPhilosophyTitle {
             color: $primary-color-dark;
+        }
+
+        .submenuContainer {
+            .submenuText {
+                h2 {
+                    color: $primary-color-dark;
+                }
+
+                .submenuDescription {
+                    color: $tertiary-color-dark;
+                }
+            }
         }
     }
 }

@@ -37,7 +37,11 @@ export const Header = () => {
             <div className="headerLinks">
                 {isTabletOrMobile ? (
                     <>
-                        <button className="menuToggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        <button
+                            className="menuToggle"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+                        >
                             {isMenuOpen ? <MdOutlineClose /> : <GiHamburgerMenu />}
                         </button>
                         <MenuHamburguesa isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
@@ -45,7 +49,11 @@ export const Header = () => {
                 ) : (
                     <Navbar />
                 )}
-                <button className="themeToggle" onClick={toggleTheme}>
+                <button
+                    className="themeToggle"
+                    onClick={toggleTheme}
+                    aria-label={theme === 'light' ? "Cambiar a modo oscuro" : "Cambiar a modo claro"}
+                >
                     {theme === 'light' ? <FaMoon /> : <FaSun />}
                 </button>
             </div>
