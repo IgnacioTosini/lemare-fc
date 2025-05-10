@@ -1,5 +1,38 @@
 @use '../../styles/variables' as *;
 
+body.dark .videoItem {
+    @include theme(dark);
+
+    .videoThumbnail {
+        background-color: $background-color-dark;
+        border: 1px solid $quaternary-color-dark;
+
+        .videoInfo {
+            background-color: $background-color-dark;
+            border-top: 1px solid $quaternary-color-dark;
+
+            h2 {
+                color: $primary-color-dark;
+            }
+
+            p {
+                color: $tertiary-color-dark;
+            }
+
+            .videoDetails {
+                .videoDuration,
+                .videoDate {
+                    color: $tertiary-color-dark;
+                }
+
+                .videoCreator {
+                    color: $secondary-color-dark;
+                }
+            }
+        }
+    }
+}
+
 .videoItem {
     max-width: 25rem;
     height: 100%;

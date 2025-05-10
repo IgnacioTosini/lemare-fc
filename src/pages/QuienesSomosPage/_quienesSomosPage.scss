@@ -1,5 +1,27 @@
 @use '../../styles/variables' as *;
 
+body.dark .quienesSomosPage {
+    @include theme(dark);
+
+    .historyContainer, .valuesAndPhilosophyContainer {
+        border: 1px solid $shadow-color-dark;
+
+        .historySection {
+            .historyTitle {
+                color: $primary-color-dark;
+            }
+
+            .historyDescription {
+                color: $tertiary-color-dark;
+            }
+        }
+
+        .valuesAndPhilosophyTitle {
+            color: $primary-color-dark;
+        }
+    }
+}
+
 .quienesSomosPage {
     display: flex;
     flex-direction: column;

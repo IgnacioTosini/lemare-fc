@@ -6,6 +6,7 @@ import './_navbar.scss';
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const isDisabled = true;
 
     const toggleMenu = () => {
@@ -13,10 +14,11 @@ export const Navbar = () => {
     };
 
     return (
-        <nav className="navbar">
+        <nav className='navbar'>
             <button className="menuToggle" onClick={toggleMenu}>
                 <GiHamburgerMenu className="hamburgerIcon" />
             </button>
+
             <ul className={`navbarNav ${isMenuOpen ? 'open' : ''}`}>
                 <li className="navItem">
                     <Link className="navLink" aria-current="page" to="/">{NavLinks.INICIO}</Link>

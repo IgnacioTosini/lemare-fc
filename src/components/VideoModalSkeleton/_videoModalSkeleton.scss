@@ -1,5 +1,30 @@
 @use '../../styles/variables' as *;
 
+body.dark .videoItemSkeleton {
+    @include theme(dark);
+    box-shadow: 0 4px 8px $shadow-color-dark;
+
+    .videoThumbnailSkeleton {
+        background-color: $background-color-dark;
+        border: 1px solid $quaternary-color-dark;
+
+        img {
+            background-color: $background-color-dark;
+            border: 1px solid $quaternary-color-dark;
+        }
+
+        .videoInfoSkeleton {
+            background-color: $background-color-dark;
+            border-top: 1px solid $quaternary-color-dark;
+
+            .videoDetailsSkeleton {
+                background-color: $background-color-dark;
+                border-top: 1px solid $quaternary-color-dark;
+            }
+        }
+    }
+}
+
 .videoItemSkeleton {
     background-color: $skeleton-element-color;
     animation: pulse 1.5s infinite;

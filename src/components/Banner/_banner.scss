@@ -40,3 +40,16 @@
         margin-top: 3rem;
     }
 }
+
+body.dark .banner {
+    @include theme(dark);
+    background: none;
+
+    p {
+        color: $primary-color-dark;
+    }
+}
+
+body.light .banner {
+    @include theme(light);
+}

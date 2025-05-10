@@ -1,5 +1,22 @@
 @use '../../styles/variables' as *;
 
+body.dark .tablePlayers {
+    @include theme(dark);
+    box-shadow: 0 4px 8px $shadow-color-dark;
+
+    .table {
+        background-color: $background-color-dark;
+        border: 1px solid $quaternary-color-dark;
+
+        thead {
+            th {
+                background-color: $background-color-dark;
+                border-bottom: 1px solid $quaternary-color-dark;
+            }
+        }
+    }
+}
+
 .tablePlayers {
     display: flex;
     flex-direction: column;

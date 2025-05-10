@@ -1,5 +1,15 @@
 @use '../../styles/variables' as *;
 
+body.dark .abmPage {
+    @include theme(dark);
+
+    .abmPageContainer {
+        .title {
+            color: $primary-color-dark;
+        }
+    }
+}
+
 .abmPage {
     display: flex;
     flex-direction: column;

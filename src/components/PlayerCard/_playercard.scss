@@ -1,5 +1,14 @@
 @use '../../styles/variables' as *;
 
+body.dark .playerCard {
+    @include theme(dark);
+    box-shadow: 0 4px 8px $shadow-color-dark;
+}
+
+body.light .playerCard {
+    @include theme(light);
+}
+
 .playerCard {
     position: relative;
     display: flex;
@@ -72,6 +81,7 @@
     &:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.349);
         cursor: pointer;
+        transform: scale(1.02);
     }
 
     .playerInfoExpanded {
@@ -101,4 +111,3 @@
     @extend .playerCard;
     max-height: none;
 }
-

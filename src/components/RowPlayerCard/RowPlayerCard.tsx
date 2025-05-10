@@ -1,9 +1,9 @@
 import { IoIosMore } from 'react-icons/io';
 import { Player } from '../../types';
 import { Position } from '../../types/positions';
-import './_rowPlayerCard.scss';
 import { usePlayerContext } from '../../context/playerStore';
 import 'react-toastify/dist/ReactToastify.css';
+import './_rowPlayerCard.scss';
 
 type RowPlayerCardProps = {
     player: Player;

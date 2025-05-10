@@ -1,5 +1,16 @@
 @use '../../styles/variables' as *;
 
+body.dark tr {
+    @include theme(dark);
+    background-color: $background-color-dark;
+    color: $primary-color-dark;
+
+    &:hover {
+        background-color: $quaternary-color-dark;
+        color: $secondary-color-dark;
+    }
+}
+
 tr {
     transition: background-color 0.3s ease-in-out;
     overflow: visible; // Asegura que el submenú no sea recortado

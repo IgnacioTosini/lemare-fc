@@ -1,8 +1,8 @@
 import { IoPeople } from "react-icons/io5";
 import { TfiCup } from "react-icons/tfi";
 import { FaVideo } from "react-icons/fa";
-import './_customInfoCard.scss'
 import { CustomButton } from "../CustomButton/CustomButton";
+import './_customInfoCard.scss'
 
 type CustomInfoCardProps = {
     title: string

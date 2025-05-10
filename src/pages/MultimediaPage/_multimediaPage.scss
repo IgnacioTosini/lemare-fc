@@ -1,5 +1,15 @@
 @use '../../styles/variables' as *;
 
+body.dark .multimediaPage {
+    @include theme(dark);
+
+    .multimediaPageHeader {
+        p {
+            color: $tertiary-color-dark;
+        }
+    }
+}
+
 .multimediaPage {
     display: flex;
     flex-direction: column;

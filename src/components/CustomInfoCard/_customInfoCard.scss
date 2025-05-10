@@ -35,3 +35,16 @@
         line-height: 24px;
     }
 }
+
+body.dark .customInfoCard {
+    @include theme(dark);
+    box-shadow: 0 4px 10px $shadow-color-dark;
+
+    .title {
+        color: $quaternary-color;
+    }
+}
+
+body.light .customInfoCard {
+    @include theme(light);
+}

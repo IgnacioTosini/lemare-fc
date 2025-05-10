@@ -3,8 +3,8 @@ import { Video } from '../../types';
 import { fetchPlaylistVideos } from '../../utils/videos';
 import { VideoModal } from '../VideoModal/VideoModal';
 import { usePlayerContext } from '../../context/playerStore';
-import './_videoGallery.scss';
 import { VideoModalSkeleton } from '../VideoModalSkeleton/VideoModalSkeleton';
+import './_videoGallery.scss';
 
 export const VideoGallery = () => {
     const [playlistVideos, setPlaylistVideos] = useState<Video[]>([]);

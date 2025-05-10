@@ -1,5 +1,44 @@
 @use '../../styles/variables' as *;
 
+body.dark .playerPage {
+    @include theme(dark);
+
+    .backArrow {
+        color: $primary-color-dark;
+    }
+
+    .playerDetail {
+        .playerInfo {
+            color: $primary-color-dark;
+
+            .playerDescription,
+            .playerStats {
+                border: 1px solid $secondary-hover-color-dark;
+
+                h1 {
+                    color: $primary-color-dark;
+                }
+
+                p {
+                    color: $tertiary-color-dark;
+                }
+            }
+        }
+    }
+
+    .statsList {
+        .statItem {
+            background-color: $background-color-dark;
+            border-radius: 0.5rem;
+            padding: 2.5rem 1rem;
+
+            p {
+                color: $tertiary-color-dark;
+            }
+        }
+    }
+}
+
 .playerPage {
     display: flex;
     flex-direction: column;

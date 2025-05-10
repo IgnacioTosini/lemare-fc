@@ -1,5 +1,35 @@
 @use '../../styles/variables' as *;
 
+body.dark .modal {
+    @include theme(dark);
+
+    .modalContent {
+        background-color: $background-color-dark;
+        color: $primary-color-dark;
+
+        .title {
+            color: $primary-color-dark;
+        }
+
+        form {
+            label, .description {
+                color: $primary-color-dark;
+
+                input,
+                textarea {
+                    background-color: $quaternary-color-dark;
+                    color: $primary-color-dark;
+                    border: 1px solid $secondary-hover-color-dark;
+                }
+            }
+
+            .error {
+                color: red;
+            }
+        }
+    }
+}
+
 .modal {
     position: fixed;
     top: 0;

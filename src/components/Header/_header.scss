@@ -1,5 +1,13 @@
 @use "../../styles/variables" as *;
 
+body.dark .header {
+    @include theme(dark);
+}
+
+body.light .header {
+    @include theme(light);
+}
+
 .header {
     position: sticky;
     top: 0px;
@@ -42,7 +50,14 @@
         }
     }
 
-    .menuToggle {
+    .headerLinks {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .menuToggle,
+    .themeToggle {
         cursor: pointer;
         background: none;
         border: none;

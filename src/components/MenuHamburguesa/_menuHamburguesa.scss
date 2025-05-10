@@ -1,5 +1,16 @@
 @use '../../styles/variables' as *;
 
+body.dark .menuHamburguesa {
+    @include theme(dark);
+    background-color: $background-color-dark;
+
+    .menuHamburguesaList {
+        .menuHamburguesaLink {
+            color: $primary-color-dark;
+        }
+    }
+}
+
 .menuHamburguesa {
     position: fixed;
     top: 0;

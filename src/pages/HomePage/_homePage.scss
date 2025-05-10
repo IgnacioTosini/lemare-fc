@@ -1,3 +1,13 @@
+@use '../../styles/variables' as *;
+
+body.dark .home {
+    @include theme(dark);
+}
+
+body.light .home {
+    @include theme(light);
+}
+
 .home {
     display: flex;
     flex-direction: column;

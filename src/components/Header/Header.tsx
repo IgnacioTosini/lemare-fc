@@ -3,12 +3,15 @@ import { Link } from "react-router";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineClose } from "react-icons/md";
 import { Navbar, MenuHamburguesa } from '../index';
+import { useThemeContext } from '../../context/themeContext';
+import { FaSun, FaMoon } from "react-icons/fa";
 
 import './_header.scss';
 
 export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isTabletOrMobile, setIsTabletOrMobile] = useState(false);
+    const { theme, toggleTheme } = useThemeContext();
 
     useEffect(() => {
         const handleResize = () => {
@@ -31,16 +34,21 @@ export const Header = () => {
                     <h1 className="headerTitle">LEMARE FC</h1>
                 </Link>
             </div>
-            {isTabletOrMobile ? (
-                <>
-                    <button className="menuToggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                        {isMenuOpen ? <MdOutlineClose /> : <GiHamburgerMenu />}
-                    </button>
-                    <MenuHamburguesa isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-                </>
-            ) : (
-                <Navbar />
-            )}
+            <div className="headerLinks">
+                {isTabletOrMobile ? (
+                    <>
+                        <button className="menuToggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                            {isMenuOpen ? <MdOutlineClose /> : <GiHamburgerMenu />}
+                        </button>
+                        <MenuHamburguesa isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+                    </>
+                ) : (
+                    <Navbar />
+                )}
+                <button className="themeToggle" onClick={toggleTheme}>
+                    {theme === 'light' ? <FaMoon /> : <FaSun />}
+                </button>
+            </div>
         </div>
     );
 };

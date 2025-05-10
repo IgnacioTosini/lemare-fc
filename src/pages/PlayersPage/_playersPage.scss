@@ -1,5 +1,22 @@
 @use "../../styles/variables" as *;
 
+
+body.dark .playersPage {
+    @include theme(dark);
+
+    .playerList {
+        .playerGroup {
+            .positionHeader {
+                color: $primary-color-dark;
+            }
+        }
+    }
+}
+
+body.light .playersPage {
+    @include theme(light);
+}
+
 .playersPage {
     display: flex;
     flex-direction: column;
