@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router'
 import { ToastContainer } from 'react-toastify';
 import { PlayerProvider } from './context/playerStore';
 import { ThemeProvider } from './context/themeContext';
-import { HelmetProvider } from 'react-helmet-async';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './index.css'
@@ -13,14 +12,12 @@ import './index.css'
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <StrictMode>
-      <HelmetProvider>
-        <ThemeProvider>
-          <PlayerProvider>
-            <ToastContainer />
-            <LemareApp />
-          </PlayerProvider>
-        </ThemeProvider>
-      </HelmetProvider>
+      <ThemeProvider>
+        <PlayerProvider>
+          <ToastContainer />
+          <LemareApp />
+        </PlayerProvider>
+      </ThemeProvider>
     </StrictMode>
   </BrowserRouter>,
 )
