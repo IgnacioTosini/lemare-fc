@@ -1,9 +1,17 @@
 import { JSX } from "react";
 import { Route, Routes, Navigate } from "react-router";
-import { HomePage, MultimediaPage, PartidosPage, PlayerPage, PlayersPage, QuienesSomosPage } from "../pages";
+import { Suspense, lazy } from "react";
 import { NavLinks } from '../types/navLinks';
-import { ABMPage } from "../pages/ABMPage/ABMPage";
-import { NotFoundPage } from "../pages/NotFoundPage/NotFoundPage";
+
+// Lazy load de las páginas principales (se requiere export default)
+const HomePage = lazy(() => import('../pages/HomePage/HomePage').then(module => ({ default: module.HomePage })));
+const PlayersPage = lazy(() => import('../pages/PlayersPage/PlayersPage').then(module => ({ default: module.PlayersPage })));
+const PlayerPage = lazy(() => import('../pages/PlayerPage/[id]').then(module => ({ default: module.PlayerPage })));
+const PartidosPage = lazy(() => import('../pages/PartidosPage/PartidosPage').then(module => ({ default: module.PartidosPage })));
+const MultimediaPage = lazy(() => import('../pages/MultimediaPage/MultimediaPage').then(module => ({ default: module.MultimediaPage })));
+const QuienesSomosPage = lazy(() => import('../pages/QuienesSomosPage/QuienesSomosPage').then(module => ({ default: module.QuienesSomosPage })));
+const ABMPage = lazy(() => import('../pages/ABMPage/ABMPage').then(module => ({ default: module.ABMPage })));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage').then(module => ({ default: module.NotFoundPage })));
 
 const routes = [
     { path: '/', element: <HomePage />, name: NavLinks.INICIO },
@@ -29,14 +37,16 @@ const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
 
 export const AppRouter = () => {
     return (
-        <Routes>
-            {routes.map(({ path, element }) => (
-                path === '/admin' ? (
-                    <Route key={path} path={path} element={<ProtectedRoute element={element} />} />
-                ) : (
-                    <Route key={path} path={path} element={element} />
-                )
-            ))}
-        </Routes>
+        <Suspense fallback={<div>Cargando...</div>}>
+            <Routes>
+                {routes.map(({ path, element }) => (
+                    path === '/admin' ? (
+                        <Route key={path} path={path} element={<ProtectedRoute element={element} />} />
+                    ) : (
+                        <Route key={path} path={path} element={element} />
+                    )
+                ))}
+            </Routes>
+        </Suspense>
     );
 };

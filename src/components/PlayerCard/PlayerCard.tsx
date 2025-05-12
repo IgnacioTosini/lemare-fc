@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router';
+import { memo } from 'react';
 import { Player } from '../../types';
 import { MorePlayerInfo } from '../MorePlayerInfo/MorePlayerInfo';
 import { CustomListSocialMedia } from '../CustomListSocialMedia/CustomListSocialMedia';
@@ -10,17 +11,17 @@ type PlayerCardProps = {
     player: Player;
 };
 
-export const PlayerCard = ({ player }: PlayerCardProps) => {
+export const PlayerCard = memo(({ player }: PlayerCardProps) => {
     const location = useLocation();
     const showMorePlayerInfo = location.pathname.includes(`/${NavLinks.PLANTEL.toLocaleLowerCase()}/${player.id}`);
 
     const cardContent = (
         <>
             <div className='playerImageContainer'>
-                <img src={player.image} alt={player.name} className='playerImage' />
+                <img src={player.image} alt={player.name} className='playerImage' loading="lazy" />
                 {player.position !== Position.CUERPO_TECNICO && (
-                    <div className='playerNumber'>
-                        {player.number}
+                    <div className='playerNumberContainer'>
+                        <span className='playerNumber'>{player.number}</span>
                     </div>
                 )}
             </div>
@@ -56,6 +57,6 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
             </Link>
         )
     );
-};
+});
 
 

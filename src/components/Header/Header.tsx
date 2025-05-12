@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { Link } from "react-router";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineClose } from "react-icons/md";
 import { Navbar, MenuHamburguesa } from '../index';
 import { useThemeContext } from '../../context/themeContext';
 import { FaSun, FaMoon } from "react-icons/fa";
+import { prefetchRoute } from '../../utils/prefetchRoute';
 
 import './_header.scss';
 
-export const Header = () => {
+export const Header = memo(() => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isTabletOrMobile, setIsTabletOrMobile] = useState(false);
     const { theme, toggleTheme } = useThemeContext();
@@ -29,8 +30,10 @@ export const Header = () => {
     return (
         <div className="header">
             <div className="headerLogo">
-                <Link to="/" className="logoLink">
-                    <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className="logo" />
+                <Link to="/" className="logoLink"
+                    onMouseEnter={() => prefetchRoute(() => import('../../pages/HomePage/HomePage'))}
+                >
+                    <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className="logo" loading="lazy" />
                     <h1 className="headerTitle">LEMARE FC</h1>
                 </Link>
             </div>
@@ -59,4 +62,4 @@ export const Header = () => {
             </div>
         </div>
     );
-};
+});

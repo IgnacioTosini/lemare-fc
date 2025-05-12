@@ -4,17 +4,20 @@ import { Position } from '../../types/positions';
 import { usePlayerContext } from '../../context/playerStore';
 import 'react-toastify/dist/ReactToastify.css';
 import './_rowPlayerCard.scss';
+import { memo } from 'react';
 
 type RowPlayerCardProps = {
     player: Player;
     isMenuOpen: boolean;
 };
 
-export const RowPlayerCard = ({ player, isMenuOpen }: RowPlayerCardProps) => {
+export const RowPlayerCard = memo(({ player, isMenuOpen }: RowPlayerCardProps) => {
     const { handleEdit, handleDelete, handleToggleMenu, isLoading } = usePlayerContext();
     const getPositionColor = (position?: Position) => {
         const normalizedPosition = position?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         switch (normalizedPosition) {
+            case "admin":
+                return "admin";
             case "arquero":
                 return "arquero";
             case "defensor":
@@ -33,7 +36,7 @@ export const RowPlayerCard = ({ player, isMenuOpen }: RowPlayerCardProps) => {
     return (
         <tr>
             <td>{player.id}</td>
-            <td><img src={player.image} className='playerImage' alt={player.name} /></td>
+            <td><img src={player.image} className='playerImage' alt={player.name} loading="lazy" /></td>
             <td>{player.name}</td>
             <td>{player.number || '-'}</td>
             <td><span className={`${getPositionColor(player.position)}`}>{player.position}</span></td>
@@ -55,4 +58,4 @@ export const RowPlayerCard = ({ player, isMenuOpen }: RowPlayerCardProps) => {
             </td>
         </tr>
     );
-};
+});

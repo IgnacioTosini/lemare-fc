@@ -81,3 +81,35 @@ export type VideoDetailsItem = {
 export type VideoDetailsResponse = {
     items: VideoDetailsItem[];
 };
+
+export type Match = {
+    id: string;
+    date: string;
+    time: string;
+    homeTeam: string;
+    awayTeam: string;
+    homeScore?: number;
+    awayScore?: number;
+    location: string;
+};
+
+export type TournamentTableEntry = {
+    position: number;
+    teamName: string;
+    matchesPlayed: number;
+    goalsFor: number;
+    goalsAgainst: number;
+    goalDifference: number;
+    points: number;
+};
+
+export type TournamentTable = {
+    entries: TournamentTableEntry[];
+};
+
+export type MainTeamMatchInfo = {
+    date: string;
+    time: string;
+    opponent: string;
+    location: string;
+};

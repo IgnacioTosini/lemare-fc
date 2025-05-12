@@ -1,8 +1,10 @@
 import { Link } from 'react-router';
+import { memo } from 'react';
 import { CustomListSocialMedia } from '../';
 import { navLinks } from '../../types/navLinks';
 import { SocialMedia } from '../../types';
 import { SocialMediaType } from '../../types/socialMedia';
+import { prefetchRoute } from '../../utils/prefetchRoute';
 import './_footer.scss'
 
 const socialMedia: SocialMedia[] = [
@@ -20,7 +22,7 @@ const socialMedia: SocialMedia[] = [
     }
 ];
 
-export const Footer = () => {
+export const Footer = memo(() => {
     return (
         <div className='containerFooter'>
             <div className='footer'>
@@ -33,7 +35,33 @@ export const Footer = () => {
                     <ul className='links'>
                         {navLinks.map((link) => (
                             <li key={link.label}>
-                                <Link to={link.to} className='link'>{link.label}</Link>
+                                <Link
+                                    to={link.to}
+                                    className='link'
+                                    onMouseEnter={() => {
+                                        switch (link.to) {
+                                            case '/':
+                                                prefetchRoute(() => import('../../pages/HomePage/HomePage'));
+                                                break;
+                                            case '/plantel':
+                                                prefetchRoute(() => import('../../pages/PlayersPage/PlayersPage'));
+                                                break;
+                                            case '/partidos':
+                                                prefetchRoute(() => import('../../pages/PartidosPage/PartidosPage'));
+                                                break;
+                                            case '/multimedia':
+                                                prefetchRoute(() => import('../../pages/MultimediaPage/MultimediaPage'));
+                                                break;
+                                            case '/quienes-somos':
+                                                prefetchRoute(() => import('../../pages/QuienesSomosPage/QuienesSomosPage'));
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }}
+                                >
+                                    {link.label}
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -49,4 +77,4 @@ export const Footer = () => {
             <p className='copyRight'>© {new Date().getFullYear()} Lemare FC. Todos los derechos reservados. <span className='creatorHighlight'>Creado por Ignacio Tosini</span></p>
         </div>
     );
-};
+});

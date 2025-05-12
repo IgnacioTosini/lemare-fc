@@ -16,11 +16,13 @@ export const CustomSelect = <T extends Record<string, string>>({ type, selectedV
             onChange={handleChange}
         >
             <option value="">Seleccionar</option>
-            {Object.values(type).map((value) => (
-                <option key={value} value={value} disabled={disabledOptions?.includes(value)}>
-                    {value}
-                </option>
-            ))}
+            {Object.values(type)
+                .filter((value) => !disabledOptions?.includes(value))
+                .map((value) => (
+                    <option key={value} value={value}>
+                        {value}
+                    </option>
+                ))}
         </select>
     );
 };

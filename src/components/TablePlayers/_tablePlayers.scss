@@ -71,6 +71,7 @@ body.dark .tablePlayers {
     }
 }
 
+.admin,
 .arquero,
 .defensor,
 .mediocampista,
@@ -81,6 +82,10 @@ body.dark .tablePlayers {
     border-radius: 0.5rem;
     color: white;
     font-size: $font-size-small;
+}
+
+.admin {
+    background-color: #fba524;
 }
 
 .arquero {

@@ -38,6 +38,7 @@ export const PlayerInfoForm = ({ formData, handleChange, setFormData }: { formDa
                     selectedValue={formData.position || ''}
                     handleChange={handleChange}
                     name="position"
+                    disabledOptions={['Admin']}
                 />
                 {formData.position ? null : <p>Debe elegir una posición</p>}
             </label>

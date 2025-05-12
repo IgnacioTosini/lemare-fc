@@ -1,5 +1,15 @@
 @use '../../styles/variables' as *;
 
+@keyframes shine {
+    0% {
+        background-position: -200%;
+    }
+
+    100% {
+        background-position: 200%;
+    }
+}
+
 body.dark .playerCard {
     @include theme(dark);
     box-shadow: 0 4px 8px $shadow-color-dark;
@@ -15,8 +25,8 @@ body.light .playerCard {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: clamp(250px, 100%, 350px);
     min-width: 300px;
+    max-width: 300px;
     max-height: 390px;
     box-shadow: 0 4px 8px $shadow-color;
     background-color: $background-color;
@@ -38,20 +48,26 @@ body.light .playerCard {
 
         .playerImage {
             width: 100%;
-            height: 100%;
             object-fit: cover;
         }
 
-        .playerNumber {
+        .playerNumberContainer {
             position: absolute;
-            bottom: 1px;
+            display: flex;
+            align-items: center;
+            bottom: 0px;
             right: 0px;
             background-color: $secondary-color;
-            color: white;
-            font-size: $font-size-large;
-            font-weight: $font-weight-bold;
-            padding: 0.5rem 1rem;
-            z-index: 1;
+            height: 2rem;
+            border-radius: 1rem 0 0 0;
+
+            .playerNumber {
+                color: white;
+                font-size: $font-size-large;
+                font-weight: $font-weight-bold;
+                padding: 0.5rem 1rem;
+                z-index: 1;
+            }
         }
     }
 
@@ -82,6 +98,23 @@ body.light .playerCard {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.349);
         cursor: pointer;
         transform: scale(1.02);
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+        background-size: 200%;
+        animation: shine 2s infinite linear;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        .playerNumberContainer {
+            .playerNumber {
+                background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+                background-size: 200%;
+                animation: shine 2s infinite linear;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
     }
 
     .playerInfoExpanded {
@@ -105,9 +138,25 @@ body.light .playerCard {
     &.expanded {
         height: fit-content;
     }
+
+    &.shiny {
+        position: relative;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+        background-size: 200%;
+        animation: shine 2s infinite linear;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 }
 
 .individualCard {
     @extend .playerCard;
     max-height: none;
+
+    .playerImageContainer {
+        .playerNumberContainer {
+            bottom: 3px;
+        }
+    }
 }

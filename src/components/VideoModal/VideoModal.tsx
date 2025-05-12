@@ -1,5 +1,6 @@
 import { FaRegClock } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
+import { memo } from 'react';
 import { Video } from '../../types';
 import './_videoModal.scss'
 
@@ -7,11 +8,11 @@ type VideoModalProps = {
     video: Video;
 }
 
-export const VideoModal = ({ video }: VideoModalProps) => {
+export const VideoModal = memo(({ video }: VideoModalProps) => {
     return (
         <div className="videoItem">
             <a href={video.url} target='_blank' rel='noopener noreferrer' className='videoThumbnail'>
-                <img src={video.thumbnail} alt={video.title} width="480" height="360" />
+                <img src={video.thumbnail} alt={video.title} width="480" height="360" loading="lazy" />
                 <div className='videoInfo'>
                     <h2>{video.title}</h2>
                     <section className="videoDetails">
@@ -31,4 +32,4 @@ export const VideoModal = ({ video }: VideoModalProps) => {
             </a>
         </div>
     )
-}
+});

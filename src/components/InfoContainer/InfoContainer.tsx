@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { CustomButton, CustomInfoCard } from '../';
 import { NavLinks } from '../../types/navLinks';
 import './_infoContainer.scss'
 
-export const InfoContainer = () => {
+export const InfoContainer = memo(() => {
     return (
         <div className='infoContainer'>
             <h1>Explora al LEMARE FC</h1>
@@ -33,8 +34,8 @@ export const InfoContainer = () => {
             <div className='infoT-shirtContainer'>
                 <h2>¡Viste la camiseta del LEMARE FC!</h2>
                 <div className='infoT-shirt'>
-                    <img src="/conjuntoLocalLemare.webp" alt="Uniforme local del Lemare FC" width="400" height="400" />
-                    <img src="/conjuntoVisitanteLemare.webp" alt="Uniforme visitante del Lemare FC" width="400" height="400" />
+                    <img src="/conjuntoLocalLemare.webp" alt="Uniforme local del Lemare FC" width="400" height="400" loading="lazy" />
+                    <img src="/conjuntoVisitanteLemare.webp" alt="Uniforme visitante del Lemare FC" width="400" height="400" loading="lazy" />
                 </div>
                 <CustomButton
                     text="Visitar la tienda Drop"
@@ -45,4 +46,4 @@ export const InfoContainer = () => {
             </div>
         </div>
     )
-}
+});

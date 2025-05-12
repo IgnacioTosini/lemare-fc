@@ -51,7 +51,7 @@ export const Cloudinary = ({ onUpload, preImage }: CloudinaryProps) => {
             {loading ? (
                 <h3>Loading...</h3>
             ) : (
-                image && <img src={image} className='preview' alt="imagen subida" />
+                image && <img src={image} className='preview' alt="imagen subida" loading="lazy" />
             )}
         </div>
     );
