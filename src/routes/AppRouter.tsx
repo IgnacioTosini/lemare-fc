@@ -2,6 +2,7 @@ import { JSX } from "react";
 import { Route, Routes, Navigate } from "react-router";
 import { Suspense, lazy } from "react";
 import { NavLinks } from '../types/navLinks';
+import { Loader } from "../components";
 
 // Lazy load de las páginas principales (se requiere export default)
 const HomePage = lazy(() => import('../pages/HomePage/HomePage').then(module => ({ default: module.HomePage })));
@@ -37,7 +38,7 @@ const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
 
 export const AppRouter = () => {
     return (
-        <Suspense fallback={<div>Cargando...</div>}>
+        <Suspense fallback={<Loader />}>
             <Routes>
                 {routes.map(({ path, element }) => (
                     path === '/admin' ? (

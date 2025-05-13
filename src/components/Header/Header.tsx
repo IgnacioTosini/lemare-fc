@@ -33,7 +33,7 @@ export const Header = memo(() => {
                 <Link to="/" className="logoLink"
                     onMouseEnter={() => prefetchRoute(() => import('../../pages/HomePage/HomePage'))}
                 >
-                    <img src="/escudoDelLemareFC.webp" alt="Escudo del Lemare FC" className="logo" loading="lazy" width="100" height="100" />
+                    <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className="logo" loading="lazy" width="100" height="100" />
                     <h1 className="headerTitle">LEMARE FC</h1>
                 </Link>
             </div>
