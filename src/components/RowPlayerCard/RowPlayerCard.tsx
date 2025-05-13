@@ -36,7 +36,7 @@ export const RowPlayerCard = memo(({ player, isMenuOpen }: RowPlayerCardProps) =
     return (
         <tr>
             <td>{player.id}</td>
-            <td><img src={player.image} className='playerImage' alt={player.name} loading="lazy" /></td>
+            <td><img src={player.image} className='playerImage' alt={player.name} loading="lazy" width="50" height="50" /></td>
             <td>{player.name}</td>
             <td>{player.number || '-'}</td>
             <td><span className={`${getPositionColor(player.position)}`}>{player.position}</span></td>

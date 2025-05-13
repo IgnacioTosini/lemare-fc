@@ -11,7 +11,7 @@ export const StaffCard = memo(({ staff }: StaffCardProps) => {
     return (
         <div className="staffCard">
             <div className="staffImageContainer">
-                <img src={staff.image} alt={staff.name} className='staffImage' loading="lazy" />
+                <img src={staff.image} alt={staff.name} className='staffImage' loading="lazy" width="300" height="300" />
             </div>
             <div className="staffCardInfo">
                 <h3 className="staffCardName">{staff.name.toUpperCase()}</h3>
