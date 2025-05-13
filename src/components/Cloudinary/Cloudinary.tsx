@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import './_cloudinary.scss'
+import { useCloudinaryWebp } from '../../hooks/useCloudinaryWebp';
+import './_cloudinary.scss';
 
 type CloudinaryProps = {
     onUpload: (url: string) => void;
@@ -12,6 +13,8 @@ export const Cloudinary = ({ onUpload, preImage }: CloudinaryProps) => {
     const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
     const [loading, setLoading] = useState(false);
+
+    const getWebpUrl = useCloudinaryWebp();
 
     const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -51,7 +54,7 @@ export const Cloudinary = ({ onUpload, preImage }: CloudinaryProps) => {
             {loading ? (
                 <h3>Loading...</h3>
             ) : (
-                image && <img src={image} className='preview' alt="imagen subida" loading="lazy" />
+                image && <img src={getWebpUrl(image)} className='preview' alt="imagen subida" loading="lazy" />
             )}
         </div>
     );
