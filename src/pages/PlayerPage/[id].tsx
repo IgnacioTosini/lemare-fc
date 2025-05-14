@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { PlayerCard } from '../../components/PlayerCard/PlayerCard';
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { usePlayerContext } from '../../context/playerStore';
@@ -7,6 +7,7 @@ import './_playerPage.scss';
 
 export const PlayerPage = () => {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const { players: originalPlayers } = usePlayerContext();
     const player = originalPlayers.find(p => p.id === Number(id));
 
@@ -17,7 +18,9 @@ export const PlayerPage = () => {
     return (
         <section className='playerPage'>
             <nav>
-                <Link to={`/plantel`} className='backArrow'><FaLongArrowAltLeft /> <p>Volver a jugadores</p></Link>
+                <button type="button" className='backArrow' onClick={() => navigate(-1)}>
+                    <FaLongArrowAltLeft /><p>Volver a jugadores</p>
+                </button>
             </nav>
             <article className="playerDetail">
                 <section className='playerCardContainer'>

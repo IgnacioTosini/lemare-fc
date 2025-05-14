@@ -1,7 +1,7 @@
-import { StaffCard } from '../../components/StaffCard/StaffCard'
 import { Position } from '../../types/positions'
 import { usePlayerContext } from '../../context/playerStore';
 import { PlayerCardSkeleton } from '../../components/PlayerCardSkeleton/PlayerCardSkeleton';
+import { PlayerCard } from '../../components';
 import './_quienesSomosPage.scss'
 
 export const QuienesSomosPage = () => {
@@ -22,19 +22,18 @@ export const QuienesSomosPage = () => {
       )}
       <section className='staffSection'>
         {staffMembers.map((member) => (
-          <StaffCard key={member.id} staff={member} />
+          <PlayerCard key={member.id} player={member} />
         ))}
       </section>
       <article className='historyContainer'>
         <section className='historySection'>
           <h1 className='historyTitle'>Nuestra Historia</h1>
-          <p className='historyDescription'>Fundado en 1985, Lemare FC nació como un pequeño club de barrio con grandes aspiraciones. Lo que comenzó como un proyecto modesto de un grupo de amigos apasionados por el fútbol, ha crecido hasta convertirse en uno de los clubes más respetados de la región.</p>
+          <p className='historyDescription'>Fundado en 2025, Lemare FC nació como un pequeño club de barrio con grandes aspiraciones. Lo que comenzó como un proyecto modesto de un grupo de amigos apasionados por el fútbol, ha crecido hasta convertirse en uno de los clubes más respetados de la región.</p>
           <p className='historyDescription'>Durante sus primeros años, el club compitió en ligas regionales, construyendo una base sólida y desarrollando una filosofía de juego distintiva. El punto de inflexión llegó en 1998, cuando el equipo logró su primer ascenso a la tercera división nacional, marcando el inicio de una nueva era.</p>
           <p className='historyDescription'>En 2010, tras años de trabajo constante y desarrollo de talento local, Lemare FC consiguió el ascenso a la segunda división. Solo cinco años después, en 2015, el sueño se hizo realidad con el histórico ascenso a la máxima categoría del fútbol nacional, donde compite actualmente.</p>
-          <p className='historyDescription'>Los últimos años han sido los más exitosos en la historia del club, con la consecución del primer título de liga en 2022 y la clasificación para competiciones europeas. Hoy, Lemare FC representa un modelo de gestión deportiva sostenible y un orgullo para toda la comunidad.</p>
         </section>
         <figure>
-          <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className='shieldImage' loading="lazy" />
+          <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className='shieldImage' loading="lazy" width="300" height="300" />
         </figure>
       </article>
       <section className='valuesAndPhilosophyContainer'>

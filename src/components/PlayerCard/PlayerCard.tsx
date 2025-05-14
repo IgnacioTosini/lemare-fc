@@ -1,5 +1,5 @@
-import { Link, useLocation } from 'react-router';
 import { memo } from 'react';
+import { Link, useLocation } from 'react-router';
 import { Player } from '../../types';
 import { MorePlayerInfo } from '../MorePlayerInfo/MorePlayerInfo';
 import { CustomListSocialMedia } from '../CustomListSocialMedia/CustomListSocialMedia';
@@ -39,14 +39,6 @@ export const PlayerCard = memo(({ player }: PlayerCardProps) => {
             )}
         </>
     );
-
-    if (player.position === Position.CUERPO_TECNICO) {
-        return (
-            <div className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
-                {cardContent}
-            </div>
-        );
-    }
 
     return (
         showMorePlayerInfo ? (
