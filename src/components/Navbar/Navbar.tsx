@@ -24,26 +24,31 @@ export const Navbar = memo(() => {
                 <li className="navItem">
                     <Link className="navLink" aria-current="page" to="/"
                         onMouseEnter={() => prefetchRoute(() => import('../../pages/HomePage/HomePage'))}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >{NavLinks.INICIO}</Link>
                 </li>
                 <li className="navItem">
                     <Link className="navLink" to="/plantel"
                         onMouseEnter={() => prefetchRoute(() => import('../../pages/PlayersPage/PlayersPage'))}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >{NavLinks.PLANTEL}</Link>
                 </li>
                 <li className={`navItem ${isDisabled ? 'disabled' : ''}`}>
                     <Link className="navLink" to="/partidos"
                         onMouseEnter={() => prefetchRoute(() => import('../../pages/PartidosPage/PartidosPage'))}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >{NavLinks.PARTIDOS}</Link>
                 </li>
                 <li className="navItem">
                     <Link className="navLink" to="/multimedia"
                         onMouseEnter={() => prefetchRoute(() => import('../../pages/MultimediaPage/MultimediaPage'))}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >{NavLinks.MULTIMEDIA}</Link>
                 </li>
                 <li className="navItem">
                     <Link className="navLink" to="/quienes-somos"
                         onMouseEnter={() => prefetchRoute(() => import('../../pages/QuienesSomosPage/QuienesSomosPage'))}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >{NavLinks.QUIENES_SOMOS}</Link>
                 </li>
             </ul>

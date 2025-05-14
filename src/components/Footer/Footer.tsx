@@ -59,6 +59,7 @@ export const Footer = memo(() => {
                                                 break;
                                         }
                                     }}
+                                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                                 >
                                     {link.label}
                                 </Link>
