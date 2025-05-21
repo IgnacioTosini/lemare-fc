@@ -42,11 +42,11 @@ export const PlayerCard = memo(({ player }: PlayerCardProps) => {
 
     return (
         showMorePlayerInfo ? (
-            <div className={`playerCard ${showMorePlayerInfo ? 'expanded individualCard' : 'playerCard'}`}>
+            <div className={`playerCard rainbow-shadow ${showMorePlayerInfo ? 'expanded individualCard' : 'playerCard'}`}>
                 {cardContent}
             </div>
         ) : (
-            <Link to={`/plantel/${player.id}`} className={`playerCard ${showMorePlayerInfo ? 'expanded' : ''}`}>
+            <Link to={`/plantel/${player.id}`} className={`playerCard rainbow-shadow ${showMorePlayerInfo ? 'expanded' : ''}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 {cardContent}
             </Link>
         )

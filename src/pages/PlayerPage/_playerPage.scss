@@ -71,7 +71,7 @@ body.dark .playerPage {
     .playerDetail {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        min-height: 100vh;
+        min-height: 100dvh;
         padding: 2rem;
 
         @media (max-width: 1024px) {

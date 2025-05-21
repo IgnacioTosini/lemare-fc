@@ -10,6 +10,16 @@
     }
 }
 
+@keyframes rainbowShadowMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 body.dark .playerCard {
     @include theme(dark);
     box-shadow: 0 4px 8px $shadow-color-dark;
@@ -60,6 +70,20 @@ body.light .playerCard {
     list-style: none;
     text-decoration: none;
     color: $primary-color;
+
+    &.rainbow-shadow:hover {
+        box-shadow:
+            0 0 0 2px rgba(90, 26, 26, 0.15),
+            /* halo bordo sutil */
+            0 0 16px 4px $secondary-color,
+            /* bordo principal */
+            0 0 24px 8px $secondary-color-dark,
+            /* bordo claro */
+            0 0 9px 2px $hover-color,
+            /* bordo oscuro */
+            0 0 20px 16px $secondary-hover-color;
+        transition: box-shadow 0.3s;
+    }
 
     .playerImageContainer {
         display: block;
@@ -171,6 +195,18 @@ body.light .playerCard {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+}
+
+body.dark .playerCard.rainbow-shadow:hover {
+    box-shadow:
+        0 0 0 2px rgba(90, 26, 26, 0.25),
+        /* halo bordo sutil */
+        0 0 12px 2px $secondary-color-dark,
+        /* bordo claro */
+        0 0 12px 12px $secondary-color,
+        /* bordo principal */
+        0 0 20px 6px $hover-color-dark,
+        /* bordo oscuro */
 }
 
 .individualCard {

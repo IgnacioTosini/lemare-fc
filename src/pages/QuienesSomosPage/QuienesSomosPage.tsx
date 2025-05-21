@@ -3,42 +3,79 @@ import { usePlayerContext } from '../../context/playerStore';
 import { PlayerCardSkeleton } from '../../components/PlayerCardSkeleton/PlayerCardSkeleton';
 import { PlayerCard } from '../../components';
 import './_quienesSomosPage.scss'
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
 
 export const QuienesSomosPage = () => {
   const { players: originalPlayers, isLoading } = usePlayerContext();
   const staffMembers = originalPlayers.filter((member) => member.position === Position.CUERPO_TECNICO);
 
+  // Animaciones
+  const headerRef = useRef<HTMLHeadingElement | null>(null);
+  const staffSectionRef = useRef<HTMLElement | null>(null);
+  const historyTitleRef = useRef<HTMLHeadingElement | null>(null);
+  const historyDescRef = useRef<HTMLDivElement | null>(null);
+  const shieldRef = useRef<HTMLImageElement | null>(null);
+  const valuesTitleRef = useRef<HTMLHeadingElement | null>(null);
+  const submenuRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      gsap.fromTo(headerRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' });
+    }
+    if (staffSectionRef.current) {
+      gsap.fromTo(staffSectionRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+    }
+    if (historyTitleRef.current) {
+      gsap.fromTo(historyTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.3, ease: 'power3.out' });
+    }
+    if (historyDescRef.current) {
+      gsap.fromTo(historyDescRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.45, ease: 'power3.out' });
+    }
+    if (shieldRef.current) {
+      gsap.fromTo(shieldRef.current, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.7, delay: 0.6, ease: 'power3.out' });
+    }
+    if (valuesTitleRef.current) {
+      gsap.fromTo(valuesTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.75, ease: 'power3.out' });
+    }
+    if (submenuRef.current) {
+      gsap.fromTo(submenuRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.9, ease: 'power3.out' });
+    }
+  }, []);
+
   return (
     <section className="quienesSomosPage">
       <header>
-        <h1>Staff Tecnico</h1>
+        <h1 ref={headerRef}>Staff Tecnico</h1>
       </header>
       {(isLoading || staffMembers.length === 0) && (
-        <section className='staffSection'>
+        <section className='staffSection' ref={staffSectionRef}>
           {Array.from({ length: 3 }).map((_, index) => (
             <PlayerCardSkeleton key={index} />
           ))}
         </section>
       )}
-      <section className='staffSection'>
+      <section className='staffSection' ref={staffSectionRef}>
         {staffMembers.map((member) => (
           <PlayerCard key={member.id} player={member} />
         ))}
       </section>
       <article className='historyContainer'>
         <section className='historySection'>
-          <h1 className='historyTitle'>Nuestra Historia</h1>
-          <p className='historyDescription'>Fundado en 2025, Lemare FC nació como un pequeño club de barrio con grandes aspiraciones. Lo que comenzó como un proyecto modesto de un grupo de amigos apasionados por el fútbol, ha crecido hasta convertirse en uno de los clubes más respetados de la región.</p>
-          <p className='historyDescription'>Durante sus primeros años, el club compitió en ligas regionales, construyendo una base sólida y desarrollando una filosofía de juego distintiva. El punto de inflexión llegó en 1998, cuando el equipo logró su primer ascenso a la tercera división nacional, marcando el inicio de una nueva era.</p>
-          <p className='historyDescription'>En 2010, tras años de trabajo constante y desarrollo de talento local, Lemare FC consiguió el ascenso a la segunda división. Solo cinco años después, en 2015, el sueño se hizo realidad con el histórico ascenso a la máxima categoría del fútbol nacional, donde compite actualmente.</p>
+          <h1 className='historyTitle' ref={historyTitleRef}>Nuestra Historia</h1>
+          <div ref={historyDescRef}>
+            <p className='historyDescription'>Fundado en 2025, Lemare FC nació como un pequeño club de barrio con grandes aspiraciones. Lo que comenzó como un proyecto modesto de un grupo de amigos apasionados por el fútbol, ha crecido hasta convertirse en uno de los clubes más respetados de la región.</p>
+            <p className='historyDescription'>Durante sus primeros años, el club compitió en ligas regionales, construyendo una base sólida y desarrollando una filosofía de juego distintiva. El punto de inflexión llegó en 1998, cuando el equipo logró su primer ascenso a la tercera división nacional, marcando el inicio de una nueva era.</p>
+            <p className='historyDescription'>En 2010, tras años de trabajo constante y desarrollo de talento local, Lemare FC consiguió el ascenso a la segunda división. Solo cinco años después, en 2015, el sueño se hizo realidad con el histórico ascenso a la máxima categoría del fútbol nacional, donde compite actualmente.</p>
+          </div>
         </section>
         <figure>
-          <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className='shieldImage' loading="lazy" width="300" height="300" />
+          <img src="/escudoDelLemareFC.png" alt="Escudo del Lemare FC" className='shieldImage' loading="lazy" width="300" height="300" ref={shieldRef} />
         </figure>
       </article>
       <section className='valuesAndPhilosophyContainer'>
-        <h2 className='valuesAndPhilosophyTitle'>Valores y Filosofía</h2>
-        <section className='submenuContainer'>
+        <h2 className='valuesAndPhilosophyTitle' ref={valuesTitleRef}>Valores y Filosofía</h2>
+        <section className='submenuContainer' ref={submenuRef}>
           <article className='submenuText'>
             <h2>Excelencia</h2>
             <p className='submenuDescription'>Buscamos la excelencia en todo lo que hacemos, tanto dentro como fuera del campo. Nos esforzamos por mejorar constantemente y superar nuestros propios límites.</p>

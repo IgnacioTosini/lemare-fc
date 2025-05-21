@@ -3,6 +3,9 @@ import { Route, Routes, Navigate } from "react-router";
 import { Suspense, lazy } from "react";
 import { NavLinks } from '../types/navLinks';
 import { Loader } from "../components";
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { useLocation } from 'react-router-dom';
 
 // Lazy load de las páginas principales (se requiere export default)
 const HomePage = lazy(() => import('../pages/HomePage/HomePage').then(module => ({ default: module.HomePage })));
@@ -37,17 +40,32 @@ const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
 };
 
 export const AppRouter = () => {
+    const location = useLocation();
+    const pageRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (pageRef.current) {
+            gsap.fromTo(
+                pageRef.current,
+                { opacity: 0, y: 40 },
+                { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
+            );
+        }
+    }, [location.pathname]);
+
     return (
         <Suspense fallback={<Loader />}>
-            <Routes>
-                {routes.map(({ path, element }) => (
-                    path === '/admin' ? (
-                        <Route key={path} path={path} element={<ProtectedRoute element={element} />} />
-                    ) : (
-                        <Route key={path} path={path} element={element} />
-                    )
-                ))}
-            </Routes>
+            <div ref={pageRef}>
+                <Routes>
+                    {routes.map(({ path, element }) => (
+                        path === '/admin' ? (
+                            <Route key={path} path={path} element={<ProtectedRoute element={element} />} />
+                        ) : (
+                            <Route key={path} path={path} element={element} />
+                        )
+                    ))}
+                </Routes>
+            </div>
         </Suspense>
     );
 };
