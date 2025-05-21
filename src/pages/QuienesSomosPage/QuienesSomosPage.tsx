@@ -1,10 +1,10 @@
+import { useRef } from 'react';
 import { Position } from '../../types/positions'
 import { usePlayerContext } from '../../context/playerStore';
 import { PlayerCardSkeleton } from '../../components/PlayerCardSkeleton/PlayerCardSkeleton';
 import { PlayerCard } from '../../components';
+import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
 import './_quienesSomosPage.scss'
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
 
 export const QuienesSomosPage = () => {
   const { players: originalPlayers, isLoading } = usePlayerContext();
@@ -19,29 +19,13 @@ export const QuienesSomosPage = () => {
   const valuesTitleRef = useRef<HTMLHeadingElement | null>(null);
   const submenuRef = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
-    if (headerRef.current) {
-      gsap.fromTo(headerRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' });
-    }
-    if (staffSectionRef.current) {
-      gsap.fromTo(staffSectionRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-    }
-    if (historyTitleRef.current) {
-      gsap.fromTo(historyTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.3, ease: 'power3.out' });
-    }
-    if (historyDescRef.current) {
-      gsap.fromTo(historyDescRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.45, ease: 'power3.out' });
-    }
-    if (shieldRef.current) {
-      gsap.fromTo(shieldRef.current, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.7, delay: 0.6, ease: 'power3.out' });
-    }
-    if (valuesTitleRef.current) {
-      gsap.fromTo(valuesTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.75, ease: 'power3.out' });
-    }
-    if (submenuRef.current) {
-      gsap.fromTo(submenuRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.9, ease: 'power3.out' });
-    }
-  }, []);
+  useGsapFadeInUp(headerRef, 0);
+  useGsapFadeInUp(staffSectionRef, 0.15);
+  useGsapFadeInUp(historyTitleRef, 0.3);
+  useGsapFadeInUp(historyDescRef, 0.45);
+  useGsapFadeInUp(shieldRef, 0.6);
+  useGsapFadeInUp(valuesTitleRef, 0.75);
+  useGsapFadeInUp(submenuRef, 0.9);
 
   return (
     <section className="quienesSomosPage">

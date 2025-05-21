@@ -1,7 +1,7 @@
-import { memo, useRef, useEffect } from 'react';
+import { memo, useRef } from 'react';
 import { CustomButton, CustomInfoCard } from '../';
 import { NavLinks } from '../../types/navLinks';
-import gsap from 'gsap';
+import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
 import './_infoContainer.scss'
 
 export const InfoContainer = memo(() => {
@@ -11,23 +11,11 @@ export const InfoContainer = memo(() => {
     const tshirtImgsRef = useRef<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        if (titleRef.current) {
-            gsap.fromTo(titleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' });
-        }
-        if (cardsRef.current) {
-            gsap.fromTo(cardsRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'power3.out' });
-        }
-        if (tshirtTitleRef.current) {
-            gsap.fromTo(tshirtTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.4, ease: 'power3.out' });
-        }
-        if (tshirtImgsRef.current) {
-            gsap.fromTo(tshirtImgsRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.6, ease: 'power3.out' });
-        }
-        if (buttonRef.current) {
-            gsap.fromTo(buttonRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.8, ease: 'power3.out' });
-        }
-    }, []);
+    useGsapFadeInUp(titleRef, 0);
+    useGsapFadeInUp(cardsRef, 0.2);
+    useGsapFadeInUp(tshirtTitleRef, 0.4);
+    useGsapFadeInUp(tshirtImgsRef, 0.6);
+    useGsapFadeInUp(buttonRef, 0.8);
 
     return (
         <div className='infoContainer'>

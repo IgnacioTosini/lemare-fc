@@ -3,8 +3,8 @@ import { PlayerCard } from '../../components/PlayerCard/PlayerCard';
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { usePlayerContext } from '../../context/playerStore';
 import { PlayerPageSkeleton } from '../../components/PlayerPageSkeleton/PlayerPageSkeleton';
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import { useRef } from 'react';
+import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
 import './_playerPage.scss';
 
 export const PlayerPage = () => {
@@ -21,26 +21,12 @@ export const PlayerPage = () => {
     const statsTitleRef = useRef<HTMLHeadingElement | null>(null);
     const statsListRef = useRef<HTMLUListElement | null>(null);
 
-    useEffect(() => {
-        if (navRef.current) {
-            gsap.fromTo(navRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
-        }
-        if (cardRef.current) {
-            gsap.fromTo(cardRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-        }
-        if (bioTitleRef.current) {
-            gsap.fromTo(bioTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.3, ease: 'power3.out' });
-        }
-        if (bioDescRef.current) {
-            gsap.fromTo(bioDescRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.45, ease: 'power3.out' });
-        }
-        if (statsTitleRef.current) {
-            gsap.fromTo(statsTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.6, ease: 'power3.out' });
-        }
-        if (statsListRef.current) {
-            gsap.fromTo(statsListRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.75, ease: 'power3.out' });
-        }
-    }, []);
+    useGsapFadeInUp(navRef, 0);
+    useGsapFadeInUp(cardRef, 0.15);
+    useGsapFadeInUp(bioTitleRef, 0.3);
+    useGsapFadeInUp(bioDescRef, 0.45);
+    useGsapFadeInUp(statsTitleRef, 0.6);
+    useGsapFadeInUp(statsListRef, 0.75);
 
     if (!player) {
         return (<PlayerPageSkeleton />);

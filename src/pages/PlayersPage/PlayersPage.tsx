@@ -2,8 +2,9 @@ import { usePlayerContext } from '../../context/playerStore';
 import { PlayerCard } from '../../components/PlayerCard/PlayerCard';
 import { PlayerCardSkeleton } from '../../components/PlayerCardSkeleton/PlayerCardSkeleton';
 import { Position } from '../../types/positions';
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import { useRef } from 'react';
+import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
+import { useGsapFadeInUpArray } from '../../hooks/useGsapFadeInUpArray';
 import './_playersPage.scss';
 
 export const PlayersPage = () => {
@@ -34,39 +35,14 @@ export const PlayersPage = () => {
     // Ref para la lista de jugadores
     const playerListRef = useRef<HTMLElement | null>(null);
 
-    useEffect(() => {
-        if (headerTitleRef.current && headerDescRef.current) {
-            gsap.fromTo(
-                headerTitleRef.current,
-                { opacity: 0, y: 40 },
-                { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
-            );
-            gsap.fromTo(
-                headerDescRef.current,
-                { opacity: 0, y: 40 },
-                { opacity: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'power3.out' }
-            );
-        }
-        // Animar los headers de posición
-        if (positionHeadersRef.current.length > 0) {
-            positionHeadersRef.current.forEach((header, i) => {
-                if (!header) return;
-                gsap.fromTo(
-                    header,
-                    { opacity: 0, y: 40 },
-                    { opacity: 1, y: 0, duration: 0.6, delay: 0.3 + i * 0.15, ease: 'power3.out' }
-                );
-            });
-        }
-        // Animar la lista de jugadores
-        if (playerListRef.current) {
-            gsap.fromTo(
-                playerListRef.current,
-                { opacity: 0, y: 40 },
-                { opacity: 1, y: 0, duration: 0.7, delay: 0.5, ease: 'power3.out' }
-            );
-        }
-    }, [sortedGroupedPlayers]);
+    useGsapFadeInUp(headerTitleRef, 0);
+    useGsapFadeInUp(headerDescRef, 0.2);
+    useGsapFadeInUp(playerListRef, 0.5);
+    // Animar los headers de posición
+    useGsapFadeInUpArray(
+        positionHeadersRef.current.map(ref => ({ current: ref })),
+        0.3, 0.15
+    );
 
     return (
         <section className='playersPage'>

@@ -1,5 +1,5 @@
-import { memo, useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
+import { memo, useRef } from 'react';
+import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
 import { NavLinks } from '../../types/navLinks'
 import { CustomButton } from '../CustomButton/CustomButton'
 import './_banner.scss'
@@ -11,20 +11,11 @@ export const Banner = memo(() => {
     const descRef = useRef<HTMLParagraphElement>(null);
     const buttonsRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (bannerRef.current && logoRef.current && titleRef.current && descRef.current && buttonsRef.current) {
-            gsap.fromTo(
-                bannerRef.current,
-                { opacity: 0, y: 40 },
-                { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
-            );
-            gsap.fromTo(
-                [logoRef.current, titleRef.current, descRef.current, buttonsRef.current],
-                { opacity: 0, y: 40 },
-                { opacity: 1, y: 0, duration: 1, stagger: 0.15, delay: 0.2, ease: 'power2.out' }
-            );
-        }
-    }, []);
+    useGsapFadeInUp(bannerRef, 0);
+    useGsapFadeInUp(logoRef, 0.2);
+    useGsapFadeInUp(titleRef, 0.35);
+    useGsapFadeInUp(descRef, 0.5);
+    useGsapFadeInUp(buttonsRef, 0.65);
 
     return (
         <div className='banner' ref={bannerRef}>

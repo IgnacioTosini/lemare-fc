@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import { useRef } from 'react';
+import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
 import { VideoGallery } from '../../components';
 import './_multimediaPage.scss'
 
@@ -8,17 +8,9 @@ export const MultimediaPage = () => {
     const headerDescRef = useRef<HTMLParagraphElement | null>(null);
     const contentRef = useRef<HTMLElement | null>(null);
 
-    useEffect(() => {
-        if (headerTitleRef.current) {
-            gsap.fromTo(headerTitleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' });
-        }
-        if (headerDescRef.current) {
-            gsap.fromTo(headerDescRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'power3.out' });
-        }
-        if (contentRef.current) {
-            gsap.fromTo(contentRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.4, ease: 'power3.out' });
-        }
-    }, []);
+    useGsapFadeInUp(headerTitleRef, 0);
+    useGsapFadeInUp(headerDescRef, 0.2);
+    useGsapFadeInUp(contentRef, 0.4);
 
     return (
         <section className='multimediaPage'>

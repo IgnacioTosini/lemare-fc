@@ -1,9 +1,9 @@
-import { useRef, useEffect } from 'react';
-import './_matchCard.scss'
-import gsap from 'gsap';
+import { useRef } from 'react';
+import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
 import { CustomButton } from '../CustomButton/CustomButton'
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { NavLinks } from '../../types/navLinks';
+import './_matchCard.scss'
 
 export const MatchCard = () => {
     const cardRef = useRef<HTMLDivElement | null>(null);
@@ -11,20 +11,10 @@ export const MatchCard = () => {
     const contentRef = useRef<HTMLDivElement | null>(null);
     const footerRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        if (cardRef.current) {
-            gsap.fromTo(cardRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' });
-        }
-        if (titleRef.current) {
-            gsap.fromTo(titleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-        }
-        if (contentRef.current) {
-            gsap.fromTo(contentRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.3, ease: 'power3.out' });
-        }
-        if (footerRef.current) {
-            gsap.fromTo(footerRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.45, ease: 'power3.out' });
-        }
-    }, []);
+    useGsapFadeInUp(cardRef, 0);
+    useGsapFadeInUp(titleRef, 0.15);
+    useGsapFadeInUp(contentRef, 0.3);
+    useGsapFadeInUp(footerRef, 0.45);
 
     return (
         <div className="matchCard" ref={cardRef}>
