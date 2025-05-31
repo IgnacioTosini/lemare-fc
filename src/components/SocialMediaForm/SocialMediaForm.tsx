@@ -9,9 +9,10 @@ import './_socialMediaForm.scss';
 type SocialMediaFormProps = {
     formData: Player;
     setFormData: Dispatch<SetStateAction<Player>>;
+    handleBlur: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 };
 
-export const SocialMediaForm = ({ formData, setFormData }: SocialMediaFormProps) => {
+export const SocialMediaForm = ({ formData, setFormData, handleBlur }: SocialMediaFormProps) => {
 
     const selectedOptions = useMemo(() => (formData.socialMedia ?? []).map(social => normalizeSocialMediaType(social.typeOfSocialMedia.toLocaleLowerCase()) || social.typeOfSocialMedia), [formData.socialMedia]);
 
@@ -61,7 +62,7 @@ export const SocialMediaForm = ({ formData, setFormData }: SocialMediaFormProps)
                                 url: e.target.value
                             };
                             setFormData({ ...formData, socialMedia: newSocialMedia });
-                        }} />
+                        }} onBlur={handleBlur} />
                         {social.url && social.url.length < 3 && <p className="error">La URL debe tener al menos 3 caracteres.</p>}
                     </label>
                     <button data-index={index} onClick={onDelete}><BiTrash /></button>

@@ -6,9 +6,9 @@ import { SocialMediaForm } from '../SocialMediaForm/SocialMediaForm';
 import { toast } from 'react-toastify';
 import { SocialMediaType } from '../../types/socialMedia';
 import { usePlayerContext } from '../../context/playerStore';
-import { generateErrorMessages, isNumberDuplicate } from '../../utils/formErrorMessages';
-import 'react-toastify/dist/ReactToastify.css';
+import { isNumberDuplicate } from '../../utils/formErrorMessages';
 import { validateForm } from '../../utils/validateForm';
+import 'react-toastify/dist/ReactToastify.css';
 import './_modalForm.scss';
 
 type ModalFormProps = {
@@ -32,8 +32,9 @@ type StatsChangeEvent = {
 export const ModalForm = ({ player, onClose }: ModalFormProps) => {
     const { handleAddPlayer, handleSave, players, isLoading } = usePlayerContext();
     const [formData, setFormData] = useState<Player>(player || { ...{} as Player, stats: { goals: 0, assists: 0, matches: 0, yellowCards: 0, redCards: 0 }, socialMedia: [], description: '', name: '' });
-    const [isFormValid, setIsFormValid] = useState<boolean>(false);
+    const [formErrors, setFormErrors] = useState<Record<string, string>>({});
     const [error, setError] = useState<string | null>(null);
+    const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -62,17 +63,30 @@ export const ModalForm = ({ player, onClose }: ModalFormProps) => {
         }
     };
 
+    const handleBlur = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name } = e.target;
+        setTouchedFields({ ...touchedFields, [name]: true });
+    };
+
     useEffect(() => {
-        setIsFormValid(validateForm(formData, player));
-    }, [formData, player?.name]);
+        const errors = validateForm(formData);
+        setFormErrors(errors);
+    }, [formData]);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        if (!formData.name || !formData.description) {
-            setError('Por favor, complete todos los campos obligatorios.');
+        const errors = validateForm(formData);
+        setFormErrors(errors);
+
+        if (Object.keys(errors).length > 0) {
+            Object.values(errors).forEach((message) => {
+                toast.error(message, { autoClose: 5000 }); // Mostrar cada error como un mensaje separado
+            });
+            console.warn('Errores de validación:', errors);
             return;
         }
+
         setError(null);
 
         if (isNumberDuplicate(formData.number, players) && (!player || player.id !== players.find(p => p.number === formData.number)?.id)) {
@@ -80,7 +94,6 @@ export const ModalForm = ({ player, onClose }: ModalFormProps) => {
             return;
         }
 
-        // Normalizar los valores de typeOfSocialMedia a minúsculas
         const normalizedFormData = {
             ...formData,
             socialMedia: formData.socialMedia?.map(social => ({
@@ -89,27 +102,17 @@ export const ModalForm = ({ player, onClose }: ModalFormProps) => {
             })),
         };
 
-        if (!isFormValid) {
-            const isValid = generateErrorMessages(formData);
-            if (!isValid) return;
-        }
-
-        if (isFormValid) {
-            try {
-                if (normalizedFormData.id) {
-                    await handleSave(normalizedFormData); // Usar handleSave del contexto
-                } else {
-                    await handleAddPlayer(normalizedFormData); // Usar handleAddPlayer del contexto
-                }
-                setFormData({ ...{} as Player, stats: { goals: 0, assists: 0, matches: 0, yellowCards: 0, redCards: 0 }, socialMedia: [], description: '', name: '' });
-                onClose(); // Cierra el modal
-            } catch (error) {
-                console.error('Error en handleSubmit:', error);
-                toast.error('Ocurrió un error al guardar los datos.');
+        try {
+            if (normalizedFormData.id) {
+                await handleSave(normalizedFormData);
+            } else {
+                await handleAddPlayer(normalizedFormData);
             }
-        } else {
-            console.warn('Formulario no válido:', normalizedFormData);
-            toast.error('Por favor, corrige los errores o complete los datos necesarios antes de guardar.');
+            setFormData({ ...{} as Player, stats: { goals: 0, assists: 0, matches: 0, yellowCards: 0, redCards: 0 }, socialMedia: [], description: '', name: '' });
+            onClose();
+        } catch (error) {
+            console.error('Error en handleSubmit:', error);
+            toast.error('Ocurrió un error al guardar los datos.');
         }
     };
 
@@ -119,12 +122,15 @@ export const ModalForm = ({ player, onClose }: ModalFormProps) => {
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2 className='title'>Editar Jugador/Staff</h2>
                 <form onSubmit={handleSubmit}>
-                    <PlayerInfoForm formData={formData} handleChange={handleChange} setFormData={setFormData} />
+                    <PlayerInfoForm formData={formData} handleChange={handleChange} setFormData={setFormData} handleBlur={handleBlur} />
                     <h2>Estadísticas</h2>
-                    <StatsForm formData={formData} handleChange={handleStatsChange} />
+                    <StatsForm formData={formData} handleChange={handleStatsChange} handleBlur={handleBlur} />
                     <h2>Redes Sociales</h2>
-                    <SocialMediaForm formData={formData} setFormData={setFormData} />
+                    <SocialMediaForm formData={formData} setFormData={setFormData} handleBlur={handleBlur} />
                     {error && <p className="errorMessage">{error}</p>} {/* Mejora: mostrar mensaje de error */}
+                    {Object.entries(formErrors).map(([field, message]) => (
+                        <p key={field} className="errorMessage">{message}</p>
+                    ))}
                     <div className='buttonContainer'>
                         <button type="submit" disabled={isLoading}>{isLoading ? 'Guardando...' : 'Guardar'}</button>
                         <button type="button" onClick={onClose}>Cancelar</button>

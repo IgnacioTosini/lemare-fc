@@ -14,7 +14,7 @@ type StatsChangeEvent = {
     };
 };
 
-export const StatsForm = ({ formData, handleChange }: { formData: Player, handleChange: (e: ChangeEvent<HTMLInputElement> | StatsChangeEvent) => void }) => {
+export const StatsForm = ({ formData, handleChange, handleBlur }: { formData: Player, handleChange: (e: ChangeEvent<HTMLInputElement> | StatsChangeEvent) => void, handleBlur: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void }) => {
     const handleStatsChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         const updatedStats = {
@@ -33,27 +33,27 @@ export const StatsForm = ({ formData, handleChange }: { formData: Player, handle
         <section className="statsForm">
             <label>
                 Goles
-                <input type="number" name="goals" value={formData.stats?.goals || 0} onChange={handleStatsChange} />
+                <input type="number" name="goals" value={formData.stats?.goals || 0} onChange={handleStatsChange} onBlur={handleBlur} />
                 {formData.stats?.goals < 0 && <p className="error">El número de goles no puede ser negativo.</p>}
             </label>
             <label>
                 Asistencias
-                <input type="number" name="assists" value={formData.stats?.assists || 0} onChange={handleStatsChange} />
+                <input type="number" name="assists" value={formData.stats?.assists || 0} onChange={handleStatsChange} onBlur={handleBlur} />
                 {formData.stats?.assists < 0 && <p className="error">El número de asistencias no puede ser negativo.</p>}
             </label>
             <label>
                 Partidos Jugados
-                <input type="number" name="matches" value={formData.stats?.matches || 0} onChange={handleStatsChange} />
+                <input type="number" name="matches" value={formData.stats?.matches || 0} onChange={handleStatsChange} onBlur={handleBlur} />
                 {formData.stats?.matches < 0 && <p className="error">El número de partidos no puede ser negativo.</p>}
             </label>
             <label>
                 Tarjetas Amarillas
-                <input type="number" name="yellowCards" value={formData.stats?.yellowCards || 0} onChange={handleStatsChange} />
+                <input type="number" name="yellowCards" value={formData.stats?.yellowCards || 0} onChange={handleStatsChange} onBlur={handleBlur} />
                 {formData.stats?.yellowCards < 0 && <p className="error">El número de tarjetas amarillas no puede ser negativo.</p>}
             </label>
             <label>
                 Tarjetas Rojas
-                <input type="number" name="redCards" value={formData.stats?.redCards || 0} onChange={handleStatsChange} />
+                <input type="number" name="redCards" value={formData.stats?.redCards || 0} onChange={handleStatsChange} onBlur={handleBlur} />
                 {formData.stats?.redCards < 0 && <p className="error">El número de tarjetas rojas no puede ser negativo.</p>}
             </label>
         </section>

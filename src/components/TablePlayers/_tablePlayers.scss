@@ -4,6 +4,10 @@ body.dark .tablePlayers {
     @include theme(dark);
     box-shadow: 0 4px 8px $shadow-color-dark;
 
+    .title {
+        color: $primary-color-dark;
+    }
+
     .table {
         background-color: $background-color-dark;
         border: 1px solid $quaternary-color-dark;

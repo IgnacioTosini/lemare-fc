@@ -8,15 +8,15 @@ import gsap from 'gsap';
  * @param delayStep - Paso de delay entre elementos
  */
 export function useGsapFadeInUpArray(refs: Array<React.RefObject<HTMLElement | null>>, delayStart = 0, delayStep = 0.15) {
-  useEffect(() => {
-    refs.forEach((ref, i) => {
-      if (ref.current) {
-        gsap.fromTo(
-          ref.current,
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.6, delay: delayStart + i * delayStep, ease: 'power3.out' }
-        );
-      }
-    });
-  }, [refs, delayStart, delayStep]);
+    useEffect(() => {
+        refs.forEach((ref, i) => {
+            if (ref.current) {
+                gsap.fromTo(
+                    ref.current,
+                    { opacity: 0, y: 40 },
+                    { opacity: 1, y: 0, duration: 0.6, delay: delayStart + i * delayStep, ease: 'power3.out' }
+                );
+            }
+        });
+    }, [refs, delayStart, delayStep]);
 }
