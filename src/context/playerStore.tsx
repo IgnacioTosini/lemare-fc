@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { Player } from '../types';
+import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
+import { Player, PlayerFormData } from '../types';
 import { PlayersService } from '../services/PlayersServices';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,12 +11,13 @@ type PlayerContextProps = {
     editingPlayer: Player | null;
     openMenuId: number | null;
     isLoading: boolean;
-    handleAddPlayer: (newPlayer: Player) => Promise<void>;
+    handleAddPlayer: (newPlayer: PlayerFormData) => Promise<void>;
     handleEdit: (player: Player | null) => void;
-    handleSave: (editPlayer: Player) => Promise<void>;
+    handleSave: (editPlayer: PlayerFormData) => Promise<void>;
     handleDelete: (playerId: number) => Promise<void>;
     handleToggleMenu: (playerId: number | null) => void;
     handleFilter: (filteredTeam: Player[]) => void;
+    refreshPlayers: () => Promise<void>;
 }
 
 const PlayerContext = createContext<PlayerContextProps | undefined>(undefined);
@@ -51,7 +52,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setFilteredPlayers(players);
     }, [players]);
 
-    const handleAddPlayer = async (newPlayer: Player) => {
+    const handleAddPlayer = async (newPlayer: PlayerFormData) => {
         setIsLoading(true);
         try {
             const createdPlayer = await PlayersService.addPlayer(newPlayer);
@@ -72,10 +73,18 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setEditingPlayer(player);
     };
 
-    const handleSave = async (editPlayer: Player) => {
+    const handleSave = async (editPlayer: PlayerFormData) => {
         setIsLoading(true);
         try {
-            const response = await PlayersService.updatePlayer(editPlayer);
+            // Obtener el jugador original para acceder al public_id de la imagen anterior
+            const originalPlayer = players.find(p => p.id === editPlayer.id);
+            const oldImagePublicId = originalPlayer && 
+                typeof originalPlayer.image === 'object' && 
+                originalPlayer.image?.public_id ? 
+                originalPlayer.image.public_id : 
+                undefined;
+
+            const response = await PlayersService.updatePlayer(editPlayer, oldImagePublicId);
             const updatedPlayer = response.data; // Extraer el jugador actualizado de la propiedad 'data'
 
             // Obtener datos completos del jugador actualizado
@@ -120,6 +129,20 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setFilteredPlayers(filteredTeam);
     };
 
+    const refreshPlayers = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const fetchedPlayers = await PlayersService.getPlayers();
+            setPlayers(fetchedPlayers);
+            setFilteredPlayers(fetchedPlayers);
+        } catch (err) {
+            console.error('Error refreshing players:', err);
+            setError('Error refreshing players');
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
     return (
         <PlayerContext.Provider
             value={{
@@ -135,6 +158,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 handleDelete,
                 handleToggleMenu,
                 handleFilter,
+                refreshPlayers,
             }}
         >
             {children}

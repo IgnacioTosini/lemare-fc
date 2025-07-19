@@ -1,66 +1,149 @@
-import { ChangeEvent } from 'react';
-import { Player } from '../../types';
+import { Field, ErrorMessage } from 'formik';
+import { PlayerFormValues } from '../../schemas/playerFormSchema';
 import { Position } from '../../types/positions';
 import { CustomSelect } from '../CustomSelect/CustomSelect';
 import { Cloudinary } from '../Cloudinary/Cloudinary';
+import { CloudinaryImage } from '../../types';
 import './_playerInfoForm.scss';
 
-export const PlayerInfoForm = ({ formData, handleChange, setFormData, handleBlur }: { formData: Player, handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void, setFormData: React.Dispatch<React.SetStateAction<Player>>, handleBlur: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void }) => {
-    const handleImageUpload = (url: string) => {
-        setFormData({ ...formData, image: url });
+type PlayerInfoFormProps = {
+    formData: PlayerFormValues;
+    setFieldValue: (field: string, value: unknown) => void;
+};
+
+export const PlayerInfoForm = ({ formData, setFieldValue }: PlayerInfoFormProps) => {
+    const handleImageUpload = (image: CloudinaryImage | File) => {
+        setFieldValue('image', image);
+    };
+
+    const calculateYearFromAge = (age: number): number[] => {
+        const currentYear = new Date().getFullYear();
+
+        // Si ya pasó su cumpleaños este año
+        const yearIfBirthdayPassed = currentYear - age;
+        // Si no ha cumplido años este año
+        const yearIfBirthdayNotPassed = currentYear - age - 1;
+
+        return [yearIfBirthdayNotPassed, yearIfBirthdayPassed];
+    };
+
+    const calculateAgeFromYear = (year: number): number[] => {
+        const currentYear = new Date().getFullYear();
+
+        // Si ya cumplió años este año
+        const ageIfBirthdayPassed = currentYear - year;
+        // Si no ha cumplido años este año
+        const ageIfBirthdayNotPassed = currentYear - year - 1;
+
+        return [ageIfBirthdayNotPassed, ageIfBirthdayPassed];
+    };
+
+    const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const age = parseInt(e.target.value);
+        if (age && age > 0) {
+            const possibleYears = calculateYearFromAge(age);
+            // Tomar el año más probable (si no ha cumplido años)
+            setFieldValue('year', possibleYears[1]);
+        }
+        setFieldValue('age', age);
+    };
+
+    const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const year = parseInt(e.target.value);
+        if (year && year > 0) {
+            const possibleAges = calculateAgeFromYear(year);
+            // Tomar la edad más probable (si ya cumplió años)
+            setFieldValue('age', possibleAges[1]);
+        }
+        setFieldValue('year', year);
     };
 
     return (
         <section className="playerInfoForm">
             <label>
                 Nombre
-                <input type="text" name="name" value={formData.name} onChange={handleChange} onBlur={handleBlur} placeholder='Nombre' />
-                {formData.name && formData.name.length < 3 && <p className="error">El nombre debe tener al menos 3 caracteres.</p>}
+                <Field type="text" name="name" placeholder='Nombre' />
+                <ErrorMessage name="name" component="p" className="error" />
             </label>
+
             <label>
                 Imagen
-                <Cloudinary onUpload={handleImageUpload} preImage={formData.image} />
+                <Cloudinary
+                    onUpload={handleImageUpload}
+                    preImage={formData.image instanceof File ? undefined : formData.image}
+                    pendingFile={formData.image instanceof File ? formData.image : undefined}
+                />
+                <ErrorMessage name="image" component="p" className="error" />
             </label>
+
             <label>
                 Número
-                <input type="number" name="number" value={formData.number || ''} onChange={handleChange} onBlur={handleBlur} placeholder='5' />
-                {formData.number && (formData.number < 1 || formData.number > 99) && <p className="error">El número debe estar entre 1 y 99.</p>}
+                <Field type="number" name="number" placeholder='5' />
+                <ErrorMessage name="number" component="p" className="error" />
             </label>
+
             <label>
                 País
-                <input type="text" name="country" value={formData.country || ''} onChange={handleChange} onBlur={handleBlur} placeholder='Argentina' />
-                {formData.country && formData.country.length < 3 && <p className="error">El país debe tener al menos 3 caracteres.</p>}
+                <Field type="text" name="country" placeholder='Argentina' />
+                <ErrorMessage name="country" component="p" className="error" />
             </label>
+
             <label>
                 Posición
-                <CustomSelect
-                    type={Position}
-                    selectedValue={formData.position || ''}
-                    handleChange={handleChange}
-                    name="position"
-                    disabledOptions={['Admin']}
-                />
-                {formData.position ? null : <p>Debe elegir una posición</p>}
+                <Field name="position">
+                    {({ field }: { field: { value: string; onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void } }) => (
+                        <CustomSelect
+                            type={Position}
+                            selectedValue={field.value || ''}
+                            handleChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('position', e.target.value)}
+                            name="position"
+                            disabledOptions={['Admin']}
+                        />
+                    )}
+                </Field>
+                <ErrorMessage name="position" component="p" className="error" />
             </label>
+
             <label>
                 Edad
-                <input type='number' name="age" value={formData.age || ''} onChange={handleChange} onBlur={handleBlur} placeholder='24' />
-                {formData.age && (formData.age < 1 || formData.age > 99) && <p className="error">La edad debe estar entre 1 y 99.</p>}
+                <Field name="age">
+                    {({ field }: { field: { value: number; name: string } }) => (
+                        <input
+                            type="number"
+                            {...field}
+                            onChange={handleAgeChange}
+                            placeholder='24'
+                        />
+                    )}
+                </Field>
+                <ErrorMessage name="age" component="p" className="error" />
             </label>
+
             <label>
                 Año de nacimiento
-                <input type='number' name="year" value={formData.year || ''} onChange={handleChange} onBlur={handleBlur} placeholder='1999' />
-                {formData.year && (new Date().getFullYear() - formData.year < 1 || new Date().getFullYear() - formData.year > 99) && <p className="error">El año de nacimiento no es válido.</p>}
+                <Field name="year">
+                    {({ field }: { field: { value: number; name: string } }) => (
+                        <input
+                            type="number"
+                            {...field}
+                            onChange={handleYearChange}
+                            placeholder='1999'
+                        />
+                    )}
+                </Field>
+                <ErrorMessage name="year" component="p" className="error" />
             </label>
+
             <label>
                 Altura
-                <input type='number' name="height" value={formData.height || ''} onChange={handleChange} onBlur={handleBlur} placeholder='1.80' />
-                {formData.height && (formData.height < 1 || formData.height > 3) && <p className="error">La altura debe estar entre 1 y 3 metros.</p>}
+                <Field type='number' name="height" step="0.01" placeholder='1.80' />
+                <ErrorMessage name="height" component="p" className="error" />
             </label>
+
             <label className='description'>
                 Descripción
-                <textarea name="description" value={formData.description || ''} onChange={handleChange} onBlur={handleBlur}></textarea>
-                {formData.description && formData.description.length < 3 && <p className="error">La descripción debe tener al menos 3 caracteres.</p>}
+                <Field as="textarea" name="description" />
+                <ErrorMessage name="description" component="p" className="error" />
             </label>
         </section>
     );

@@ -14,6 +14,7 @@
     "@cloudinary/url-gen": "^1.21.0",
     "axios": "^1.9.0",
     "cloudinary": "^2.6.0",
+    "formik": "^2.4.6",
     "gsap": "^3.13.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -23,6 +24,7 @@
     "react-toastify": "^11.0.5",
     "sass": "^1.87.0",
     "valibot": "^1.0.0",
+    "yup": "^1.6.1",
     "zod": "^3.24.3"
   },
   "devDependencies": {

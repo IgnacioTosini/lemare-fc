@@ -20,7 +20,7 @@ export const PlayerCard = memo(({ player }: PlayerCardProps) => {
     const cardContent = (
         <>
             <div className='playerImageContainer'>
-                <img src={getWebpUrl(player.image)} alt={player.name} className='playerImage' loading="lazy" width="300" height="300" />
+                <img src={getWebpUrl(player.image.url)} alt={player.name} className='playerImage' loading="lazy" width="300" height="300" />
                 {player.position !== Position.CUERPO_TECNICO && (
                     <div className='playerNumberContainer'>
                         <span className='playerNumber'>{player.number}</span>

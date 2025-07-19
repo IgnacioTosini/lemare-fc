@@ -9,15 +9,20 @@ export const statsSchema = z.object({
 });
 
 export const socialMediaSchema = z.object({
-    typeOfSocialMedia: z.enum(['facebook', 'twitter', 'instagram', 'tiktok', 'youtube', 'linkedin']).transform((val) => val.toLowerCase()),
-    url: z.string().or(z.array(z.string())),
+    typeOfSocialMedia: z.enum(['instagram', 'facebook', 'twitter', 'youtube', 'tiktok', 'linkedin']).transform((val) => val.toLowerCase()),
+    url: z.string(),
+});
+
+export const cloudinaryImageSchema = z.object({
+    url: z.string(),
+    public_id: z.string(),
 });
 
 export const playerSchema = z.object({
     id: z.number().optional(),
     name: z.string(),
-    image: z.string(),
-    number: z.number().optional(),
+    image: cloudinaryImageSchema.nullable(), // Cambiar a cloudinaryImageSchema
+    number: z.number().min(1).max(99),
     year: z.number(),
     age: z.number(),
     country: z.string(),

@@ -4,8 +4,8 @@ import { SocialMediaType } from "./socialMedia";
 export type Player = {
     id: number;
     name: string;
-    image: string;
-    number?: number;
+    image: CloudinaryImage;
+    number: number;
     year: number;
     age: number;
     country: string;
@@ -14,6 +14,17 @@ export type Player = {
     description: string;
     stats: Stats;
     socialMedia?: SocialMedia[];
+};
+
+// Tipo para imagen de producto en Cloudinary
+export type CloudinaryImage = {
+    url: string;
+    public_id: string;
+};
+
+// Tipo extendido para Player en formularios (permite File temporalmente)
+export type PlayerFormData = Omit<Player, 'image'> & {
+    image?: CloudinaryImage | File;
 };
 
 export type Stats = {

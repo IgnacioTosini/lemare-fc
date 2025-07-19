@@ -1,9 +1,9 @@
+import { useRef } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { PlayerCard } from '../../components/PlayerCard/PlayerCard';
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { usePlayerContext } from '../../context/playerStore';
 import { PlayerPageSkeleton } from '../../components/PlayerPageSkeleton/PlayerPageSkeleton';
-import { useRef } from 'react';
 import { useGsapFadeInUp } from '../../hooks/useGsapFadeInUp';
 import './_playerPage.scss';
 

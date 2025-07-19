@@ -1,13 +1,14 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { Player } from '../../types';
+import { useEffect } from 'react';
+import { Formik, Form } from 'formik';
+import { Player, PlayerFormData } from '../../types';
+import { Position } from '../../types/positions';
 import { PlayerInfoForm } from '../PlayerInfoForm/PlayerInfoForm';
 import { StatsForm } from '../StatsForm/StatsForm';
 import { SocialMediaForm } from '../SocialMediaForm/SocialMediaForm';
 import { toast } from 'react-toastify';
 import { SocialMediaType } from '../../types/socialMedia';
 import { usePlayerContext } from '../../context/playerStore';
-import { isNumberDuplicate } from '../../utils/formErrorMessages';
-import { validateForm } from '../../utils/validateForm';
+import { createPlayerFormSchema, PlayerFormValues } from '../../schemas/playerFormSchema';
 import 'react-toastify/dist/ReactToastify.css';
 import './_modalForm.scss';
 
@@ -16,103 +17,123 @@ type ModalFormProps = {
     onClose: () => void;
 };
 
-type StatsChangeEvent = {
-    target: {
-        name: string;
-        value: {
-            goals: number;
-            assists: number;
-            matches: number;
-            yellowCards: number;
-            redCards: number;
-        };
-    };
-};
-
 export const ModalForm = ({ player, onClose }: ModalFormProps) => {
-    const { handleAddPlayer, handleSave, players, isLoading } = usePlayerContext();
-    const [formData, setFormData] = useState<Player>(player || { ...{} as Player, stats: { goals: 0, assists: 0, matches: 0, yellowCards: 0, redCards: 0 }, socialMedia: [], description: '', name: '' });
-    const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-    const [error, setError] = useState<string | null>(null);
-    const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
+    const { handleAddPlayer, handleSave, players, isLoading, refreshPlayers } = usePlayerContext();
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-
-        // Convertir valores específicos a números si es necesario
-        const convertedValue = ['number', 'age', 'year', 'height'].includes(name) ? Number(value) : value;
-
-        setFormData({ ...formData, [name]: convertedValue });
-    };
-
-    const handleStatsChange = (e: ChangeEvent<HTMLInputElement> | StatsChangeEvent) => {
-        if ('value' in e.target && typeof e.target.value === 'object') {
-            // Caso StatsChangeEvent
-            const { value } = e.target;
-            setFormData({ ...formData, stats: value });
-        } else {
-            // Caso ChangeEvent<HTMLInputElement>
-            const { name, value } = e.target;
-            setFormData({
-                ...formData,
-                stats: {
-                    ...formData.stats,
-                    [name]: Number(value),
-                },
-            });
-        }
-    };
-
-    const handleBlur = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name } = e.target;
-        setTouchedFields({ ...touchedFields, [name]: true });
-    };
-
+    // Refrescar los jugadores cuando se abre el modal para asegurar datos actualizados
     useEffect(() => {
-        const errors = validateForm(formData);
-        setFormErrors(errors);
-    }, [formData]);
+        refreshPlayers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Solo se ejecuta una vez al montar el componente
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
+    // Función para encontrar el primer número disponible
+    const getFirstAvailableNumber = (): number => {
+        const usedNumbers = players.map(p => p.number).filter((num): num is number => num !== undefined);
 
-        const errors = validateForm(formData);
-        setFormErrors(errors);
+        for (let i = 1; i <= 99; i++) {
+            if (!usedNumbers.includes(i)) {
+                return i;
+            }
+        }
+        return 1; // Fallback
+    };
 
-        if (Object.keys(errors).length > 0) {
-            Object.values(errors).forEach((message) => {
-                toast.error(message, { autoClose: 5000 }); // Mostrar cada error como un mensaje separado
-            });
-            console.warn('Errores de validación:', errors);
-            return;
+    const getInitialValues = (): PlayerFormValues => {
+        if (player) {
+            return {
+                id: player.id,
+                name: player.name || '',
+                image: player.image || '',
+                number: player.number,
+                year: player.year || new Date().getFullYear() - 20,
+                age: player.age || 20,
+                country: player.country || '',
+                height: player.height || 1.75,
+                position: player.position || Position.DEFENSOR,
+                description: player.description || '',
+                stats: {
+                    goals: player.stats?.goals || 0,
+                    assists: player.stats?.assists || 0,
+                    matches: player.stats?.matches || 0,
+                    yellowCards: player.stats?.yellowCards || 0,
+                    redCards: player.stats?.redCards || 0,
+                },
+                socialMedia: player.socialMedia?.map(social => ({
+                    typeOfSocialMedia: social.typeOfSocialMedia,
+                    url: Array.isArray(social.url) ? social.url[0] : social.url
+                })) || [],
+            };
         }
 
-        setError(null);
-
-        if (isNumberDuplicate(formData.number, players) && (!player || player.id !== players.find(p => p.number === formData.number)?.id)) {
-            toast.error('El número ingresado ya está asignado a otro jugador. Por favor, elige otro.');
-            return;
-        }
-
-        const normalizedFormData = {
-            ...formData,
-            socialMedia: formData.socialMedia?.map(social => ({
-                ...social,
-                typeOfSocialMedia: social.typeOfSocialMedia.toLocaleLowerCase() as SocialMediaType,
-            })),
+        return {
+            name: '',
+            image: {
+                url: '',
+                public_id: ''
+            },
+            number: getFirstAvailableNumber(), // Asignar automáticamente el primer número disponible
+            year: new Date().getFullYear() - 20,
+            age: 20,
+            country: '',
+            height: 1.75,
+            position: Position.DEFENSOR,
+            description: '',
+            stats: {
+                goals: 0,
+                assists: 0,
+                matches: 0,
+                yellowCards: 0,
+                redCards: 0,
+            },
+            socialMedia: [],
         };
+    };
+
+    const handleSubmit = async (values: PlayerFormValues, { resetForm }: { resetForm: () => void }) => {
+        const normalizedFormData: PlayerFormData = {
+            // Solo incluir ID si estamos editando un jugador existente
+            ...(player ? { id: player.id } : {}),
+            name: values.name,
+            image: values.image, // Mantener como File o CloudinaryImage
+            number: values.number,
+            year: values.year,
+            age: values.age,
+            country: values.country,
+            height: values.height,
+            position: values.position,
+            description: values.description,
+            stats: values.stats,
+            socialMedia: values.socialMedia?.map(social => ({
+                ...social,
+                typeOfSocialMedia: social.typeOfSocialMedia.toLowerCase() as SocialMediaType,
+                url: social.url // Asegurarse de que sea string, no array
+            })),
+        } as PlayerFormData;
 
         try {
-            if (normalizedFormData.id) {
+            if (player) {
                 await handleSave(normalizedFormData);
+                toast.success('Jugador actualizado correctamente.');
             } else {
                 await handleAddPlayer(normalizedFormData);
+                // Solo resetear el formulario cuando se agrega un nuevo jugador
+                resetForm();
+                toast.success('Jugador agregado correctamente. El formulario se ha reseteado.');
             }
-            setFormData({ ...{} as Player, stats: { goals: 0, assists: 0, matches: 0, yellowCards: 0, redCards: 0 }, socialMedia: [], description: '', name: '' });
             onClose();
         } catch (error) {
             console.error('Error en handleSubmit:', error);
-            toast.error('Ocurrió un error al guardar los datos.');
+            // Manejar errores específicos del servidor
+            if (error && typeof error === 'object' && 'response' in error) {
+                const axiosError = error as { response: { data: { error: string } } };
+                if (axiosError.response?.data?.error) {
+                    toast.error(axiosError.response.data.error);
+                } else {
+                    toast.error('Ocurrió un error al guardar los datos.');
+                }
+            } else {
+                toast.error('Ocurrió un error al guardar los datos.');
+            }
         }
     };
 
@@ -121,21 +142,36 @@ export const ModalForm = ({ player, onClose }: ModalFormProps) => {
             <div className="modalContent">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2 className='title'>Editar Jugador/Staff</h2>
-                <form onSubmit={handleSubmit}>
-                    <PlayerInfoForm formData={formData} handleChange={handleChange} setFormData={setFormData} handleBlur={handleBlur} />
-                    <h2>Estadísticas</h2>
-                    <StatsForm formData={formData} handleChange={handleStatsChange} handleBlur={handleBlur} />
-                    <h2>Redes Sociales</h2>
-                    <SocialMediaForm formData={formData} setFormData={setFormData} handleBlur={handleBlur} />
-                    {error && <p className="errorMessage">{error}</p>} {/* Mejora: mostrar mensaje de error */}
-                    {Object.entries(formErrors).map(([field, message]) => (
-                        <p key={field} className="errorMessage">{message}</p>
-                    ))}
-                    <div className='buttonContainer'>
-                        <button type="submit" disabled={isLoading}>{isLoading ? 'Guardando...' : 'Guardar'}</button>
-                        <button type="button" onClick={onClose}>Cancelar</button>
-                    </div>
-                </form>
+
+                <Formik
+                    initialValues={getInitialValues()}
+                    validationSchema={createPlayerFormSchema(players, player?.id)}
+                    onSubmit={handleSubmit}
+                    enableReinitialize={true}
+                >
+                    {({ values, setFieldValue }) => (
+                        <Form>
+                            <PlayerInfoForm
+                                formData={values}
+                                setFieldValue={setFieldValue}
+                            />
+                            <h2>Estadísticas</h2>
+                            <StatsForm />
+                            <h2>Redes Sociales</h2>
+                            <SocialMediaForm
+                                formData={values}
+                                setFieldValue={setFieldValue}
+                            />
+
+                            <div className='buttonContainer'>
+                                <button type="submit" disabled={isLoading}>
+                                    {isLoading ? 'Guardando...' : 'Guardar'}
+                                </button>
+                                <button type="button" onClick={onClose}>Cancelar</button>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
             </div>
         </div>
     );
