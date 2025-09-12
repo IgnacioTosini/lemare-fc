@@ -17,7 +17,7 @@ export const generateErrorMessages = (formData: Player): boolean => {
     if (formData.year && (new Date().getFullYear() - formData.year < 1 || new Date().getFullYear() - formData.year > 99)) errorMessages.push('El año de nacimiento no es válido.');
     if (formData.height && (formData.height < 1 || formData.height > 3)) errorMessages.push('La altura debe estar entre 1 y 3 metros.');
     if (!formData.position) errorMessages.push('Debe elegir una posición.');
-    if ((formData.stats?.goals ?? 0) < 0 || (formData.stats?.assists ?? 0) < 0 || (formData.stats?.matches ?? 0) < 0 || (formData.stats?.yellowCards ?? 0) < 0 || (formData.stats?.redCards ?? 0) < 0) {
+    if ((formData.stats?.goals ?? 0) < 0 || (formData.stats?.assists ?? 0) < 0 || (formData.stats?.matchesPlayed ?? 0) < 0 || (formData.stats?.yellow_cards ?? 0) < 0 || (formData.stats?.red_cards ?? 0) < 0) {
         errorMessages.push('Las estadísticas no pueden ser negativas.');
     }
     if ((formData.socialMedia ?? []).some(social => social.url.length < 3)) errorMessages.push('Todas las URLs de redes sociales deben tener al menos 3 caracteres.');

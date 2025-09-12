@@ -1,9 +1,9 @@
-import { SocialMedia } from "../../types";
+import { SocialMediaPayload } from "../../types";
 import { CustomSocialMedia } from "../CustomSocialMedia/CustomSocialMedia";
 import './_customListSocialMedia.scss';
 
 type CustomListSocialMediaProps = {
-    socialMedia: SocialMedia[];
+    socialMedia: SocialMediaPayload[];
 };
 
 export const CustomListSocialMedia = ({ socialMedia }: CustomListSocialMediaProps) => {

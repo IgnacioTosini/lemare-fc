@@ -2,12 +2,12 @@ import { Link } from 'react-router';
 import { memo } from 'react';
 import { CustomListSocialMedia } from '../';
 import { navLinks } from '../../types/navLinks';
-import { SocialMedia } from '../../types';
+import { SocialMediaPayload } from '../../types';
 import { SocialMediaType } from '../../types/socialMedia';
 import { prefetchRoute } from '../../utils/prefetchRoute';
 import './_footer.scss'
 
-const socialMedia: SocialMedia[] = [
+const socialMedia: SocialMediaPayload[] = [
     {
         typeOfSocialMedia: SocialMediaType.INSTAGRAM,
         url: 'https://www.instagram.com/lemarefc/'

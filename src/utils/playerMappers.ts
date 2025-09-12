@@ -1,4 +1,4 @@
-import { Player, PlayerFormData } from "../types";
+import { Player, PlayerPayload } from "../types";
 import { PlayerFormValues } from "../schemas/playerFormSchema";
 
 // 🔹 Convierte un Player del backend en valores iniciales para Formik
@@ -33,11 +33,11 @@ export const playerToFormValues = (player: Player): PlayerFormValues => {
 };
 
 // 🔹 Convierte valores del formulario en un payload para el backend
-export const formValuesToFormData = (values: PlayerFormValues): PlayerFormData => {
+export const formValuesToFormData = (values: PlayerFormValues): PlayerPayload => {
     return {
-        id: values.id,
+        id: values.id!,
         name: values.name,
-        images: values.images?.filter((img): img is File => img instanceof File) || null,
+        images: values.images?.filter((img): img is File => img instanceof File),
         number: values.number,
         year: values.year,
         age: values.age,
