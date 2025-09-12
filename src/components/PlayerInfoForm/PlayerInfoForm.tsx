@@ -1,19 +1,47 @@
+import { useState } from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { PlayerFormValues } from '../../schemas/playerFormSchema';
 import { Position } from '../../types/positions';
 import { CustomSelect } from '../CustomSelect/CustomSelect';
 import { Cloudinary } from '../Cloudinary/Cloudinary';
-import { CloudinaryImage } from '../../types';
+import { PlayerImage } from '../../types';
+import { toast } from 'react-toastify';
 import './_playerInfoForm.scss';
 
 type PlayerInfoFormProps = {
     formData: PlayerFormValues;
     setFieldValue: (field: string, value: unknown) => void;
+    setRemovedImages: React.Dispatch<React.SetStateAction<PlayerImage[]>>;
 };
 
-export const PlayerInfoForm = ({ formData, setFieldValue }: PlayerInfoFormProps) => {
-    const handleImageUpload = (image: CloudinaryImage | File) => {
-        setFieldValue('image', image);
+export const PlayerInfoForm = ({ formData, setFieldValue, setRemovedImages }: PlayerInfoFormProps) => {
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+    const handleImageUpload = (image: PlayerImage | File) => {
+        if (image instanceof File) {
+            // Si es un archivo, lo añadimos al array de imágenes
+            const updatedImages = [...(formData.images || []), image];
+            setFieldValue("images", updatedImages);
+        } else {
+            // Si es una imagen de PlayerImage
+            const updatedImages = [...(formData.images || []), image];
+            setFieldValue("images", updatedImages);
+            // Establecer la imagen seleccionada como la principal
+            setSelectedImageIndex(updatedImages.length - 1); // La última imagen que subí
+        }
+    };
+
+    const handleRemoveImage = (index: number) => {
+        const updatedImages = [...(formData.images || [])];
+        const [deletedImage] = updatedImages.splice(index, 1);
+
+        if (!(deletedImage instanceof File)) {
+            setRemovedImages(prev => [...prev, deletedImage]);
+        }
+
+        setFieldValue("images", updatedImages);
+        setSelectedImageIndex(0);
+        toast.info("Imagen eliminada de la lista. Se guardará el cambio al enviar el formulario.");
     };
 
     const calculateYearFromAge = (age: number): number[] => {
@@ -70,15 +98,70 @@ export const PlayerInfoForm = ({ formData, setFieldValue }: PlayerInfoFormProps)
                 Imagen
                 <Cloudinary
                     onUpload={handleImageUpload}
-                    preImage={formData.image instanceof File ? undefined : formData.image}
-                    pendingFile={formData.image instanceof File ? formData.image : undefined}
+                    preImage={
+                        Array.isArray(formData.images) &&
+                            formData.images[selectedImageIndex] && !(formData.images[selectedImageIndex] instanceof File)
+                            ? formData.images[selectedImageIndex]
+                            : undefined
+                    }
+                    pendingFile={
+                        Array.isArray(formData.images) &&
+                            formData.images[selectedImageIndex] instanceof File
+                            ? formData.images[selectedImageIndex]
+                            : undefined
+                    }
                 />
-                <ErrorMessage name="image" component="p" className="error" />
+
+                <ErrorMessage name="images" component="p" className="error" />
+
             </label>
+            {Array.isArray(formData.images) && formData.images.length > 0 && (
+                <div className="images-preview">
+                    {formData.images.map((img, index) => (
+                        <div
+                            key={index}
+                            className={`image-wrapper ${index === selectedImageIndex ? "active" : ""}`}
+                            onClick={() => setSelectedImageIndex(index)}
+                        >
+                            <button
+                                type="button"
+                                className="remove-btn"
+                                onClick={(e) => {
+                                    e.stopPropagation(); // evita que cambie la selección al borrar
+                                    handleRemoveImage(index);
+
+                                    // si borraste la imagen seleccionada, resetear índice
+                                    if (index === selectedImageIndex) {
+                                        setSelectedImageIndex(0);
+                                    }
+                                }}
+                            >
+                                ✕
+                            </button>
+
+                            {img instanceof File ? (
+                                <img
+                                    src={URL.createObjectURL(img)}
+                                    alt={`preview-${index}`}
+                                    className="preview-img"
+                                    onClick={() => setSelectedImageIndex(index)}
+                                />
+                            ) : (
+                                <img
+                                    src={img.url}
+                                    alt={`preview-${index}`}
+                                    className="preview-img"
+                                    onClick={() => setSelectedImageIndex(index)}
+                                />
+                            )}
+                        </div>
+                    ))}
+                </div>
+            )}
 
             <label>
                 Número
-                <Field type="number" name="number" placeholder='5' />
+                <Field type="number" name="number" placeholder='5' min={1} />
                 <ErrorMessage name="number" component="p" className="error" />
             </label>
 
@@ -106,7 +189,7 @@ export const PlayerInfoForm = ({ formData, setFieldValue }: PlayerInfoFormProps)
 
             <label>
                 Edad
-                <Field name="age">
+                <Field name="age" min={16}>
                     {({ field }: { field: { value: number; name: string } }) => (
                         <input
                             type="number"

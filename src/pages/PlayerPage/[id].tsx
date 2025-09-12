@@ -46,16 +46,16 @@ export const PlayerPage = () => {
                 <section className='playerInfo'>
                     <article className='playerDescription'>
                         <h1 className='description' ref={bioTitleRef}>Biografía</h1>
-                        <p ref={bioDescRef}>{player.description}</p>
+                        <p ref={bioDescRef}>{player.description || 'Sin descripción'}</p>
                     </article>
                     <article className='playerStats'>
                         <h1 className='description' ref={statsTitleRef}>Estadísticas de la temporada</h1>
                         <ul className='statsList' ref={statsListRef}>
-                            <li className='statItem'><p className='statValue'>{player.stats?.goals}</p><p>Goles</p> </li>
-                            <li className='statItem'><p className='statValue'>{player.stats?.assists}</p><p>Asistencias</p></li>
-                            <li className='statItem'><p className='statValue'>{player.stats?.matches}</p><p>Partidos</p></li>
-                            <li className='statItem'><p className='statValue'>{player.stats?.yellowCards}</p><p>Tarjetas amarillas</p></li>
-                            <li className='statItem'><p className='statValue'>{player.stats?.redCards}</p><p>Tarjetas rojas</p></li>
+                            <li className='statItem'><p className='statValue'>{player.stats?.goals || 0}</p><p>Goles</p> </li>
+                            <li className='statItem'><p className='statValue'>{player.stats?.assists || 0}</p><p>Asistencias</p></li>
+                            <li className='statItem'><p className='statValue'>{player.stats?.matchesPlayed || 0}</p><p>Partidos</p></li>
+                            <li className='statItem'><p className='statValue'>{player.stats?.yellow_cards || 0}</p><p>Tarjetas amarillas</p></li>
+                            <li className='statItem'><p className='statValue'>{player.stats?.red_cards || 0}</p><p>Tarjetas rojas</p></li>
                         </ul>
                     </article>
                 </section>

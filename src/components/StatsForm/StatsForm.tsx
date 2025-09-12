@@ -17,20 +17,20 @@ export const StatsForm = () => {
 
             <label>
                 Partidos Jugados
-                <Field type="number" name="stats.matches" />
-                <ErrorMessage name="stats.matches" component="p" className="error" />
+                <Field type="number" name="stats.matchesPlayed" />
+                <ErrorMessage name="stats.matchesPlayed" component="p" className="error" />
             </label>
 
             <label>
                 Tarjetas Amarillas
-                <Field type="number" name="stats.yellowCards" />
-                <ErrorMessage name="stats.yellowCards" component="p" className="error" />
+                <Field type="number" name="stats.yellow_cards" />
+                <ErrorMessage name="stats.yellow_cards" component="p" className="error" />
             </label>
 
             <label>
                 Tarjetas Rojas
-                <Field type="number" name="stats.redCards" />
-                <ErrorMessage name="stats.redCards" component="p" className="error" />
+                <Field type="number" name="stats.red_cards" />
+                <ErrorMessage name="stats.red_cards" component="p" className="error" />
             </label>
         </section>
     );

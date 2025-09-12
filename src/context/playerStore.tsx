@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
-import { Player, PlayerFormData } from '../types';
+import { Player } from '../types';
 import { PlayersService } from '../services/PlayersServices';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,12 +11,14 @@ type PlayerContextProps = {
     editingPlayer: Player | null;
     openMenuId: number | null;
     isLoading: boolean;
-    handleAddPlayer: (newPlayer: PlayerFormData) => Promise<void>;
+    setIsLoading: (loading: boolean) => void;
+    handleAddPlayer: (newPlayer: Player) => Promise<void>;
     handleEdit: (player: Player | null) => void;
-    handleSave: (editPlayer: PlayerFormData) => Promise<void>;
+    handleDesactivate: (playerId: number, active: boolean) => Promise<void>;
     handleDelete: (playerId: number) => Promise<void>;
     handleToggleMenu: (playerId: number | null) => void;
     handleFilter: (filteredTeam: Player[]) => void;
+    handleUpsertPlayer: (player: Player) => void;
     refreshPlayers: () => Promise<void>;
 }
 
@@ -46,26 +48,24 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         };
 
         fetchPlayers();
-    }, []);
+    }, [players.length]);
 
     useEffect(() => {
         setFilteredPlayers(players);
     }, [players]);
 
-    const handleAddPlayer = async (newPlayer: PlayerFormData) => {
+    const handleAddPlayer = async (newPlayer: Player) => {
         setIsLoading(true);
         try {
             const createdPlayer = await PlayersService.addPlayer(newPlayer);
-            if (!createdPlayer) {
-                throw new Error('Failed to create player');
-            }
-            setPlayers((prevPlayers) => [...prevPlayers, createdPlayer]);
-            setFilteredPlayers((prevPlayers) => [...prevPlayers, createdPlayer]);
-            toast.success('Jugador agregado correctamente.');
-            setIsLoading(false);
+            // Actualizar la lista local con la respuesta del backend
+            handleUpsertPlayer(createdPlayer);
+            toast.success("Jugador agregado correctamente.");
         } catch (error) {
             console.error('Error creating player:', error);
             toast.error('Ocurrió un error al agregar el jugador.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -73,51 +73,55 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setEditingPlayer(player);
     };
 
-    const handleSave = async (editPlayer: PlayerFormData) => {
+    const handleUpsertPlayer = (savedPlayer: Player) => {
+        setPlayers((prev) => {
+            const exists = prev.some(p => p.id === savedPlayer.id);
+            if (exists) return prev.map(p => (p.id === savedPlayer.id ? savedPlayer : p));
+            return [...prev, savedPlayer];
+        });
+        setFilteredPlayers((prev) => {
+            const exists = prev.some(p => p.id === savedPlayer.id);
+            if (exists) return prev.map(p => (p.id === savedPlayer.id ? savedPlayer : p));
+            return [...prev, savedPlayer];
+        });
+    };
+
+    const handleDesactivate = async (playerId: number, active: boolean) => {
         setIsLoading(true);
         try {
-            // Obtener el jugador original para acceder al public_id de la imagen anterior
-            const originalPlayer = players.find(p => p.id === editPlayer.id);
-            const oldImagePublicId = originalPlayer && 
-                typeof originalPlayer.image === 'object' && 
-                originalPlayer.image?.public_id ? 
-                originalPlayer.image.public_id : 
-                undefined;
-
-            const response = await PlayersService.updatePlayer(editPlayer, oldImagePublicId);
-            const updatedPlayer = response.data; // Extraer el jugador actualizado de la propiedad 'data'
-
-            // Obtener datos completos del jugador actualizado
-            const fullPlayer = await PlayersService.getPlayerById(updatedPlayer.id);
-
-            setPlayers((prevPlayers) =>
-                prevPlayers.map((player) => (player.id === fullPlayer.id ? fullPlayer : player))
-            );
-            setFilteredPlayers((prevPlayers) =>
-                prevPlayers.map((player) => (player.id === fullPlayer.id ? fullPlayer : player))
-            );
-            setEditingPlayer(null);
-            toast.success('Jugador actualizado correctamente.');
+            // la API no devuelve el jugador, así que actualizamos localmente el flag `active`
+            await PlayersService.desactivatePlayer(playerId, active);
             setOpenMenuId(null);
-            setIsLoading(false);
+            if (active) {
+                toast.success('Jugador restaurado correctamente.');
+            } else {
+                toast.success('Jugador desactivado correctamente.');
+            }
+            setPlayers((prev) => prev.map(p => p.id === playerId ? { ...p, active } : p));
+            setFilteredPlayers((prev) => prev.map(p => p.id === playerId ? { ...p, active } : p));
         } catch (error) {
-            console.error('Error updating player:', error);
-            toast.error('Ocurrió un error al actualizar el jugador.');
+            console.error('Error eliminando jugador:', error);
+            toast.error('Ocurrió un error al eliminar el jugador.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleDelete = async (playerId: number) => {
         setIsLoading(true);
         try {
+            // deletePlayer realiza borrado duro; la API no devuelve entidad, removemos localmente
             await PlayersService.deletePlayer(playerId);
-            setPlayers((prevPlayers) => prevPlayers.filter((player) => player.id !== playerId));
-            setFilteredPlayers((prevPlayers) => prevPlayers.filter((player) => player.id !== playerId));
             setOpenMenuId(null);
+            setPlayers((prev) => prev.filter(p => p.id !== playerId));
+            setFilteredPlayers((prev) => prev.filter(p => p.id !== playerId));
             toast.success('Jugador eliminado correctamente.');
-            setIsLoading(false);
+
         } catch (error) {
             console.error('Error eliminando jugador:', error);
             toast.error('Ocurrió un error al eliminar el jugador.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -135,6 +139,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             const fetchedPlayers = await PlayersService.getPlayers();
             setPlayers(fetchedPlayers);
             setFilteredPlayers(fetchedPlayers);
+            setError(null);
         } catch (err) {
             console.error('Error refreshing players:', err);
             setError('Error refreshing players');
@@ -152,10 +157,12 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 editingPlayer,
                 openMenuId,
                 isLoading,
-                handleAddPlayer,
+                setIsLoading,
+                    handleAddPlayer,
                 handleEdit,
-                handleSave,
-                handleDelete,
+                    handleDesactivate,
+                    handleDelete,
+                    handleUpsertPlayer,
                 handleToggleMenu,
                 handleFilter,
                 refreshPlayers,

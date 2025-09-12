@@ -10,15 +10,15 @@ export const MorePlayerInfo = ({ player }: MorePlayerInfoProps) => {
         <div className='morePlayerInfo'>
             <div className='playerDetails'>
                 <p>Nacionalidad: </p>
-                <p>{player.country}</p>
+                <p>{player.country || 'Desconocida'}</p>
             </div>
             <div className='playerDetails'>
                 <p>Edad: </p>
-                <p>{player.age}</p>
+                <p>{player.age || 0}</p>
             </div>
             <div className='playerDetails'>
                 <p>Altura: </p>
-                <p>{player.height} m</p>
+                <p>{player.height || 0} m</p>
             </div>
         </div>
     )

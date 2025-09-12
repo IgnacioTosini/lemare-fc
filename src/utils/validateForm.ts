@@ -42,14 +42,14 @@ export const validateForm = (formData: Player): Record<string, string> => {
         if (formData.stats.assists < 0) {
             errors.assists = 'El número de asistencias no puede ser negativo.';
         }
-        if (formData.stats.matches < 0) {
-            errors.matches = 'El número de partidos no puede ser negativo.';
+        if (formData.stats.matchesPlayed < 0) {
+            errors.matchesPlayed = 'El número de partidos no puede ser negativo.';
         }
-        if (formData.stats.yellowCards < 0) {
-            errors.yellowCards = 'El número de tarjetas amarillas no puede ser negativo.';
+        if (formData.stats.yellow_cards < 0) {
+            errors.yellow_cards = 'El número de tarjetas amarillas no puede ser negativo.';
         }
-        if (formData.stats.redCards < 0) {
-            errors.redCards = 'El número de tarjetas rojas no puede ser negativo.';
+        if (formData.stats.red_cards < 0) {
+            errors.red_cards = 'El número de tarjetas rojas no puede ser negativo.';
         }
     }
 

@@ -69,36 +69,17 @@ body.dark .playerPage {
     }
 
     .playerDetail {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
         min-height: 100dvh;
+        width: 100%;
         padding: 2rem;
-
-        @media (max-width: 1024px) {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        @media (max-width: 480px) {
-            grid-template-columns: 1fr;
-        }
+        gap: 2rem;
 
         .playerCardContainer {
             display: flex;
             justify-content: center;
-            grid-column: span 1;
-            width: 100%;
-
-            @media (max-width: 1424px) {
-                grid-column: span 2;
-            }
-
-            @media (max-width: 768px) {
-                grid-column: span 3;
-            }
-
-            @media (max-width: 480px) {
-                grid-column: span 1;
-            }
         }
 
         .playerInfo {
@@ -107,16 +88,8 @@ body.dark .playerPage {
             justify-content: flex-start;
             align-items: center;
             gap: 1rem;
-            grid-column: span 4;
-
-            @media (max-width: 1424px) {
-                grid-column: span 3;
-                margin-top: 1rem;
-            }
-
-            @media (max-width: 480px) {
-                grid-column: span 1;
-            }
+            width: 90%;
+            max-width: 65rem;
 
             .playerDescription,
             .playerStats {
@@ -185,48 +158,6 @@ body.dark .playerPage {
                     }
                 }
             }
-        }
-    }
-}
-
-@media (max-width: 1024px) {
-    .playerDetail {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-
-        .playerCardContainer {
-            grid-column: span 1;
-        }
-
-        .playerInfo {
-            grid-column: span 2;
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    .playerDetail {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-
-        .playerCardContainer {
-            grid-column: span 2;
-        }
-
-        .playerInfo {
-            grid-column: span 2;
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    .playerDetail {
-        grid-template-columns: 1fr;
-
-        .playerCardContainer {
-            grid-column: span 1;
-        }
-
-        .playerInfo {
-            grid-column: span 1;
         }
     }
 }

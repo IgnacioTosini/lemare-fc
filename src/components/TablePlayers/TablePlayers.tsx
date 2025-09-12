@@ -33,6 +33,7 @@ export const TablePlayers = () => {
                         <th>Posición</th>
                         <th>País</th>
                         <th>Edad</th>
+                        <th>Activo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

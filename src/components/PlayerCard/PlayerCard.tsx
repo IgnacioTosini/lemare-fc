@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { Player } from '../../types';
 import { MorePlayerInfo } from '../MorePlayerInfo/MorePlayerInfo';
@@ -17,16 +17,48 @@ export const PlayerCard = memo(({ player }: PlayerCardProps) => {
     const getWebpUrl = useCloudinaryWebp();
     const showMorePlayerInfo = location.pathname.includes(`/${NavLinks.PLANTEL.toLocaleLowerCase()}/${player.id}`);
 
+    const [mainImage, setmainImage] = useState(player.images[0]);
+
+    const handleChangeMainImage = (index: number) => {
+        setmainImage(player.images[index])
+    }
+
     const cardContent = (
         <>
-            <div className='playerImageContainer'>
-                <img src={getWebpUrl(player.image.url)} alt={player.name} className='playerImage' loading="lazy" width="300" height="300" />
+            <div className="playerImageContainer">
+                {player.images && player.images.length > 0 ? (
+                    <div className='galleryImage'>
+                        <img
+                            key={mainImage.id}
+                            src={getWebpUrl(mainImage) || '../siluetaJugador.jpg'}
+                            alt={`${player.name} ${mainImage.id + 1}`}
+                            className="playerImage"
+                            loading="lazy"
+                            width="300"
+                            height="300"
+                        />
+
+                    </div>
+                ) : (
+                    <img className="noImage" src={'../siluetaJugador.jpg'} alt="Sin imagen" />
+                )}
+
                 {player.position !== Position.CUERPO_TECNICO && (
-                    <div className='playerNumberContainer'>
-                        <span className='playerNumber'>{player.number}</span>
+                    <div className="playerNumberContainer">
+                        <span className="playerNumber">{player.number}</span>
                     </div>
                 )}
             </div>
+            {showMorePlayerInfo && (
+                <ul className='otherImages'>
+                    {player.images.map((image, index) => (
+                        <li key={index} className='secondaryImage' onClick={() => handleChangeMainImage(index)}>
+                            <img src={image.url} alt={image.publicId} />
+                        </li>
+                    ))}
+                </ul>
+            )}
+
             <div className='playerInfo'>
                 <h2>{player.name.toUpperCase()}</h2>
                 <p>{player.position}</p>

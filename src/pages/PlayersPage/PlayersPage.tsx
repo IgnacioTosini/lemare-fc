@@ -44,6 +44,8 @@ export const PlayersPage = () => {
         0.3, 0.15
     );
 
+    console.log('Original Players:', originalPlayers);
+
     return (
         <section className='playersPage'>
             <header className='playersPageHeader'>

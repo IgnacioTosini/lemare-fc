@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useCloudinaryWebp } from '../../hooks/useCloudinaryWebp';
-import { CloudinaryImage } from '../../types';
+import { PlayerImage } from '../../types';
 import { toast } from 'react-toastify';
 import './_cloudinary.scss';
 
 type CloudinaryProps = {
-    onUpload: (image: CloudinaryImage | File) => void;
-    preImage?: CloudinaryImage;
+    onUpload: (image: PlayerImage | File) => void;
+    preImage?: PlayerImage | null;
     pendingFile?: File;
 };
 
 export const Cloudinary = ({ onUpload, preImage, pendingFile }: CloudinaryProps) => {
-    const [image, setImage] = useState<CloudinaryImage | null>(preImage || null);
+    const [image, setImage] = useState<PlayerImage | null>(preImage || null);
     const [selectedFile, setSelectedFile] = useState<File | null>(pendingFile || null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(
         preImage?.url || (pendingFile ? URL.createObjectURL(pendingFile) : null)
     );
     const [isDragOver, setIsDragOver] = useState(false);
+
+    useEffect(() => {
+        setImage(preImage || null);
+        setPreviewUrl(preImage ? preImage.url : null);
+    }, [preImage]);
 
     const getWebpUrl = useCloudinaryWebp();
 
@@ -99,7 +104,7 @@ export const Cloudinary = ({ onUpload, preImage, pendingFile }: CloudinaryProps)
         setSelectedFile(null);
         setPreviewUrl(preImage?.url || null);
         setImage(preImage || null);
-        
+
         // Notificar al componente padre si necesita limpiar el valor
         if (preImage) {
             onUpload(preImage);
@@ -117,7 +122,7 @@ export const Cloudinary = ({ onUpload, preImage, pendingFile }: CloudinaryProps)
 
     return (
         <div className="cloudinary-container">
-            <div 
+            <div
                 className={`upload-area ${previewUrl ? 'has-image' : ''} ${isDragOver ? 'drag-over' : ''}`}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
@@ -131,7 +136,7 @@ export const Cloudinary = ({ onUpload, preImage, pendingFile }: CloudinaryProps)
                     onChange={handleFileSelection}
                     accept="image/*"
                 />
-                
+
                 {!previewUrl ? (
                     <>
                         <div className="upload-icon">📸</div>
@@ -158,7 +163,7 @@ export const Cloudinary = ({ onUpload, preImage, pendingFile }: CloudinaryProps)
             {previewUrl && (
                 <div className="image-preview-container">
                     <img
-                        src={image ? getWebpUrl(image.url) : previewUrl}
+                        src={image ? getWebpUrl(image) : previewUrl}
                         className='preview'
                         alt="imagen seleccionada"
                         loading="lazy"

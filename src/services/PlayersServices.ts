@@ -1,150 +1,79 @@
-import axios from 'axios';
-import { PlayerFormData } from '../types';
-import { playerSchema } from '../schemas/playerSchema';
-import { CloudinaryService } from './CloudinaryService';
+import axios from "axios";
+import { Player } from "../types";
+import { ApiResponse } from "../types/ApiResponse";
 
-export const PlayersService = {
-    async addPlayer(player: PlayerFormData) {
-        try {
-            // Crear una copia para procesar y adaptarla al backend
-            const processedPlayerData = {
-                ...player,
-                image: null as { url: string; public_id: string } | null
-            };
+const API_URL = import.meta.env.VITE_LOCAL_BASE_URL + "/jugadores";
 
-            // Si hay un archivo File como imagen, subirlo a Cloudinary primero
-            if (player.image && player.image instanceof File) {
-                const uploadedImage = await CloudinaryService.uploadImage(player.image);
-                // Enviar el objeto completo CloudinaryImage
-                processedPlayerData.image = uploadedImage;
+export class PlayersService {
+    static async getPlayers(): Promise<Player[]> {
+        const response = await axios.get<ApiResponse<Player[]>>(API_URL);
+        return response.data.data;
+    }
 
-                console.log('Imagen subida con public_id:', uploadedImage.public_id);
-            } else if (typeof player.image === 'object' && player.image?.url) {
-                // Si es CloudinaryImage, mantenerlo como objeto
-                processedPlayerData.image = player.image;
-            } else if (typeof player.image === 'string') {
-                // Si es string, crear objeto CloudinaryImage básico
-                processedPlayerData.image = { url: player.image, public_id: '' };
-            }
+    static async getPlayerById(playerId: number): Promise<Player> {
+        const response = await axios.get<ApiResponse<Player>>(`${API_URL}/${playerId}`);
+        return response.data.data;
+    }
 
-            const result = playerSchema.safeParse(processedPlayerData);
-            if (result.success) {
-                const response = await axios.post(`${import.meta.env.VITE_LOCAL_BASE_URL}/jugadores`, processedPlayerData);
-                return response.data.data;
-            } else {
-                console.error('Validation error details:', result.error.errors);
-                throw new Error('Validation error');
-            }
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error('Error adding player:', error.response?.data || error.message);
-            } else {
-                console.error('Error adding player:', error);
-            }
-            throw error;
+    static async addPlayer(player: Player, images?: File[]): Promise<Player> {
+        const formData = new FormData();
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { createdAt, ...playerWithoutCreatedAt } = player;
+
+        formData.append("player", JSON.stringify(playerWithoutCreatedAt));
+
+        if (images && images.length > 0) {
+            images.forEach((file) => formData.append("images", file));
         }
-    },
-
-    async getPlayers() {
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_LOCAL_BASE_URL}/jugadores`);
-            return response.data.data;
-        } catch (error) {
-            console.error('Error fetching players:', error);
-            throw error;
-        }
-    },
-
-    async updatePlayer(player: PlayerFormData, oldImagePublicId?: string) {
-        try {
-            // Crear una copia para procesar y adaptarla al backend
-            const processedPlayerData = {
-                ...player,
-                image: null as { url: string; public_id: string } | null
-            };
-
-            // Si hay un archivo File como imagen, subirlo a Cloudinary primero
-            if (player.image && player.image instanceof File) {
-                const uploadedImage = await CloudinaryService.uploadImage(player.image);
-                processedPlayerData.image = uploadedImage;
-
-                console.log('Imagen actualizada con public_id:', uploadedImage.public_id);
-
-                // Si había una imagen anterior, eliminarla
-                if (oldImagePublicId) {
-                    await CloudinaryService.deleteImage(oldImagePublicId);
-                }
-            } else if (typeof player.image === 'object' && player.image?.url) {
-                // Si es CloudinaryImage, mantenerlo como objeto
-                processedPlayerData.image = player.image;
-
-                // Si se cambió por una imagen diferente (no File), eliminar la anterior
-                if (oldImagePublicId && player.image.public_id !== oldImagePublicId) {
-                    await CloudinaryService.deleteImage(oldImagePublicId);
-                }
-            } else if (typeof player.image === 'string') {
-                // Si es string, crear objeto CloudinaryImage básico
-                processedPlayerData.image = { url: player.image, public_id: '' };
+        const response = await axios.post<ApiResponse<Player>>(
+            `${API_URL}`,
+            formData,
+            {
+                headers: {
+                    Accept: "application/json",
+                },
+                transformRequest: [(data) => data],
             }
+        );
+        return response.data.data;
+    }
 
-            const result = playerSchema.safeParse(processedPlayerData);
-            if (result.success) {
-                const response = await axios.put(`${import.meta.env.VITE_LOCAL_BASE_URL}/jugadores/${player.id}`, processedPlayerData);
-                return response.data; // Retorna la respuesta de la API si es exitosa
-            } else {
-                console.error('Validation error details:', result.error.errors);
-                throw new Error('Validation error');
+    static async updatePlayer(id: number, player: Player, images?: File[], imagesToRemove?: number[]): Promise<Player> {
+        const formData = new FormData();
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { createdAt, ...playerWithoutCreatedAt } = player;
+
+        formData.append("player", JSON.stringify(playerWithoutCreatedAt));
+
+        if (images && images.length > 0) {
+            images.forEach((file) => formData.append("images", file));
+        }
+
+        if (imagesToRemove && imagesToRemove.length > 0) {
+            formData.append("imagesToRemove", JSON.stringify(imagesToRemove));
+        }
+
+        const response = await axios.put<ApiResponse<Player>>(
+            `${API_URL}/${id}`,
+            formData,
+            {
+                headers: {
+                    Accept: "application/json",
+                },
+                transformRequest: [(data) => data],
             }
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error('Error updating player:', error.response?.data || error.message);
-                throw new Error(error.response?.data?.message || 'Error updating player');
-            } else {
-                console.error('Error updating player:', error);
-                throw error;
-            }
-        }
-    },
+        );
 
-    async deletePlayer(playerId: number) {
-        try {
-            // Primero obtener los datos del jugador para eliminar su imagen
-            const playerData = await this.getPlayerById(playerId);
+        return response.data.data;
+    }
 
-            // Eliminar el jugador de la base de datos
-            const response = await axios.delete(`${import.meta.env.VITE_LOCAL_BASE_URL}/jugadores/${playerId}`);
+    static async desactivatePlayer(playerId: number, active: boolean): Promise<void> {
+        await axios.delete(`${API_URL}/${playerId}?active=${active}`);
+    }
 
-            // Si la eliminación fue exitosa y el jugador tenía imagen, eliminarla de Cloudinary
-            if (response.data && playerData.image &&
-                typeof playerData.image === 'object' &&
-                playerData.image.public_id) {
-                await CloudinaryService.deleteImage(playerData.image.public_id);
-            }
-
-            return response.data; // Retorna la respuesta de la API si es exitosa
-        } catch (error) {
-            console.error('Error deleting player:', error);
-            throw error;
-        }
-    },
-
-    async getPlayerById(playerId: number) {
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_LOCAL_BASE_URL}/jugadores/${playerId}`);
-            return response.data.data;
-        } catch (error) {
-            console.error('Error fetching player by ID:', error);
-            throw error;
-        }
-    },
-
-    async getPlayerStats(playerId: number) {
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_LOCAL_BASE_URL}/jugadores/${playerId}/stats`);
-            return response.data.data;
-        } catch (error) {
-            console.error('Error fetching player stats:', error);
-            throw error;
-        }
-    },
-};
+    static async deletePlayer(playerId: number): Promise<void> {
+        await axios.delete(`${API_URL}/hard/${playerId}`);
+    }
+}
