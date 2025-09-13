@@ -71,11 +71,14 @@ body.dark .playerPage {
     .playerDetail {
         display: flex;
         justify-content: space-evenly;
-        flex-wrap: wrap;
         min-height: 100dvh;
         width: 100%;
         padding: 2rem;
         gap: 2rem;
+
+        @media screen and (max-width: 768px) {
+            flex-wrap: wrap;
+        }
 
         .playerCardContainer {
             display: flex;
